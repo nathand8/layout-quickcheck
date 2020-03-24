@@ -7,11 +7,16 @@ from sys import argv
 import os
 import subprocess
 import json
+from html_file_generator import generate_html_file
+
+cwd = os.getcwd()
+layout_file_dir = f'{cwd}/layoutfiles'
 
 if len(argv) <= 1:
-  print('Please specify a test web page')
-  exit(1)
-
+  test_file_name = generate_html_file(layout_file_dir)
+  test_web_page = f'file:///{layout_file_dir}/{test_file_name}'
+else:
+  test_web_page = argv[1]
 
 def parse_servo_json(servo_json):
   root = servo_json['post']
@@ -32,9 +37,7 @@ def parse_servo_json(servo_json):
   return recurse(root['children'][0])
 
 
-
 inspector_file = 'file:///C:/Users/William/code/school/project/jsInspector/inspector.html'
-test_web_page = argv[1]
 servo_layout_trace_file = 'C:\\Users\\William\\code\\school\\servo\\layout_trace-0.json'
 
 browser = webdriver.Firefox()
