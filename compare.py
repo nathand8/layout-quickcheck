@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,9 +12,14 @@ import json
 from html_file_generator import generate_html_file
 
 cwd = os.getcwd()
-layout_file_dir = f'{cwd}/layoutfiles'
+layout_file_dir = os.environ.get('LAYOUT_FILE_DIR', f'{cwd}/layoutfiles')
+servo_dir = os.environ.get('SERVO_DIRECTORY', f'{cwd}/../servo')
+mach_extension = '.bat' if os.name == 'nt' else ''
 
 if len(argv) <= 1:
+  if not os.path.exists(layout_file_dir):
+    os.makedirs(layout_file_dir)
+      
   test_file_name = generate_html_file(layout_file_dir)
   test_web_page = f'file:///{layout_file_dir}/{test_file_name}'
 else:
@@ -37,8 +44,8 @@ def parse_servo_json(servo_json):
   return recurse(root['children'][0])
 
 
-inspector_file = 'file:///C:/Users/William/code/school/project/jsInspector/inspector.html'
-servo_layout_trace_file = 'C:\\Users\\William\\code\\school\\servo\\layout_trace-0.json'
+inspector_file = f'file:///{cwd}/inspector.html'
+servo_layout_trace_file = f'{servo_dir}/layout_trace-0.json'
 
 browser = webdriver.Firefox()
 
@@ -57,10 +64,10 @@ browser.close()
 
 print(firefoxValues)
 
-subprocess.run(['C:\\Users\\William\\code\\school\\servo\\mach.bat', 'run',
+subprocess.run([f'{servo_dir}/mach{mach_extension}', 'run',
                 '--dev', '--', '-x', '--resolution', '800x600', 
                 '--debug', 'trace-layout', test_web_page],
-                cwd='C:\\Users\\William\\code\\school\\servo')
+                cwd=servo_dir)
 
 with open(servo_layout_trace_file, 'r') as layout_trace_file:
   servo_json = json.load(layout_trace_file)
