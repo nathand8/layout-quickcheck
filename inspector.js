@@ -18,9 +18,8 @@ function outputIframeContents() {
   const frameBody = window.frames[0].document.body;
 
   const recurse = (element) => {
-    const tag = element.tagName;
     const {x, y, width, height} = element.getBoundingClientRect();
-    const values = {x, y, width, height, tag};
+    const values = {x, y, width, height};
     values.children = Array.from(element.children).map((child) => recurse(child));
     return values;
   };

@@ -29,11 +29,17 @@ style_probabilities = {
         'height': {
             'prob': 0.7,
             'range': (0, 1000)
+        },
+        'background': {
+            'prob': 1,
+            'values': {
+                '#00FF00': 1
+            }
         }
     }
 }
 
-has_children = {'body': 0.99, 'div': 0.6}
+has_children = {'body': 0.99, 'div': 0.3}
 
 has_multiple_children = {'body': 0.75, 'div': 0.25}
 
@@ -89,7 +95,7 @@ def generate_children(parent_tag):
 
 def generate_layout():
     html = """
-      <html>
+      <html style="scrollbar-width:none">
         <head>
           <title>Fuzzy layout</title>
         </head>
