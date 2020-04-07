@@ -4,7 +4,7 @@ def compare_layout(layout_a, layout_b):
     for key in layout_a:
         if isinstance(layout_a[key], list):
             if len(layout_a[key]) != len(layout_b[key]):
-                differences[key] = f'children list length different: {len(layout_a[key])} vs {ley(layout_b[key])}'
+                differences[key] = f'children list length different: {len(layout_a[key])} vs {len(layout_b[key])}'
             else:
                 diff_list = []
                 for a, b, i in zip(layout_a[key], layout_b[key], range(len(layout_a[key]))):

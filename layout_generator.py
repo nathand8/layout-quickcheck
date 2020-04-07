@@ -1,4 +1,10 @@
-from random import random, randrange
+from random import random, randrange, randint
+
+def generate_color():
+    red = randint(0, 256)
+    blue = randint(0, 256)
+    green = randint(0, 256)
+    return f'#{red:02x}{blue:02x}{green:02x}'
 
 style_probabilities = {
     'div': {
@@ -32,9 +38,7 @@ style_probabilities = {
         },
         'background': {
             'prob': 1,
-            'values': {
-                '#00FF00': 1
-            }
+            'generator': generate_color
         }
     }
 }
@@ -48,7 +52,10 @@ def generate_style(tag):
     styles = []
     for style_name, style_properties in style_probabilities[tag].items():
         if random() <= style_properties['prob']:
-            if 'values' in style_properties:
+            if 'generator' in style_properties:
+                value = style_properties['generator']()
+                styles.append((style_name, value))
+            elif 'values' in style_properties:
                 value_num = random()
                 value_prob_sum = 0
 
