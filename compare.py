@@ -5,6 +5,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 from sys import argv
 import os
 import subprocess
@@ -31,7 +32,10 @@ else:
 inspector_file = f'file:///{cwd}/inspector.html'
 servo_layout_trace_file = f'{servo_dir}/layout_trace-0.json'
 
-browser = webdriver.Firefox()
+firefox_options = Options()
+firefox_options.headless = True
+
+browser = webdriver.Firefox(options=firefox_options)
 
 browser.get(f'{inspector_file}?url={test_web_page}')
 
@@ -58,7 +62,7 @@ subprocess.run([
 with open(servo_layout_trace_file, 'r') as layout_trace_file:
     servo_json = json.load(layout_trace_file)
 
-os.remove(servo_layout_trace_file)
+# os.remove(servo_layout_trace_file)
 
 parsed_servo_json = parse_servo_json(servo_json)
 
