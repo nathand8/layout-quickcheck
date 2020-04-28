@@ -1,9 +1,9 @@
 from random import random, randrange, randint
 
 def generate_color():
-    red = randint(0, 256)
-    blue = randint(0, 256)
-    green = randint(0, 256)
+    red = randint(0, 255)
+    blue = randint(0, 255)
+    green = randint(0, 255)
     return f'#{red:02x}{blue:02x}{green:02x}'
 
 style_probabilities = {
@@ -39,6 +39,12 @@ style_probabilities = {
         'background': {
             'prob': 1,
             'generator': generate_color
+        },
+        'scrollbar-width': {
+            'prob': 1,
+            'values': {
+                'inherit': 1
+            }
         }
     }
 }
@@ -102,11 +108,11 @@ def generate_children(parent_tag):
 
 def generate_layout():
     html = """
-      <html style="scrollbar-width:none">
+      <html>
         <head>
           <title>Fuzzy layout</title>
         </head>
-        <body>
+        <body style="scrollbar-width:none">
           {body}
         </body>
       </html>

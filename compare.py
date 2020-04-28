@@ -65,7 +65,7 @@ while servo_session_key is None:
         servo_retry_failures += 1
         sleep(5)
 
-while num_tests < 10 or (is_manual_test and num_tests < 1):
+while (not is_manual_test and num_tests < 10) or num_tests < 1:
     if not is_manual_test:
         test_file_name = generate_html_file(layout_file_dir)
         test_web_page = f'file:///{layout_file_dir}/{test_file_name}'
@@ -90,15 +90,16 @@ while num_tests < 10 or (is_manual_test and num_tests < 1):
         json={'url': test_web_page})
 
     servo_trace_files = glob.glob(f'{servo_dir}/layout_trace*')
-    if len(servo_trace_files) > 0:
-        servo_layout_trace_file = max(servo_trace_files, key=os.path.getctime)
+    # if len(servo_trace_files) > 0:
+    #     servo_layout_trace_file = max(servo_trace_files, key=os.path.getctime)
+    servo_layout_trace_file = f'{servo_dir}/layout_trace-0.json'
 
     if servo_layout_trace_file is not None:
         with open(servo_layout_trace_file, 'r') as layout_trace_file:
             servo_json = json.load(layout_trace_file)
 
-        for trace_file in servo_trace_files:
-            os.remove(trace_file)
+        # for trace_file in servo_trace_files:
+        #     os.remove(trace_file)
 
     parsed_servo_json = parse_servo_json(servo_json)
 
