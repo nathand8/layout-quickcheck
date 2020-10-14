@@ -1,4 +1,13 @@
-from random import random, randrange, randint
+from random import random, randint, choice
+from css_generators.style_data import style_data
+from css_generators.length import generate as generate_length
+from css_generators.keyword import create_generator as create_keyword_generator
+import uuid
+
+
+STYLE_PROBABILITY = 0.05
+SUPPORTED_STYLE_TYPES = ['Length', 'Keyword']
+
 
 def generate_color():
     red = randint(0, 255)
@@ -6,48 +15,22 @@ def generate_color():
     green = randint(0, 255)
     return f'#{red:02x}{blue:02x}{green:02x}'
 
-style_probabilities = {
-    'div': {
-        'float': {
-            'prob': 0.1,
-            'values': {
-                'left': 0.2,
-                'right': 0.2,
-                'none': 0.2,
-                'inline-start': 0.2,
-                'inline-end': 0.2
-            }
-        },
-        'overflow': {
-            'prob': 0.3,
-            'values': {
-                'visible': 0.2,
-                'hidden': 0.2,
-                'clip': 0.2,
-                'scroll': 0.2,
-                'auto': 0.2
-            }
-        },
-        'width': {
-            'prob': 0.7,
-            'range': (0, 1000)
-        },
-        'height': {
-            'prob': 0.7,
-            'range': (0, 1000)
-        },
-        'background': {
-            'prob': 1,
-            'generator': generate_color
-        },
-        'scrollbar-width': {
-            'prob': 1,
-            'values': {
-                'inherit': 1
-            }
-        }
-    }
-}
+
+def type_to_generator(typedom_type, current_style):
+    if typedom_type == 'Length':
+        return generate_length
+    elif typedom_type == 'Keyword':
+        return create_keyword_generator(current_style['keywords'])
+
+
+def is_supported_type(typedom_type, current_style):
+    if typedom_type == 'Length':
+        return True
+    elif typedom_type == 'Keyword':
+        return 'keywords' in current_style
+    else:
+        return False
+
 
 has_children = {'body': 0.99, 'div': 0.3}
 
@@ -56,26 +39,17 @@ has_multiple_children = {'body': 0.75, 'div': 0.25}
 
 def generate_style(tag):
     styles = []
-    for style_name, style_properties in style_probabilities[tag].items():
-        if random() <= style_properties['prob']:
-            if 'generator' in style_properties:
-                value = style_properties['generator']()
-                styles.append((style_name, value))
-            elif 'values' in style_properties:
-                value_num = random()
-                value_prob_sum = 0
-
-                for value_name, value_prob in style_properties['values'].items(
-                ):
-                    value_prob_sum += value_prob
-                    if value_num <= value_prob_sum:
-                        styles.append((style_name, value_name))
-                        break
-            elif 'range' in style_properties:
-                low, high = style_properties['range']
-                value = f'{randrange(low, high)}px'
-                styles.append((style_name, value))
-
+    for current_style in style_data['data']:
+        if random() <= STYLE_PROBABILITY:
+            typedom_types = current_style.get('typedom_types', [])
+            type_choices = [choice for choice in typedom_types
+                            if is_supported_type(choice, current_style)]
+            if len(type_choices) > 0:
+                type_choice = choice(type_choices)
+                generator = type_to_generator(type_choice, current_style)
+                style_name = current_style['name']
+                style_value = generator()
+                styles.append((style_name, style_value))
     return ';'.join([f'{name}:{value}' for name, value in styles])
 
 
@@ -84,8 +58,9 @@ def generate_children(parent_tag):
 
     def generate_child(parent_tag):
         child_tag = 'div'
+        child_id = uuid.uuid4().hex
         current_child = """
-          <{child_tag} style="{child_style}">
+          <{child_tag} style="{child_style}" id="{child_id}">
             {grandchildren}
           </{child_tag}>
         """
@@ -95,7 +70,8 @@ def generate_children(parent_tag):
 
         return current_child.format(child_style=child_style,
                                     child_tag=child_tag,
-                                    grandchildren=grandchildren)
+                                    grandchildren=grandchildren,
+                                    child_id=child_id)
 
     if random() <= has_children[parent_tag]:
         children += generate_child(parent_tag)
@@ -108,6 +84,7 @@ def generate_children(parent_tag):
 
 def generate_layout():
     html = """
+      <!DOCTYPE html>
       <html>
         <head>
           <title>Fuzzy layout</title>

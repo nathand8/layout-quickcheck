@@ -1,0 +1,11 @@
+{
+  "name": "layout-fuzzer",
+  "version": "1.0.0",
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  }
+}

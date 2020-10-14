@@ -1,3 +1,6 @@
 .vscode
 **/__pycache__
 layoutfiles
+node_modules
+jsdist
+.env
