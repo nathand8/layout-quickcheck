@@ -1,11 +1,11 @@
-from random import randint
+from random import choice
 from css_generators.integer import generate as generate_integer
 
 number_generators = [generate_integer]
 
 
 def pick_generator():
-    return number_generators[randint(0, len(number_generators) - 1)]
+    return choice(number_generators)
 
 
 def generate():

@@ -1,4 +1,4 @@
-from random import randint
+from random import choice, randint
 
 MAX_NUMBER = 2000
 
@@ -6,7 +6,7 @@ prefixes = ['', '+', '-']
 
 
 def generate_prefix():
-    return prefixes[randint(0, len(prefixes) - 1)]
+    return choice(prefixes)
 
 
 def generate():

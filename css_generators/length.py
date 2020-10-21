@@ -1,4 +1,4 @@
-from random import randint
+from random import choice
 from css_generators.number import generate as generate_number
 
 suffixes = ['cap', 'ch', 'em', 'ex', 'ic', 'lh', 'rem', 'rlh', 'vh', 'vw',
@@ -7,7 +7,7 @@ suffixes = ['cap', 'ch', 'em', 'ex', 'ic', 'lh', 'rem', 'rlh', 'vh', 'vw',
 
 
 def generate_suffix():
-    return suffixes[randint(0, len(suffixes) - 1)]
+    return choice(suffixes)
 
 
 def generate():
