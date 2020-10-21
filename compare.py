@@ -11,6 +11,9 @@ import os
 from html_file_generator import generate_html_file, save_modified
 from layout_comparer import compare_layout
 import atexit
+from dotenv import load_dotenv
+
+load_dotenv()
 
 cwd = os.getcwd()
 cwd = cwd.replace('\\', '/')
