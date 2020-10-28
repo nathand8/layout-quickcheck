@@ -32,20 +32,8 @@ export function outputIframeContents() {
   return recurse(frameBody);
 }
 
-export function modifyStyles() {
+export function modifyStyles(styleLog) {
   const iframeDocument = window.frames[0].document;
-  const styleLog = Array.from(
-    iframeDocument.body.getElementsByTagName("*")
-  ).reduce((acc, element) => {
-    acc[element.id] = generateStyles();
-    return acc;
-  }, {});
-  // console.log(styleLog);
-
-  const styleLogComment = iframeDocument.createComment(
-    JSON.stringify(styleLog)
-  );
-  iframeDocument.body.appendChild(styleLogComment);
 
   Object.entries(styleLog).forEach(([elementId, styles]) => {
     applyStyles(elementId, styles);
@@ -54,12 +42,4 @@ export function modifyStyles() {
 
 export function getHtml() {
   return window.frames[0].document.documentElement.outerHTML;
-}
-
-{
-  /* <script type="module">
-import {{ modifyStyles, getHtml }} from '../js/incremental.js';
-window.modifyStyles = modifyStyles;
-window.getHtml = getHtml;
-</script> */
 }

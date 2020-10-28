@@ -6,10 +6,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from sys import argv
 import os
 from html_file_generator import generate_html_file, save_modified
 from layout_comparer import compare_layout
+from style_log_generator import generate_layout_tree, generate_style_log
+from style_log_applier import apply_log
 import atexit
 from dotenv import load_dotenv
 
@@ -20,12 +21,8 @@ cwd = cwd.replace('\\', '/')
 layout_file_dir = os.environ.get('LAYOUT_FILE_DIR', f'{cwd}/layoutfiles')
 is_manual_test = False
 
-if len(argv) <= 1:
-    if not os.path.exists(layout_file_dir):
-        os.makedirs(layout_file_dir)
-else:
-    test_web_page = argv[1]
-    is_manual_test = True
+if not os.path.exists(layout_file_dir):
+    os.makedirs(layout_file_dir)
 
 inspector_file = 'http://localhost:8000/inspector.html'
 num_tests = 0
@@ -40,10 +37,13 @@ chrome_webdriver = WebDriver(
 servo_session_key = None
 servo_retry_failures = 0
 
-while (not is_manual_test and num_tests < 1000) or num_tests < 1:
-    if not is_manual_test:
-        test_file_name = generate_html_file(layout_file_dir)
-        test_web_page = f'http://localhost:8000/layoutfiles/{test_file_name}'
+while num_tests < 1000:
+    body = generate_layout_tree()
+    base_style_log = generate_style_log(body, 0.05)
+    modified_style_log = generate_style_log(body, 0.01)
+    applied_layout = apply_log(body, base_style_log)
+    test_file_name, test_timestamp = generate_html_file(layout_file_dir, applied_layout)
+    test_web_page = f'http://localhost:8000/layoutfiles/{test_file_name}'
 
     chrome_webdriver.get(f'{inspector_file}?url={test_web_page}')
     try:
@@ -53,23 +53,21 @@ while (not is_manual_test and num_tests < 1000) or num_tests < 1:
         WebDriverWait(chrome_webdriver, timeout).until(iframe_ready)
 
         chrome_webdriver.execute_script(
-            'inspectorTools.modifyStyles()'
+            'inspectorTools.modifyStyles(arguments[0])',
+            modified_style_log
         )
         chrome_values = chrome_webdriver.execute_script(
             'return inspectorTools.outputIframeContents()')
         chrome_html_output = chrome_webdriver.execute_script(
             'return inspectorTools.getHtml()'
         )
-
-        if not is_manual_test:
-            modified_test_file_name = save_modified(
-                layout_file_dir, test_file_name, chrome_html_output)
-            modified_test_web_page = \
-                f'http://localhost:8000/layoutfiles/{modified_test_file_name}'
-        else:
-            modified_test_web_page = test_web_page
     except TimeoutException:
         print('Failed to load test page due to timeout')
+
+    modified_test_file_name = save_modified(
+        layout_file_dir, test_timestamp, chrome_html_output)
+    modified_test_web_page = \
+        f'http://localhost:8000/layoutfiles/{modified_test_file_name}'
 
     chrome_webdriver.get(f'{inspector_file}?url={modified_test_web_page}')
     try:
@@ -91,6 +89,11 @@ while (not is_manual_test and num_tests < 1000) or num_tests < 1:
         print('Differences: ')
         print(differences)
         print(f'Failed file: {test_web_page}')
+        print(body)
+        print(base_style_log)
+        print(modified_style_log)
+        # print(chrome_values)
+        # print(modified_values)
         num_error += 1
         break
 

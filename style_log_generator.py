@@ -4,7 +4,6 @@ from css_generators.style_data import style_data
 from css_generators.length import generate as generate_length
 from css_generators.keyword import create_generator as create_keyword_generator
 
-STYLE_PROBABILITY = 0.05
 SUPPORTED_STYLE_TYPES = ["Length", "Keyword"]
 
 has_children = {"body": 0.99, "div": 0.3}
@@ -28,10 +27,10 @@ def is_supported_type(typedom_type, current_style):
         return False
 
 
-def generate_style():
-    styles = []
+def generate_style(style_probability):
+    styles = {}
     for current_style in style_data["data"]:
-        if random() <= STYLE_PROBABILITY:
+        if random() <= style_probability:
             typedom_types = current_style.get("typedom_types", [])
             type_choices = [
                 choice
@@ -43,7 +42,7 @@ def generate_style():
                 generator = type_to_generator(type_choice, current_style)
                 style_name = current_style["name"]
                 style_value = generator()
-                styles.append((style_name, style_value))
+                styles[style_name] = style_value
     return styles
 
 
@@ -88,3 +87,17 @@ def generate_children(parent_tag):
             children.append(generate_child(parent_tag))
 
     return children
+
+
+def elements(tree):
+    for element in tree:
+        yield element
+        yield from elements(element["children"])
+
+
+def generate_style_log(tree, style_probability):
+    return {e["id"]: generate_style(style_probability) for e in elements(tree)}
+
+
+def generate_layout_tree():
+    return generate_children("body")
