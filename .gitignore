@@ -4,3 +4,4 @@ layoutfiles
 node_modules
 jsdist
 .env
+bugreportfiles

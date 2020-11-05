@@ -7,7 +7,7 @@ def generate_body_string(body, styles):
 
     def generate_element_string(body_string, element):
         tag = element["tag"]
-        style = ";".join([f"{name}:{value}" for name, value in styles[element["id"]].items()])
+        style = ";".join([f"{name}:{value}" for name, value in styles.get(element["id"], {}).items()])
         element_id = element["id"]
         children_string = reduce_children(element["children"])
         current_template = """
