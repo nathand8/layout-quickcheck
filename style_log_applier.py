@@ -34,7 +34,7 @@ def apply_log(body, styles):
         <head>
           <title>Fuzzy layout</title>
         </head>
-        <body style="scrollbar-width:none">
+        <body>
           {body_string}
         </body>
       </html>

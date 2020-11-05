@@ -37,7 +37,19 @@ chrome_webdriver = WebDriver(
 servo_session_key = None
 servo_retry_failures = 0
 
-while num_tests < 1000:
+required_failure_count = int(os.environ.get("FAILURE_COUNT", 0))
+is_based_on_failure = required_failure_count > 0
+required_test_count = int(os.environ.get("TEST_COUNT", 1000))
+
+
+def should_continue():
+    if is_based_on_failure:
+        return num_error < required_failure_count
+    else:
+        return num_tests < required_test_count
+
+
+while should_continue():
     timestamp = datetime.now()
     formatted_timestamp = timestamp.strftime(timestamp_format)
     body = generate_layout_tree()
@@ -76,18 +88,9 @@ while num_tests < 1000:
             minified_base_log,
             minified_modified_log,
             minified_postfix,
+            differences,
         )
-        test_web_page = f"http://localhost:8000/layoutfiles/{test_file_name}"
-        print("Differences: ")
-        print(differences)
-        print(f"Failed file: {test_web_page}")
-        print(body)
-        print(base_style_log)
-        print(modified_style_log)
-        # print(chrome_values)
-        # print(modified_values)
         num_error += 1
-        break
 
     num_tests += 1
 

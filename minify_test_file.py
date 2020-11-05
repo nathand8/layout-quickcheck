@@ -68,12 +68,6 @@ def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_styl
             if len(styles_that_matter) > 0:
                 minified_modified_log[element_id] = styles_that_matter
 
-    print("base after step 1")
-    print(minified_base_log)
-
-    print("modified after step 1")
-    print(minified_modified_log)
-
     # Minify base log
     for element in elements(body):
         element_id = element["id"]
@@ -124,12 +118,6 @@ def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_styl
                     styles_that_matter[style_name] = style_value
             if len(styles_that_matter) > 0:
                 minified_base_log[element_id] = styles_that_matter
-
-    print("base after step 2")
-    print(minified_base_log)
-
-    print("modified after step 2")
-    print(minified_modified_log)
 
     # Create final representations of minified files
     is_success, *_ = test_combination(
