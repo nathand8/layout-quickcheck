@@ -73,6 +73,7 @@ while should_continue():
             minified_base_log,
             minified_modified_log,
             minified_postfix,
+            minified_differences
         ) = minify(
             chrome_webdriver,
             formatted_timestamp,
@@ -88,7 +89,7 @@ while should_continue():
             minified_base_log,
             minified_modified_log,
             minified_postfix,
-            differences,
+            minified_differences,
         )
         num_error += 1
 

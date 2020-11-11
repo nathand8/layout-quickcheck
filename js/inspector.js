@@ -32,9 +32,12 @@ export function outputIframeContents() {
   return recurse(frameBody);
 }
 
-export function modifyStyles(styleLog) {
-  const iframeDocument = window.frames[0].document;
+export function loadCurrentStateFresh() {
+  window.frames[0].document.documentElement.innerHTML =
+    window.frames[0].document.documentElement.innerHTML;
+}
 
+export function modifyStyles(styleLog) {
   Object.entries(styleLog).forEach(([elementId, styles]) => {
     applyStyles(elementId, styles);
   });

@@ -1,4 +1,5 @@
 from layout_tester import test_combination
+from copy import deepcopy
 
 
 def elements(tree):
@@ -10,6 +11,12 @@ def elements(tree):
 def styles(s):
     for style_name, style_value in s.items():
         yield style_name, style_value
+
+
+def remove_element(tree, element_id):
+    for element in tree:
+        element["children"] = remove_element(element["children"], element_id)
+    return list(filter(lambda element: element["id"] != element_id, tree))
 
 
 def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_style_log):
@@ -119,14 +126,49 @@ def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_styl
             if len(styles_that_matter) > 0:
                 minified_base_log[element_id] = styles_that_matter
 
+    # Remove unnecessary elements
+    minified_body = deepcopy(body)
+    for element in elements(body):
+        element_id = element["id"]
+
+        if (
+            len(minified_base_log.get(element_id, {})) + len(minified_modified_log.get(element_id, {}))
+            <= 0
+        ):
+            proposed_body = deepcopy(minified_body)
+            # print('before')
+            # print(json.dumps(proposed_body))
+            proposed_body = remove_element(proposed_body, element_id)
+            # print('after')
+            # print(json.dumps(proposed_body))
+
+            is_success, *_ = test_combination(
+                chrome_webdriver,
+                test_timestamp,
+                f"-minified-{iteration}",
+                proposed_body,
+                minified_base_log,
+                minified_modified_log,
+            )
+            iteration += 1
+
+            if not is_success:
+                minified_body = proposed_body
+
     # Create final representations of minified files
-    is_success, *_ = test_combination(
+    is_success, minified_differences, _ = test_combination(
         chrome_webdriver,
         test_timestamp,
         f"-minified-{iteration}",
-        body,
+        minified_body,
         minified_base_log,
         minified_modified_log,
     )
 
-    return body, minified_base_log, minified_modified_log, f"-minified-{iteration}"
+    return (
+        minified_body,
+        minified_base_log,
+        minified_modified_log,
+        f"-minified-{iteration}",
+        minified_differences,
+    )
