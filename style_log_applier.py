@@ -8,7 +8,9 @@ def generate_body_string(body, styles):
 
     def generate_element_string(body_string, element):
         tag = element["tag"]
-        style = ";".join([f"{name}:{value}" for name, value in styles.get(element["id"], {}).items()])
+        style = ";".join(
+            [f"{name}:{value}" for name, value in styles.get(element["id"], {}).items()]
+        )
         element_id = element["id"]
         children_string = reduce_children(element["children"])
         current_template = """
@@ -26,9 +28,9 @@ def generate_body_string(body, styles):
     return reduce_children(body)
 
 
-def apply_log(body, styles):
+def apply_log(body, styles, modified_styles):
     body_string = generate_body_string(body, styles)
-    style_string = json.dumps(styles)
+    modified_style_string = json.dumps(modified_styles)
 
     html_template = """
 <!DOCTYPE html>
@@ -36,7 +38,7 @@ def apply_log(body, styles):
   <head>
     <title>Fuzzy layout</title>
     <!--
-const styleLog = {style_string};
+const styleLog = {modified_style_string};
 
 const outputDimensions = () => {{
   Array.from(document.getElementsByTagName('*')).forEach((element) => {{
@@ -71,4 +73,6 @@ outputDimensions();
 </html>
     """
 
-    return html_template.format(body_string=body_string, style_string=style_string)
+    return html_template.format(
+        body_string=body_string, modified_style_string=modified_style_string
+    )

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# flake8: noqa: E402
+from dotenv import load_dotenv
+load_dotenv()
 
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -9,9 +12,7 @@ from minify_test_file import minify
 from bug_report_helper import save_bug_report
 from datetime import datetime
 import atexit
-from dotenv import load_dotenv
 
-load_dotenv()
 
 cwd = os.getcwd()
 cwd = cwd.replace("\\", "/")
@@ -39,14 +40,17 @@ servo_retry_failures = 0
 
 required_failure_count = int(os.environ.get("FAILURE_COUNT", 0))
 is_based_on_failure = required_failure_count > 0
-required_test_count = int(os.environ.get("TEST_COUNT", 1000))
+required_test_count = int(os.environ.get("TEST_COUNT", 0))
+is_based_on_test_count = required_test_count > 0
 
 
 def should_continue():
     if is_based_on_failure:
         return num_error < required_failure_count
-    else:
+    elif is_based_on_test_count:
         return num_tests < required_test_count
+    else:
+        return True
 
 
 while should_continue():

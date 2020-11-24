@@ -10,15 +10,16 @@ import os
 inspector_file = "http://localhost:8000/inspector.html"
 cwd = os.getcwd()
 cwd = cwd.replace("\\", "/")
-layout_file_dir = os.environ.get("LAYOUT_FILE_DIR", f"{cwd}/layoutfiles")
+layout_file_dir = os.getenv("LAYOUT_FILE_DIR", f"{cwd}/layoutfiles")
+relative_layout_path = os.getenv("RELATIVE_LAYOUT_PATH", "layoutfiles")
 
 
 def test_combination(
     chrome_webdriver, test_timestamp, postfix, body, base_style_log, modified_style_log
 ):
-    applied_layout = apply_log(body, base_style_log)
+    applied_layout = apply_log(body, base_style_log, modified_style_log)
     test_file_name = save_file(layout_file_dir, test_timestamp, applied_layout, postfix)
-    test_web_page = f"http://localhost:8000/layoutfiles/{test_file_name}"
+    test_web_page = f"http://localhost:8000/{relative_layout_path}/{test_file_name}"
 
     chrome_webdriver.get(f"{inspector_file}?url={test_web_page}")
     try:
