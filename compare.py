@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # flake8: noqa: E402
 from dotenv import load_dotenv
+
 load_dotenv()
 
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -57,8 +58,8 @@ while should_continue():
     timestamp = datetime.now()
     formatted_timestamp = timestamp.strftime(timestamp_format)
     body = generate_layout_tree()
-    base_style_log = generate_style_log(body, 0.05)
-    modified_style_log = generate_style_log(body, 0.01)
+    base_style_log = generate_style_log(body, 0.1, is_base=True)
+    modified_style_log = generate_style_log(body, 0.1, is_base=False)
 
     (is_success, differences, test_file_name,) = test_combination(
         chrome_webdriver,
@@ -77,7 +78,7 @@ while should_continue():
             minified_base_log,
             minified_modified_log,
             minified_postfix,
-            minified_differences
+            minified_differences,
         ) = minify(
             chrome_webdriver,
             formatted_timestamp,

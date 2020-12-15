@@ -1,11 +1,17 @@
 import json
 
 
+INCLUDE_VALUE_IN_NAME = ["display"]
+
+
 def all_style_names(*style_dicts):
     for d in style_dicts:
         for _element_id, styles in d.items():
-            for style_name in styles:
-                yield style_name
+            for style_name, style_value in styles.items():
+                if style_name in INCLUDE_VALUE_IN_NAME:
+                    yield f"{style_name}:{style_value}"
+                else:
+                    yield style_name
 
 
 def save_bug_report(

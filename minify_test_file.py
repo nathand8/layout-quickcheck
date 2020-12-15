@@ -4,8 +4,9 @@ from copy import deepcopy
 
 def elements(tree):
     for element in tree:
-        yield element
-        yield from elements(element["children"])
+        if element["tag"] != "<text>":
+            yield element
+            yield from elements(element["children"])
 
 
 def styles(s):
@@ -16,7 +17,12 @@ def styles(s):
 def remove_element(tree, element_id):
     for element in tree:
         element["children"] = remove_element(element["children"], element_id)
-    return list(filter(lambda element: element["id"] != element_id, tree))
+    return list(
+        filter(
+            lambda element: element["tag"] == "<text>" or element["id"] != element_id,
+            tree,
+        )
+    )
 
 
 def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_style_log):
@@ -45,28 +51,34 @@ def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_styl
             minified_modified_log = proposed_modified
         else:
             for style_name, style_value in styles(minified_modified_log[element_id]):
-                proposed_modified = deepcopy(minified_modified_log)
-                del proposed_modified[element_id][style_name]
+                if style_name != "background-color":
+                    proposed_modified = deepcopy(minified_modified_log)
+                    del proposed_modified[element_id][style_name]
 
-                is_success, *_ = test_combination(
-                    chrome_webdriver,
-                    test_timestamp,
-                    f"-minified-{iteration}",
-                    body,
-                    minified_base_log,
-                    proposed_modified,
-                )
-                iteration += 1
+                    is_success, *_ = test_combination(
+                        chrome_webdriver,
+                        test_timestamp,
+                        f"-minified-{iteration}",
+                        body,
+                        minified_base_log,
+                        proposed_modified,
+                    )
+                    iteration += 1
 
-                if not is_success:
-                    minified_modified_log = proposed_modified
+                    if not is_success:
+                        minified_modified_log = proposed_modified
 
     # Minify base log
     for element in elements(body):
         element_id = element["id"]
 
         proposed_base = deepcopy(minified_base_log)
-        del proposed_base[element_id]
+        if "background-color" in proposed_base[element_id]:
+            proposed_base[element_id] = {
+                "background-color": proposed_base[element_id]["background-color"]
+            }
+        else:
+            del proposed_base[element_id]
 
         is_success, *_ = test_combination(
             chrome_webdriver,
@@ -82,21 +94,22 @@ def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_styl
             minified_base_log = proposed_base
         else:
             for style_name, style_value in styles(minified_base_log[element_id]):
-                proposed_base = deepcopy(minified_base_log)
-                del proposed_base[element_id][style_name]
+                if style_name != "background-color":
+                    proposed_base = deepcopy(minified_base_log)
+                    del proposed_base[element_id][style_name]
 
-                is_success, *_ = test_combination(
-                    chrome_webdriver,
-                    test_timestamp,
-                    f"-minified-{iteration}",
-                    body,
-                    proposed_base,
-                    minified_modified_log,
-                )
-                iteration += 1
+                    is_success, *_ = test_combination(
+                        chrome_webdriver,
+                        test_timestamp,
+                        f"-minified-{iteration}",
+                        body,
+                        proposed_base,
+                        minified_modified_log,
+                    )
+                    iteration += 1
 
-                if not is_success:
-                    minified_base_log = proposed_base
+                    if not is_success:
+                        minified_base_log = proposed_base
 
     # Remove unnecessary elements
     minified_body = deepcopy(body)
@@ -104,7 +117,8 @@ def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_styl
         element_id = element["id"]
 
         if (
-            len(minified_base_log.get(element_id, {})) + len(minified_modified_log.get(element_id, {}))
+            len(minified_base_log.get(element_id, {}))
+            + len(minified_modified_log.get(element_id, {}))
             <= 0
         ):
             proposed_body = deepcopy(minified_body)
