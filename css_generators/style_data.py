@@ -1,10 +1,7 @@
 style_data = {
-
     "parameters": {
-        "alias_for": {
-        },
-        "longhands": {
-        },
+        "alias_for": {},
+        "longhands": {},
         "property_methods": {
             "default": [],
             "valid_type": "list",
@@ -13,7 +10,7 @@ style_data = {
                 "ParseShorthand",
                 "CSSValueFromComputedStyleInternal",
                 "ColorIncludingFallback",
-                "InitialValue"
+                "InitialValue",
             ],
         },
         "style_builder_custom_functions": {
@@ -42,10 +39,7 @@ style_data = {
                 "visited_color",
             ],
         },
-        "style_builder_template_args": {
-            "default": {},
-            "valid_type": "dict"
-        },
+        "style_builder_template_args": {"default": {}, "valid_type": "dict"},
         "is_descriptor": {
             "default": False,
             "valid_type": "bool",
@@ -102,7 +96,7 @@ style_data = {
                 "monotonic_flag",
                 "external",
                 "pointer",
-                "<[a-z]+>"
+                "<[a-z]+>",
             ],
         },
         "include_paths": {
@@ -115,8 +109,7 @@ style_data = {
         "keywords": {
             "default": [],
         },
-        "default_value": {
-        },
+        "default_value": {},
         "typedom_types": {
             "default": [],
             "valid_type": "list",
@@ -133,7 +126,7 @@ style_data = {
                 "Time",
                 "Transform",
                 "Unparsed",
-                "Image"
+                "Image",
             ],
         },
         "separator": {
@@ -147,36 +140,48 @@ style_data = {
             "default": False,
             "valid_type": "bool",
         },
-        "name_for_methods": {
-        },
-        "initial": {
-        },
-        "getter": {
-        },
-        "setter": {
-        },
-        "type_name": {
-        },
+        "name_for_methods": {},
+        "initial": {},
+        "getter": {},
+        "setter": {},
+        "type_name": {},
         "computed_style_custom_functions": {
             "default": [],
             "valid_type": "list",
-            "valid_values": ["initial", "getter", "setter", "reset", "mutable"]
+            "valid_values": ["initial", "getter", "setter", "reset", "mutable"],
         },
-        "converter": {
-        },
+        "converter": {},
         "direction_aware_options": {
             "resolver": {
                 "valid_type": "str",
-                "valid_values": ["inline-start", "inline-end", "block-start", "block-end",
-                                 "inline", "block"]
+                "valid_values": [
+                    "inline-start",
+                    "inline-end",
+                    "block-start",
+                    "block-end",
+                    "inline",
+                    "block",
+                ],
             },
             "physical_group": {
                 "valid_type": "str",
-                "valid_values": ["border", "border-color", "border-style", "border-width",
-                                 "inset", "margin", "max-size",
-                                 "min-size", "overflow", "padding", "scroll-margin",
-                                 "scroll-padding", "size", "visited-border-color"]
-            }
+                "valid_values": [
+                    "border",
+                    "border-color",
+                    "border-style",
+                    "border-width",
+                    "inset",
+                    "margin",
+                    "max-size",
+                    "min-size",
+                    "overflow",
+                    "padding",
+                    "scroll-margin",
+                    "scroll-padding",
+                    "size",
+                    "visited-border-color",
+                ],
+            },
         },
         "surrogate_for": {
             "valid_type": "str",
@@ -220,7 +225,11 @@ style_data = {
     "data": [
         {
             "name": "animation-delay",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "animation",
             "style_builder_template_args": {
                 "attribute": "Delay",
@@ -231,7 +240,11 @@ style_data = {
         },
         {
             "name": "animation-direction",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "keywords": ["normal", "reverse", "alternate", "alternate-reverse"],
             "typedom_types": ["Keyword"],
             "separator": ",",
@@ -244,7 +257,11 @@ style_data = {
         },
         {
             "name": "animation-duration",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "separator": ",",
             "style_builder_template": "animation",
             "style_builder_template_args": {
@@ -256,7 +273,11 @@ style_data = {
         },
         {
             "name": "animation-fill-mode",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "animation",
             "style_builder_template_args": {
                 "attribute": "FillMode",
@@ -268,21 +289,28 @@ style_data = {
         },
         {
             "name": "animation-iteration-count",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "keywords": ["infinite"],
             "separator": ",",
             "style_builder_template": "animation",
             "style_builder_template_args": {
                 "attribute": "IterationCount",
             },
-            "keywords": ["infinite"],
             "typedom_types": ["Keyword", "Number"],
             "separator": ",",
             "valid_for_marker": True,
         },
         {
             "name": "animation-name",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "animation",
             "style_builder_template_args": {
                 "attribute": "Name",
@@ -294,7 +322,11 @@ style_data = {
         },
         {
             "name": "animation-play-state",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "animation",
             "style_builder_template_args": {
                 "attribute": "PlayState",
@@ -306,7 +338,11 @@ style_data = {
         },
         {
             "name": "animation-timeline",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "animation",
             "style_builder_template_args": {
                 "attribute": "Timeline",
@@ -319,7 +355,11 @@ style_data = {
         },
         {
             "name": "animation-timing-function",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "animation",
             "style_builder_template_args": {
                 "attribute": "TimingFunction",
@@ -335,7 +375,7 @@ style_data = {
                 "jump-none",
                 "jump-start",
                 "step-start",
-                "step-end"
+                "step-end",
             ],
             "typedom_types": ["Keyword"],
             "separator": ",",
@@ -343,7 +383,11 @@ style_data = {
         },
         {
             "name": "transition-delay",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "transition",
             "style_builder_template_args": {
                 "attribute": "Delay",
@@ -354,7 +398,11 @@ style_data = {
         },
         {
             "name": "transition-duration",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "typedom_types": ["Keyword", "Time"],
             "separator": ",",
             "style_builder_template": "transition",
@@ -365,7 +413,11 @@ style_data = {
         },
         {
             "name": "transition-property",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "transition",
             "style_builder_template_args": {
                 "attribute": "Property",
@@ -376,7 +428,11 @@ style_data = {
         },
         {
             "name": "transition-timing-function",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_template": "transition",
             "style_builder_template_args": {
                 "attribute": "TimingFunction",
@@ -392,14 +448,19 @@ style_data = {
                 "jump-none",
                 "jump-start",
                 "step-start",
-                "step-end"],
+                "step-end",
+            ],
             "typedom_types": ["Keyword"],
             "separator": ",",
             "valid_for_marker": True,
         },
         {
             "name": "color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "inherited",
@@ -423,7 +484,9 @@ style_data = {
             "affected_by_all": False,
             "inherited": True,
             "field_template": "keyword",
-            "include_paths": ["third_party/blink/renderer/platform/text/text_direction.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/text/text_direction.h"
+            ],
             "keywords": ["ltr", "rtl"],
             "typedom_types": ["Keyword"],
             "default_value": "ltr",
@@ -435,7 +498,10 @@ style_data = {
         },
         {
             "name": "font-family",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "inherited": True,
             "font": True,
@@ -475,7 +541,10 @@ style_data = {
         },
         {
             "name": "font-size",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "font": True,
@@ -483,7 +552,19 @@ style_data = {
             "getter": "GetSize",
             "converter": "ConvertFontSize",
             "priority": "High",
-            "keywords": ["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large", "xxx-large", "larger", "smaller", "-webkit-xxx-large"],
+            "keywords": [
+                "xx-small",
+                "x-small",
+                "small",
+                "medium",
+                "large",
+                "x-large",
+                "xx-large",
+                "xxx-large",
+                "larger",
+                "smaller",
+                "-webkit-xxx-large",
+            ],
             "typedom_types": ["Keyword", "Length", "Percentage"],
             "valid_for_first_letter": True,
             "valid_for_cue": True,
@@ -491,7 +572,10 @@ style_data = {
         },
         {
             "name": "font-size-adjust",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "runtime_flag": "CSSFontSizeAdjust",
@@ -506,7 +590,10 @@ style_data = {
         },
         {
             "name": "font-stretch",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "inherited": True,
@@ -515,8 +602,15 @@ style_data = {
             "converter": "ConvertFontStretch",
             "priority": "High",
             "keywords": [
-                "normal", "ultra-condensed", "extra-condensed", "condensed",
-                "semi-condensed", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded"
+                "normal",
+                "ultra-condensed",
+                "extra-condensed",
+                "condensed",
+                "semi-condensed",
+                "semi-expanded",
+                "expanded",
+                "extra-expanded",
+                "ultra-expanded",
             ],
             "typedom_types": ["Keyword", "Percentage"],
             "valid_for_first_letter": True,
@@ -525,7 +619,10 @@ style_data = {
         },
         {
             "name": "font-style",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "inherited": True,
             "font": True,
@@ -540,7 +637,10 @@ style_data = {
         },
         {
             "name": "font-variant-ligatures",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "font": True,
             "name_for_methods": "VariantLigatures",
@@ -548,10 +648,16 @@ style_data = {
             "converter": "ConvertFontVariantLigatures",
             "priority": "High",
             "keywords": [
-                "normal", "none", "common-ligatures", "no-common-ligatures",
-                "discretionary-ligatures", "no-discretionary-ligatures",
-                "historical-ligatures", "no-historical-ligatures", "contextual",
-                "no-contextual"
+                "normal",
+                "none",
+                "common-ligatures",
+                "no-common-ligatures",
+                "discretionary-ligatures",
+                "no-discretionary-ligatures",
+                "historical-ligatures",
+                "no-historical-ligatures",
+                "contextual",
+                "no-contextual",
             ],
             "typedom_types": ["Keyword"],
             "valid_for_first_letter": True,
@@ -559,15 +665,23 @@ style_data = {
         },
         {
             "name": "font-variant-caps",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "font": True,
             "name_for_methods": "VariantCaps",
             "converter": "ConvertFontVariantCaps",
             "priority": "High",
             "keywords": [
-                "normal", "small-caps", "all-small-caps", "petite-caps",
-                "all-petite-caps", "unicase", "titling-caps"
+                "normal",
+                "small-caps",
+                "all-small-caps",
+                "petite-caps",
+                "all-petite-caps",
+                "unicase",
+                "titling-caps",
             ],
             "typedom_types": ["Keyword"],
             "valid_for_first_letter": True,
@@ -575,15 +689,26 @@ style_data = {
         },
         {
             "name": "font-variant-east-asian",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "font": True,
             "name_for_methods": "VariantEastAsian",
             "converter": "ConvertFontVariantEastAsian",
             "priority": "High",
             "keywords": [
-                "normal", "jis78", "jis83", "jis90", "jis04", "simplified",
-                "traditional", "full-width", "proportional-width", "ruby"
+                "normal",
+                "jis78",
+                "jis83",
+                "jis90",
+                "jis04",
+                "simplified",
+                "traditional",
+                "full-width",
+                "proportional-width",
+                "ruby",
             ],
             "typedom_types": ["Keyword"],
             "valid_for_first_letter": True,
@@ -591,16 +716,25 @@ style_data = {
         },
         {
             "name": "font-variant-numeric",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "font": True,
             "name_for_methods": "VariantNumeric",
             "converter": "ConvertFontVariantNumeric",
             "priority": "High",
             "keywords": [
-                "normal", "lining-nums", "oldstyle-nums", "proportional-nums",
-                "tabular-nums", "diagonal-fractions", "stacked-fractions", "ordinal",
-                "slashed-zero"
+                "normal",
+                "lining-nums",
+                "oldstyle-nums",
+                "proportional-nums",
+                "tabular-nums",
+                "diagonal-fractions",
+                "stacked-fractions",
+                "ordinal",
+                "slashed-zero",
             ],
             "typedom_types": ["Keyword"],
             "valid_for_first_letter": True,
@@ -608,7 +742,10 @@ style_data = {
         },
         {
             "name": "font-weight",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "inherited": True,
@@ -624,7 +761,10 @@ style_data = {
         },
         {
             "name": "font-feature-settings",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "inherited": True,
             "font": True,
@@ -638,7 +778,10 @@ style_data = {
         },
         {
             "name": "font-variation-settings",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "font": True,
@@ -673,7 +816,10 @@ style_data = {
         },
         {
             "name": "-webkit-locale",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "font": True,
             "style_builder_custom_functions": ["value"],
@@ -706,7 +852,9 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "inherited": True,
             "field_template": "keyword",
-            "include_paths": ["third_party/blink/renderer/platform/text/writing_mode.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/text/writing_mode.h"
+            ],
             "keywords": ["horizontal-tb", "vertical-rl", "vertical-lr"],
             "typedom_types": ["Keyword"],
             "default_value": "horizontal-tb",
@@ -731,13 +879,21 @@ style_data = {
             "inherited": True,
             "font": True,
             "type_name": "TextRenderingMode",
-            "keywords": ["auto", "optimizespeed", "optimizelegibility", "geometricprecision"],
+            "keywords": [
+                "auto",
+                "optimizespeed",
+                "optimizelegibility",
+                "geometricprecision",
+            ],
             "typedom_types": ["Keyword"],
             "priority": "High",
         },
         {
             "name": "zoom",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "field_group": "visual",
             "field_template": "primitive",
@@ -748,10 +904,15 @@ style_data = {
         },
         {
             "name": "align-content",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_content_alignment_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_content_alignment_data.h"
+            ],
             "default_value": "StyleContentAlignmentData(ContentPosition::kNormal, ContentDistributionType::kDefault, OverflowAlignment::kDefault)",
             "type_name": "StyleContentAlignmentData",
             "converter": "ConvertContentAlignmentData",
@@ -759,10 +920,15 @@ style_data = {
         },
         {
             "name": "align-items",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_self_alignment_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_self_alignment_data.h"
+            ],
             "default_value": "StyleSelfAlignmentData(ItemPosition::kNormal, OverflowAlignment::kDefault)",
             "type_name": "StyleSelfAlignmentData",
             "converter": "ConvertSelfOrDefaultAlignmentData",
@@ -772,15 +938,27 @@ style_data = {
             "name": "alignment-baseline",
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "svg": True,
-            "keywords": ["baseline", "alphabetic", "ideographic", "middle", "central", "mathematical"],
-            "typedom_types": ["Keyword"]
+            "keywords": [
+                "baseline",
+                "alphabetic",
+                "ideographic",
+                "middle",
+                "central",
+                "mathematical",
+            ],
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "align-self",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_self_alignment_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_self_alignment_data.h"
+            ],
             "default_value": "StyleSelfAlignmentData(ItemPosition::kAuto, OverflowAlignment::kDefault)",
             "type_name": "StyleSelfAlignmentData",
             "converter": "ConvertSelfOrDefaultAlignmentData",
@@ -788,7 +966,10 @@ style_data = {
         },
         {
             "name": "aspect-ratio",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": False,
             "field_group": "box",
             "field_template": "external",
@@ -796,17 +977,24 @@ style_data = {
             "default_value": "base::nullopt",
             "type_name": "base::Optional<IntSize>",
             "converter": "ConvertAspectRatio",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_size.h"],
-            "runtime_flag": "CSSAspectRatioProperty"
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_size.h"
+            ],
+            "runtime_flag": "CSSAspectRatioProperty",
         },
         {
             "name": "backdrop-filter",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "compositable": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_filter_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_filter_data.h"
+            ],
             "wrapper_pointer_name": "Persistent",
             "default_value": "MakeGarbageCollected<StyleFilterData>()",
             "type_name": "StyleFilterData",
@@ -826,7 +1014,10 @@ style_data = {
         },
         {
             "name": "background-attachment",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "keywords": ["scroll", "fixed", "local"],
             "typedom_types": ["Keyword"],
             "separator": " ",
@@ -840,11 +1031,27 @@ style_data = {
         },
         {
             "name": "background-blend-mode",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "keywords": [
-                "normal", "multiply", "screen", "overlay", "darken", "lighten",
-                "color-dodge", "color-burn", "hard-light", "soft-light", "difference",
-                "exclusion", "hue", "saturation", "color", "luminosity"
+                "normal",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity",
             ],
             "typedom_types": ["Keyword"],
             "separator": " ",
@@ -858,7 +1065,10 @@ style_data = {
         },
         {
             "name": "background-clip",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "keywords": ["border-box", "padding-box", "content-box"],
             "typedom_types": ["Keyword"],
             "separator": " ",
@@ -872,7 +1082,11 @@ style_data = {
         },
         {
             "name": "background-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "background",
             "field_template": "external",
@@ -894,7 +1108,10 @@ style_data = {
         },
         {
             "name": "background-image",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "keywords": ["auto", "none"],
             "typedom_types": ["Keyword", "Image"],
@@ -911,7 +1128,10 @@ style_data = {
         },
         {
             "name": "background-origin",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "keywords": ["border-box", "padding-box", "content-box"],
             "typedom_types": ["Keyword"],
             "separator": " ",
@@ -925,7 +1145,10 @@ style_data = {
         },
         {
             "name": "background-position-x",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "background_layer",
             "style_builder_template_args": {
@@ -937,7 +1160,10 @@ style_data = {
         },
         {
             "name": "background-position-y",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "background_layer",
             "style_builder_template_args": {
@@ -967,7 +1193,10 @@ style_data = {
         },
         {
             "name": "background-size",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "keywords": ["auto", "cover", "contain"],
             "typedom_types": ["Keyword", "Length", "Percentage"],
@@ -982,16 +1211,23 @@ style_data = {
         },
         {
             "name": "baseline-shift",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "style_builder_custom_functions": ["inherit", "value"],
             "keywords": ["sub", "super"],
-            "typedom_types": ["Keyword", "Percentage", "Length"]
+            "typedom_types": ["Keyword", "Percentage", "Length"],
         },
         {
             "name": "border-bottom-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
@@ -1010,11 +1246,16 @@ style_data = {
         },
         {
             "name": "border-bottom-left-radius",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_size.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_size.h"
+            ],
             "default_value": "LengthSize(Length::Fixed(0), Length::Fixed(0))",
             "type_name": "LengthSize",
             "converter": "ConvertRadius",
@@ -1025,11 +1266,16 @@ style_data = {
         },
         {
             "name": "border-bottom-right-radius",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_size.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_size.h"
+            ],
             "default_value": "LengthSize(Length::Fixed(0), Length::Fixed(0))",
             "type_name": "LengthSize",
             "converter": "ConvertRadius",
@@ -1044,8 +1290,16 @@ style_data = {
             "field_group": "surround",
             "field_template": "keyword",
             "keywords": [
-                "none", "hidden", "inset", "groove", "outset", "ridge", "dotted",
-                "dashed", "solid", "double"
+                "none",
+                "hidden",
+                "inset",
+                "groove",
+                "outset",
+                "ridge",
+                "dotted",
+                "dashed",
+                "solid",
+                "double",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "none",
@@ -1056,11 +1310,16 @@ style_data = {
         },
         {
             "name": "border-bottom-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/layout_unit.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/layout_unit.h"
+            ],
             "keywords": ["thin", "medium", "thick"],
             "default_value": "LayoutUnit(3)",
             "typedom_types": ["Keyword", "Length"],
@@ -1083,7 +1342,11 @@ style_data = {
         },
         {
             "name": "border-image-outset",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "interpolable": True,
             "typedom_types": ["Length", "Number"],
             "style_builder_template": "border_image",
@@ -1095,7 +1358,11 @@ style_data = {
         },
         {
             "name": "border-image-repeat",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "keywords": ["stretch", "repeat", "round", "space"],
             "typedom_types": ["Keyword"],
             "style_builder_template": "border_image",
@@ -1107,7 +1374,11 @@ style_data = {
         },
         {
             "name": "border-image-slice",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "interpolable": True,
             "typedom_types": ["Number", "Percentage"],
             "style_builder_template": "border_image",
@@ -1119,7 +1390,11 @@ style_data = {
         },
         {
             "name": "border-image-source",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "interpolable": True,
             "keywords": ["none"],
             "typedom_types": ["Keyword", "Image"],
@@ -1129,7 +1404,11 @@ style_data = {
         },
         {
             "name": "border-image-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "interpolable": True,
             "keywords": ["auto"],
             "typedom_types": ["Keyword", "Length", "Percentage", "Number"],
@@ -1142,7 +1421,11 @@ style_data = {
         },
         {
             "name": "border-left-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
@@ -1165,8 +1448,16 @@ style_data = {
             "field_group": "surround",
             "field_template": "keyword",
             "keywords": [
-                "none", "hidden", "inset", "groove", "outset", "ridge", "dotted",
-                "dashed", "solid", "double"
+                "none",
+                "hidden",
+                "inset",
+                "groove",
+                "outset",
+                "ridge",
+                "dotted",
+                "dashed",
+                "solid",
+                "double",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "none",
@@ -1177,11 +1468,16 @@ style_data = {
         },
         {
             "name": "border-left-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/layout_unit.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/layout_unit.h"
+            ],
             "keywords": ["thin", "medium", "thick"],
             "default_value": "LayoutUnit(3)",
             "typedom_types": ["Keyword", "Length"],
@@ -1194,7 +1490,11 @@ style_data = {
         },
         {
             "name": "border-right-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
@@ -1217,8 +1517,16 @@ style_data = {
             "field_group": "surround",
             "field_template": "keyword",
             "keywords": [
-                "none", "hidden", "inset", "groove", "outset", "ridge", "dotted",
-                "dashed", "solid", "double"
+                "none",
+                "hidden",
+                "inset",
+                "groove",
+                "outset",
+                "ridge",
+                "dotted",
+                "dashed",
+                "solid",
+                "double",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "none",
@@ -1229,11 +1537,16 @@ style_data = {
         },
         {
             "name": "border-right-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/layout_unit.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/layout_unit.h"
+            ],
             "keywords": ["thin", "medium", "thick"],
             "default_value": "LayoutUnit(3)",
             "typedom_types": ["Keyword", "Length"],
@@ -1246,7 +1559,11 @@ style_data = {
         },
         {
             "name": "border-top-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
@@ -1265,11 +1582,16 @@ style_data = {
         },
         {
             "name": "border-top-left-radius",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_size.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_size.h"
+            ],
             "default_value": "LengthSize(Length::Fixed(0), Length::Fixed(0))",
             "type_name": "LengthSize",
             "converter": "ConvertRadius",
@@ -1280,11 +1602,16 @@ style_data = {
         },
         {
             "name": "border-top-right-radius",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_size.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_size.h"
+            ],
             "default_value": "LengthSize(Length::Fixed(0), Length::Fixed(0))",
             "type_name": "LengthSize",
             "converter": "ConvertRadius",
@@ -1299,8 +1626,16 @@ style_data = {
             "field_group": "surround",
             "field_template": "keyword",
             "keywords": [
-                "none", "hidden", "inset", "groove", "outset", "ridge", "dotted",
-                "dashed", "solid", "double"
+                "none",
+                "hidden",
+                "inset",
+                "groove",
+                "outset",
+                "ridge",
+                "dotted",
+                "dashed",
+                "solid",
+                "double",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "none",
@@ -1311,11 +1646,16 @@ style_data = {
         },
         {
             "name": "border-top-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "surround",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/layout_unit.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/layout_unit.h"
+            ],
             "keywords": ["thin", "medium", "thick"],
             "default_value": "LayoutUnit(3)",
             "typedom_types": ["Keyword", "Length"],
@@ -1328,7 +1668,10 @@ style_data = {
         },
         {
             "name": "bottom",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -1341,7 +1684,10 @@ style_data = {
         },
         {
             "name": "box-shadow",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "pointer",
@@ -1369,8 +1715,16 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "field_template": "keyword",
             "keywords": [
-                "auto", "avoid", "avoid-column", "avoid-page", "column", "left", "page",
-                "recto", "right", "verso"
+                "auto",
+                "avoid",
+                "avoid-column",
+                "avoid-page",
+                "column",
+                "left",
+                "page",
+                "recto",
+                "right",
+                "verso",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "auto",
@@ -1381,8 +1735,16 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "field_template": "keyword",
             "keywords": [
-                "auto", "avoid", "avoid-column", "avoid-page", "column", "left", "page",
-                "recto", "right", "verso"
+                "auto",
+                "avoid",
+                "avoid-column",
+                "avoid-page",
+                "column",
+                "left",
+                "page",
+                "recto",
+                "right",
+                "verso",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "auto",
@@ -1413,7 +1775,11 @@ style_data = {
         },
         {
             "name": "caret-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
@@ -1437,11 +1803,16 @@ style_data = {
         },
         {
             "name": "clip",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "visual",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_box.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_box.h"
+            ],
             "default_value": "LengthBox()",
             "type_name": "LengthBox",
             "computed_style_custom_functions": ["setter"],
@@ -1452,17 +1823,22 @@ style_data = {
         },
         {
             "name": "clip-path",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "pointer",
-            "include_paths": ["third_party/blink/renderer/core/style/clip_path_operation.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/clip_path_operation.h"
+            ],
             "wrapper_pointer_name": "scoped_refptr",
             "default_value": "nullptr",
             "type_name": "ClipPathOperation",
             "converter": "ConvertClipPath",
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "clip-rule",
@@ -1471,7 +1847,7 @@ style_data = {
             "svg": True,
             "type_name": "WindRule",
             "keywords": ["nonzero", "evenodd"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "color-interpolation",
@@ -1499,7 +1875,11 @@ style_data = {
         {
             "name": "color-scheme",
             "field_group": "*",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "InitialValue"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "InitialValue",
+            ],
             "style_builder_custom_functions": ["initial", "inherit", "value"],
             "inherited": True,
             "runtime_flag": "CSSColorScheme",
@@ -1517,11 +1897,14 @@ style_data = {
             "keywords": ["balance", "auto"],
             "default_value": "balance",
             "getter": "GetColumnFill",
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "contain",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_size": 4,
             "field_template": "primitive",
@@ -1529,12 +1912,23 @@ style_data = {
             "name_for_methods": "Contain",
             "type_name": "unsigned",
             "converter": "ConvertFlags<Containment>",
-            "keywords": ["none", "strict", "content", "size", "layout", "style", "paint"],
+            "keywords": [
+                "none",
+                "strict",
+                "content",
+                "size",
+                "layout",
+                "style",
+                "paint",
+            ],
             "typedom_types": ["Keyword"],
         },
         {
             "name": "contain-intrinsic-size",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "box",
             "field_template": "external",
@@ -1542,11 +1936,16 @@ style_data = {
             "default_value": "LengthSize(Length::Auto(), Length::Auto())",
             "type_name": "LengthSize",
             "converter": "ConvertIntrinsicSize",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_size.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_size.h"
+            ],
         },
         {
             "name": "content",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "include_paths": ["third_party/blink/renderer/core/style/content_data.h"],
@@ -1560,7 +1959,10 @@ style_data = {
         },
         {
             "name": "counter-increment",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_template": "counter",
             "style_builder_template_args": {
                 "action": "Increment",
@@ -1570,7 +1972,10 @@ style_data = {
         },
         {
             "name": "counter-reset",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_template": "counter",
             "style_builder_template_args": {
                 "action": "Reset",
@@ -1580,7 +1985,10 @@ style_data = {
         },
         {
             "name": "counter-set",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_template": "counter",
             "style_builder_template_args": {
                 "action": "Set",
@@ -1590,25 +1998,60 @@ style_data = {
         },
         {
             "name": "cursor",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_template": "keyword",
             "keywords": [
-                "auto", "default", "none", "context-menu", "help", "pointer",
-                "progress", "wait", "cell", "crosshair", "text", "vertical-text",
-                "alias", "copy", "move", "no-drop", "not-allowed", "e-resize",
-                "n-resize", "ne-resize", "nw-resize", "s-resize", "se-resize",
-                "sw-resize", "w-resize", "ew-resize", "ns-resize", "nesw-resize",
-                "nwse-resize", "col-resize", "row-resize", "all-scroll", "zoom-in",
-                "zoom-out", "grab", "grabbing"
+                "auto",
+                "default",
+                "none",
+                "context-menu",
+                "help",
+                "pointer",
+                "progress",
+                "wait",
+                "cell",
+                "crosshair",
+                "text",
+                "vertical-text",
+                "alias",
+                "copy",
+                "move",
+                "no-drop",
+                "not-allowed",
+                "e-resize",
+                "n-resize",
+                "ne-resize",
+                "nw-resize",
+                "s-resize",
+                "se-resize",
+                "sw-resize",
+                "w-resize",
+                "ew-resize",
+                "ns-resize",
+                "nesw-resize",
+                "nwse-resize",
+                "col-resize",
+                "row-resize",
+                "all-scroll",
+                "zoom-in",
+                "zoom-out",
+                "grab",
+                "grabbing",
             ],
             "default_value": "auto",
             "style_builder_custom_functions": ["initial", "inherit", "value"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "cx",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "typedom_types": ["Length", "Percentage"],
@@ -1616,7 +2059,10 @@ style_data = {
         },
         {
             "name": "cy",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "typedom_types": ["Length", "Percentage"],
@@ -1624,7 +2070,10 @@ style_data = {
         },
         {
             "name": "d",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "converter": "ConvertPathOrNone",
@@ -1633,13 +2082,34 @@ style_data = {
         },
         {
             "name": "display",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "keywords": [
-                "inline", "block", "list-item", "inline-block", "table", "inline-table",
-                "table-row-group", "table-header-group", "table-footer-group",
-                "table-row", "table-column-group", "table-column", "table-cell",
-                "table-caption", "-webkit-box", "-webkit-inline-box", "flex",
-                "inline-flex", "grid", "inline-grid", "contents", "flow-root", "none"
+                "inline",
+                "block",
+                "list-item",
+                "inline-block",
+                "table",
+                "inline-table",
+                "table-row-group",
+                "table-header-group",
+                "table-footer-group",
+                "table-row",
+                "table-column-group",
+                "table-column",
+                "table-cell",
+                "table-caption",
+                "-webkit-box",
+                "-webkit-inline-box",
+                "flex",
+                "inline-flex",
+                "grid",
+                "inline-grid",
+                "contents",
+                "flow-root",
+                "none",
             ],
             "typedom_types": ["Keyword"],
             "style_builder_custom_functions": ["initial", "inherit", "value"],
@@ -1649,8 +2119,16 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "inherited": True,
             "svg": True,
-            "keywords": ["auto", "alphabetic", "ideographic", "middle", "central", "mathematical", "hanging"],
-            "typedom_types": ["Keyword"]
+            "keywords": [
+                "auto",
+                "alphabetic",
+                "ideographic",
+                "middle",
+                "central",
+                "mathematical",
+                "hanging",
+            ],
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "empty-cells",
@@ -1664,7 +2142,10 @@ style_data = {
         },
         {
             "name": "fill",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
@@ -1676,7 +2157,10 @@ style_data = {
         },
         {
             "name": "fill-opacity",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
@@ -1690,16 +2174,21 @@ style_data = {
             "svg": True,
             "type_name": "WindRule",
             "keywords": ["nonzero", "evenodd"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "filter",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "compositable": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_filter_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_filter_data.h"
+            ],
             "wrapper_pointer_name": "Persistent",
             "default_value": "MakeGarbageCollected<StyleFilterData>()",
             "type_name": "StyleFilterData",
@@ -1710,7 +2199,10 @@ style_data = {
         },
         {
             "name": "flex-basis",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "<length>",
@@ -1732,7 +2224,10 @@ style_data = {
         },
         {
             "name": "flex-grow",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "primitive",
@@ -1743,7 +2238,10 @@ style_data = {
         },
         {
             "name": "flex-shrink",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "primitive",
@@ -1776,7 +2274,11 @@ style_data = {
         },
         {
             "name": "flood-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "svg": True,
             "converter": "ConvertStyleColor",
@@ -1785,28 +2287,39 @@ style_data = {
         },
         {
             "name": "flood-opacity",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "converter": "ConvertAlpha",
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "grid-auto-columns",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/grid_track_list.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/grid_track_list.h"
+            ],
             "default_value": "GridTrackList(GridTrackSize(Length::Auto()))",
             "type_name": "GridTrackList",
             "converter": "ConvertGridTrackSizeList",
             "keywords": ["auto", "min-content", "max-content"],
             "typedom_types": ["Keyword", "Length", "Percentage", "Flex"],
-            "separator": " "
+            "separator": " ",
         },
         {
             "name": "grid-auto-flow",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_size": 4,  # FIXME: Make this use "kGridAutoFlowBits".
             "field_template": "primitive",
@@ -1815,24 +2328,32 @@ style_data = {
             "computed_style_custom_functions": ["getter"],
             "converter": "ConvertGridAutoFlow",
             "keywords": ["row", "column"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "grid-auto-rows",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/grid_track_list.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/grid_track_list.h"
+            ],
             "default_value": "GridTrackList(GridTrackSize(Length::Auto()))",
             "type_name": "GridTrackList",
             "converter": "ConvertGridTrackSizeList",
             "keywords": ["auto", "min-content", "max-content"],
             "typedom_types": ["Keyword", "Length", "Percentage", "Flex"],
-            "separator": " "
+            "separator": " ",
         },
         {
             "name": "grid-column-end",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "include_paths": ["third_party/blink/renderer/core/style/grid_position.h"],
@@ -1844,7 +2365,10 @@ style_data = {
         },
         {
             "name": "grid-column-start",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "include_paths": ["third_party/blink/renderer/core/style/grid_position.h"],
@@ -1856,7 +2380,10 @@ style_data = {
         },
         {
             "name": "grid-row-end",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "include_paths": ["third_party/blink/renderer/core/style/grid_position.h"],
@@ -1868,7 +2395,10 @@ style_data = {
         },
         {
             "name": "grid-row-start",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "include_paths": ["third_party/blink/renderer/core/style/grid_position.h"],
@@ -1880,18 +2410,26 @@ style_data = {
         },
         {
             "name": "grid-template-areas",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_custom_functions": ["initial", "inherit", "value"],
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "grid-template-columns",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "layout_dependent": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/grid_track_list.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/grid_track_list.h"
+            ],
             "default_value": "GridTrackList()",
             "type_name": "GridTrackList",
             "style_builder_template": "grid",
@@ -1899,15 +2437,20 @@ style_data = {
                 "type": "Column",
             },
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "grid-template-rows",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "layout_dependent": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/grid_track_list.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/grid_track_list.h"
+            ],
             "default_value": "GridTrackList()",
             "type_name": "GridTrackList",
             "style_builder_template": "grid",
@@ -1915,11 +2458,14 @@ style_data = {
                 "type": "Row",
             },
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "height",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "layout_dependent": True,
@@ -1950,15 +2496,21 @@ style_data = {
             "field_group": "*",
             "field_template": "keyword",
             "keywords": [
-                "auto", "optimizespeed", "optimizequality",
-                "-webkit-optimize-contrast", "pixelated"
+                "auto",
+                "optimizespeed",
+                "optimizequality",
+                "-webkit-optimize-contrast",
+                "pixelated",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "auto",
         },
         {
             "name": "image-orientation",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "runtime_flag": "ImageOrientation",
             "field_group": "*",
@@ -1979,10 +2531,15 @@ style_data = {
         },
         {
             "name": "justify-content",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_content_alignment_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_content_alignment_data.h"
+            ],
             "default_value": "StyleContentAlignmentData(ContentPosition::kNormal, ContentDistributionType::kDefault, OverflowAlignment::kDefault)",
             "type_name": "StyleContentAlignmentData",
             "converter": "ConvertContentAlignmentData",
@@ -1990,10 +2547,15 @@ style_data = {
         },
         {
             "name": "justify-items",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_self_alignment_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_self_alignment_data.h"
+            ],
             "default_value": "StyleSelfAlignmentData(ItemPosition::kLegacy, OverflowAlignment::kDefault)",
             "type_name": "StyleSelfAlignmentData",
             "converter": "ConvertSelfOrDefaultAlignmentData",
@@ -2001,10 +2563,15 @@ style_data = {
         },
         {
             "name": "justify-self",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_self_alignment_data.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_self_alignment_data.h"
+            ],
             "default_value": "StyleSelfAlignmentData(ItemPosition::kAuto, OverflowAlignment::kDefault)",
             "type_name": "StyleSelfAlignmentData",
             "converter": "ConvertSelfOrDefaultAlignmentData",
@@ -2012,7 +2579,10 @@ style_data = {
         },
         {
             "name": "left",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2025,7 +2595,10 @@ style_data = {
         },
         {
             "name": "letter-spacing",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "converter": "ConvertSpacing",
@@ -2036,7 +2609,11 @@ style_data = {
         },
         {
             "name": "lighting-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "svg": True,
             "converter": "ConvertStyleColor",
@@ -2045,7 +2622,10 @@ style_data = {
         },
         {
             "name": "line-height",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "inherited",
@@ -2061,7 +2641,10 @@ style_data = {
         },
         {
             "name": "line-height-step",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "runtime_flag": "CSSSnapSize",
             "field_group": "*",
@@ -2073,7 +2656,10 @@ style_data = {
         },
         {
             "name": "list-style-image",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
@@ -2085,7 +2671,7 @@ style_data = {
             "type_name": "StyleImage",
             "computed_style_custom_functions": ["getter", "setter"],
             "style_builder_custom_functions": ["value"],
-            "keywords": ["none"]
+            "keywords": ["none"],
         },
         {
             "name": "list-style-position",
@@ -2099,28 +2685,77 @@ style_data = {
         },
         {
             "name": "list-style-type",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "keywords": [
-                "disc", "circle", "square", "decimal", "decimal-leading-zero",
-                "arabic-indic", "bengali", "cambodian", "khmer", "devanagari",
-                "gujarati", "gurmukhi", "kannada", "lao", "malayalam", "mongolian",
-                "myanmar", "oriya", "persian", "urdu", "telugu", "tibetan", "thai",
-                "lower-roman", "upper-roman", "lower-greek", "lower-alpha",
-                "lower-latin", "upper-alpha", "upper-latin", "cjk-earthly-branch",
-                "cjk-heavenly-stem", "ethiopic-halehame", "ethiopic-halehame-am",
-                "ethiopic-halehame-ti-er", "ethiopic-halehame-ti-et", "hangul",
-                "hangul-consonant", "korean-hangul-formal", "korean-hanja-formal",
-                "korean-hanja-informal", "hebrew", "armenian", "lower-armenian",
-                "upper-armenian", "georgian", "cjk-ideographic", "simp-chinese-formal",
-                "simp-chinese-informal", "trad-chinese-formal", "trad-chinese-informal",
-                "hiragana", "katakana", "hiragana-iroha", "katakana-iroha", "none"
+                "disc",
+                "circle",
+                "square",
+                "decimal",
+                "decimal-leading-zero",
+                "arabic-indic",
+                "bengali",
+                "cambodian",
+                "khmer",
+                "devanagari",
+                "gujarati",
+                "gurmukhi",
+                "kannada",
+                "lao",
+                "malayalam",
+                "mongolian",
+                "myanmar",
+                "oriya",
+                "persian",
+                "urdu",
+                "telugu",
+                "tibetan",
+                "thai",
+                "lower-roman",
+                "upper-roman",
+                "lower-greek",
+                "lower-alpha",
+                "lower-latin",
+                "upper-alpha",
+                "upper-latin",
+                "cjk-earthly-branch",
+                "cjk-heavenly-stem",
+                "ethiopic-halehame",
+                "ethiopic-halehame-am",
+                "ethiopic-halehame-ti-er",
+                "ethiopic-halehame-ti-et",
+                "hangul",
+                "hangul-consonant",
+                "korean-hangul-formal",
+                "korean-hanja-formal",
+                "korean-hanja-informal",
+                "hebrew",
+                "armenian",
+                "lower-armenian",
+                "upper-armenian",
+                "georgian",
+                "cjk-ideographic",
+                "simp-chinese-formal",
+                "simp-chinese-informal",
+                "trad-chinese-formal",
+                "trad-chinese-informal",
+                "hiragana",
+                "katakana",
+                "hiragana-iroha",
+                "katakana-iroha",
+                "none",
             ],
             "style_builder_custom_functions": ["initial", "inherit", "value"],
         },
         {
             "name": "margin-bottom",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2135,7 +2770,10 @@ style_data = {
         },
         {
             "name": "margin-left",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2150,7 +2788,10 @@ style_data = {
         },
         {
             "name": "margin-right",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2165,7 +2806,10 @@ style_data = {
         },
         {
             "name": "margin-top",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2180,37 +2824,49 @@ style_data = {
         },
         {
             "name": "marker-end",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "svg": True,
             "name_for_methods": "MarkerEndResource",
             "converter": "ConvertElementReference",
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "marker-mid",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "svg": True,
             "name_for_methods": "MarkerMidResource",
             "converter": "ConvertElementReference",
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "marker-start",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "svg": True,
             "name_for_methods": "MarkerStartResource",
             "converter": "ConvertElementReference",
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "mask",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "svg": True,
             "name_for_methods": "MaskerResource",
             "converter": "ConvertElementReference",
@@ -2220,7 +2876,7 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "svg": True,
             "keywords": ["luminance", "alpha"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "math-style",
@@ -2230,7 +2886,7 @@ style_data = {
             "keywords": ["inline", "display"],
             "typedom_types": ["Keyword"],
             "default_value": "inline",
-            "runtime_flag": "CSSMathStyle"
+            "runtime_flag": "CSSMathStyle",
         },
         {
             "name": "math-superscript-shift-style",
@@ -2240,11 +2896,14 @@ style_data = {
             "keywords": ["inline", "display"],
             "typedom_types": ["Keyword"],
             "default_value": "display",
-            "runtime_flag": "CSSMathSuperscriptShiftStyle"
+            "runtime_flag": "CSSMathSuperscriptShiftStyle",
         },
         {
             "name": "max-height",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "field_group": "box",
@@ -2257,7 +2916,10 @@ style_data = {
         },
         {
             "name": "max-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "field_group": "box",
@@ -2270,7 +2932,10 @@ style_data = {
         },
         {
             "name": "min-height",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "field_group": "box",
@@ -2282,7 +2947,10 @@ style_data = {
         },
         {
             "name": "min-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "field_group": "box",
@@ -2297,11 +2965,26 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "field_group": "*",
             "field_template": "keyword",
-            "include_paths": ["third_party/blink/renderer/platform/graphics/graphics_types.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/graphics/graphics_types.h"
+            ],
             "keywords": [
-                "normal", "multiply", "screen", "overlay", "darken", "lighten",
-                "color-dodge", "color-burn", "hard-light", "soft-light", "difference",
-                "exclusion", "hue", "saturation", "color", "luminosity"
+                "normal",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "normal",
@@ -2320,11 +3003,16 @@ style_data = {
         },
         {
             "name": "object-position",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_point.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_point.h"
+            ],
             "default_value": "LengthPoint(Length::Percent(50.0), Length::Percent(50.0))",
             "type_name": "LengthPoint",
             "converter": "ConvertPosition",
@@ -2332,31 +3020,42 @@ style_data = {
         },
         {
             "name": "offset-anchor",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "runtime_flag": "CSSOffsetPositionAnchor",
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_point.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_point.h"
+            ],
             "default_value": "LengthPoint(Length::Auto(), Length::Auto())",
             "type_name": "LengthPoint",
             "converter": "ConvertPositionOrAuto",
             "keywords": ["auto"],
-            "typedom_types": ["Keyword", "Position"]
+            "typedom_types": ["Keyword", "Position"],
         },
         {
             "name": "offset-distance",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "<length>",
             "default_value": "Length::Fixed(0)",
             "converter": "ConvertLength",
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "offset-path",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "pointer",
@@ -2366,38 +3065,51 @@ style_data = {
             "type_name": "BasicShape",
             "converter": "ConvertOffsetPath",
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "offset-position",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "runtime_flag": "CSSOffsetPositionAnchor",
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_point.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_point.h"
+            ],
             "default_value": "LengthPoint(Length::Auto(), Length::Auto())",
             "type_name": "LengthPoint",
             "converter": "ConvertPositionOrAuto",
             "keywords": ["auto"],
-            "typedom_types": ["Keyword", "Position"]
+            "typedom_types": ["Keyword", "Position"],
         },
         {
             "name": "offset-rotate",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/style_offset_rotation.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_offset_rotation.h"
+            ],
             "default_value": "StyleOffsetRotation(0, OffsetRotationType::kAuto)",
             "type_name": "StyleOffsetRotation",
             "converter": "ConvertOffsetRotate",
             "keywords": ["auto", "reverse"],
-            "typedom_types": ["Keyword", "Angle"]
+            "typedom_types": ["Keyword", "Angle"],
         },
         {
             "name": "opacity",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "compositable": True,
             "field_group": "*",
@@ -2411,14 +3123,17 @@ style_data = {
         },
         {
             "name": "order",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "0",
             "type_name": "int",
             "computed_style_custom_functions": ["setter"],
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "origin-trial-test-property",
@@ -2427,11 +3142,14 @@ style_data = {
             "default_value": "normal",
             "keywords": ["normal", "none"],
             "typedom_types": ["Keyword"],
-            "runtime_flag": "OriginTrialsSampleAPI"
+            "runtime_flag": "OriginTrialsSampleAPI",
         },
         {
             "name": "orphans",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
@@ -2439,11 +3157,15 @@ style_data = {
             "computed_style_custom_functions": ["setter"],
             "default_value": "2",
             "type_name": "short",
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "outline-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
@@ -2460,11 +3182,16 @@ style_data = {
         },
         {
             "name": "outline-offset",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/layout_unit.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/layout_unit.h"
+            ],
             "default_value": "LayoutUnit(0)",
             "type_name": "LayoutUnit",
             "converter": "ConvertLayoutUnit",
@@ -2477,8 +3204,16 @@ style_data = {
             "field_group": "*",
             "field_template": "keyword",
             "keywords": [
-                "none", "hidden", "inset", "groove", "outset", "ridge", "dotted",
-                "dashed", "solid", "double"
+                "none",
+                "hidden",
+                "inset",
+                "groove",
+                "outset",
+                "ridge",
+                "dotted",
+                "dashed",
+                "solid",
+                "double",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "none",
@@ -2488,11 +3223,16 @@ style_data = {
         },
         {
             "name": "outline-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/layout_unit.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/layout_unit.h"
+            ],
             "default_value": "LayoutUnit(3)",
             "type_name": "LayoutUnit",
             "computed_style_custom_functions": ["getter", "setter"],
@@ -2506,9 +3246,7 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "inherited": False,
             "field_template": "keyword",
-            "keywords": [
-                "visible", "none", "auto"
-            ],
+            "keywords": ["visible", "none", "auto"],
             "typedom_types": ["Keyword"],
             "default_value": "auto",
         },
@@ -2543,9 +3281,7 @@ style_data = {
             "name": "overflow-x",
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "field_template": "keyword",
-            "keywords": [
-                "visible", "hidden", "scroll", "auto", "overlay", "clip"
-            ],
+            "keywords": ["visible", "hidden", "scroll", "auto", "overlay", "clip"],
             "typedom_types": ["Keyword"],
             "default_value": "visible",
             "type_name": "EOverflow",
@@ -2554,9 +3290,7 @@ style_data = {
             "name": "overflow-y",
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "field_template": "keyword",
-            "keywords": [
-                "visible", "hidden", "scroll", "auto", "overlay", "clip"
-            ],
+            "keywords": ["visible", "hidden", "scroll", "auto", "overlay", "clip"],
             "typedom_types": ["Keyword"],
             "default_value": "visible",
             "type_name": "EOverflow",
@@ -2582,7 +3316,7 @@ style_data = {
             "keywords": ["auto", "contain", "none"],
             "default_value": "auto",
             "type_name": "EOverscrollBehavior",
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "overscroll-behavior-y",
@@ -2591,11 +3325,14 @@ style_data = {
             "keywords": ["auto", "contain", "none"],
             "default_value": "auto",
             "type_name": "EOverscrollBehavior",
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "padding-bottom",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2609,7 +3346,10 @@ style_data = {
         },
         {
             "name": "padding-left",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2623,7 +3363,10 @@ style_data = {
         },
         {
             "name": "padding-right",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2637,7 +3380,10 @@ style_data = {
         },
         {
             "name": "padding-top",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2652,14 +3398,17 @@ style_data = {
         {
             "name": "page",
             "field_group": "*",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "converter": "ConvertPage",
             "type_name": "AtomicString",
             "default_value": "AtomicString()",
             "field_template": "external",
             "keywords": ["auto"],
             "typedom_types": ["Keyword"],
-            "runtime_flag": "NamedPages"
+            "runtime_flag": "NamedPages",
         },
         {
             "name": "page-orientation",
@@ -2670,20 +3419,26 @@ style_data = {
             "field_size": 2,
             "default_value": "PageOrientation::kUpright",
             "include_paths": ["third_party/blink/public/common/css/page_orientation.h"],
-            "runtime_flag": "NamedPages"
+            "runtime_flag": "NamedPages",
         },
         {
             "name": "paint-order",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "svg": True,
             "converter": "ConvertPaintOrder",
             "keywords": ["normal", "fill", "stroke", "markers"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "perspective",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "primitive",
@@ -2691,20 +3446,25 @@ style_data = {
             "type_name": "float",
             "converter": "ConvertPerspective",
             "keywords": ["none"],
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "perspective-origin",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/length_point.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/length_point.h"
+            ],
             "default_value": "LengthPoint(Length::Percent(50.0), Length::Percent(50.0))",
             "type_name": "LengthPoint",
             "converter": "ConvertPosition",
-            "typedom_types": ["Position"]
+            "typedom_types": ["Position"],
         },
         {
             "name": "pointer-events",
@@ -2713,8 +3473,17 @@ style_data = {
             "inherited": True,
             "field_template": "keyword",
             "keywords": [
-                "none", "auto", "stroke", "fill", "painted", "visible", "visiblestroke",
-                "visiblefill", "visiblepainted", "bounding-box", "all"
+                "none",
+                "auto",
+                "stroke",
+                "fill",
+                "painted",
+                "visible",
+                "visiblestroke",
+                "visiblefill",
+                "visiblepainted",
+                "bounding-box",
+                "all",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "auto",
@@ -2723,9 +3492,7 @@ style_data = {
             "name": "position",
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "field_template": "keyword",
-            "keywords": [
-                "static", "relative", "absolute", "fixed", "sticky"
-            ],
+            "keywords": ["static", "relative", "absolute", "fixed", "sticky"],
             "typedom_types": ["Keyword"],
             "default_value": "static",
             "getter": "GetPosition",
@@ -2733,7 +3500,10 @@ style_data = {
         },
         {
             "name": "quotes",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "pointer",
@@ -2743,16 +3513,19 @@ style_data = {
             "type_name": "QuotesData",
             "converter": "ConvertQuotes",
             "keywords": ["auto", "none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "content-visibility",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_template": "keyword",
             "keywords": ["visible", "auto", "hidden", "hidden-matchable"],
             "default_value": "visible",
             "typedom_types": ["Keyword"],
-            "runtime_flag": "CSSContentVisibility"
+            "runtime_flag": "CSSContentVisibility",
         },
         {
             "name": "resize",
@@ -2767,7 +3540,10 @@ style_data = {
         },
         {
             "name": "right",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -2780,7 +3556,10 @@ style_data = {
         },
         {
             "name": "r",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "typedom_types": ["Length", "Percentage"],
@@ -2788,7 +3567,10 @@ style_data = {
         },
         {
             "name": "rx",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "keywords": ["auto"],
@@ -2797,7 +3579,10 @@ style_data = {
         },
         {
             "name": "ry",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "keywords": ["auto"],
@@ -2806,7 +3591,10 @@ style_data = {
         },
         {
             "name": "scrollbar-gutter",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_size": 4,
             "field_template": "primitive",
@@ -2814,9 +3602,7 @@ style_data = {
             "name_for_methods": "ScrollbarGutter",
             "type_name": "unsigned",
             "converter": "ConvertScrollbarGutter",
-            "keywords": [
-                "auto", "stable", "always"
-            ],
+            "keywords": ["auto", "stable", "always"],
             "typedom_types": ["Keyword"],
             "runtime_flag": "ScrollbarGutter",
         },
@@ -2838,18 +3624,23 @@ style_data = {
                 "resolver": "block-end",
                 "physical_group": "scroll-margin",
             },
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-customization",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "converter": "ConvertFlags<blink::scroll_customization::ScrollDirection>",
             "type_name": "scroll_customization::ScrollDirection",
             "field_group": "*",
             "field_size": 4,
             "field_template": "primitive",
             "default_value": "scroll_customization::kScrollDirectionNone",
-            "include_paths": ["third_party/blink/renderer/core/scroll/scroll_customization.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/scroll/scroll_customization.h"
+            ],
             "runtime_flag": "ScrollCustomization",
         },
         {
@@ -2859,17 +3650,20 @@ style_data = {
                 "resolver": "block-start",
                 "physical_group": "scroll-margin",
             },
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-margin-bottom",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "0.0f",
             "type_name": "float",
             "converter": "ConvertComputedLength<float>",
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-margin-inline-end",
@@ -2878,7 +3672,7 @@ style_data = {
                 "resolver": "inline-end",
                 "physical_group": "scroll-margin",
             },
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-margin-inline-start",
@@ -2887,37 +3681,46 @@ style_data = {
                 "resolver": "inline-start",
                 "physical_group": "scroll-margin",
             },
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-margin-left",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "0.0f",
             "type_name": "float",
             "converter": "ConvertComputedLength<float>",
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-margin-right",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "0.0f",
             "type_name": "float",
             "converter": "ConvertComputedLength<float>",
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-margin-top",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "0.0f",
             "type_name": "float",
             "converter": "ConvertComputedLength<float>",
-            "typedom_types": ["Keyword", "Length"]
+            "typedom_types": ["Keyword", "Length"],
         },
         {
             "name": "scroll-padding-block-end",
@@ -2947,7 +3750,10 @@ style_data = {
         },
         {
             "name": "scroll-padding-bottom",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "<length>",
             "default_value": "Length()",
@@ -2983,7 +3789,10 @@ style_data = {
         },
         {
             "name": "scroll-padding-left",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "<length>",
             "default_value": "Length()",
@@ -2993,7 +3802,10 @@ style_data = {
         },
         {
             "name": "scroll-padding-right",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "<length>",
             "default_value": "Length()",
@@ -3003,7 +3815,10 @@ style_data = {
         },
         {
             "name": "scroll-padding-top",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "<length>",
             "default_value": "Length()",
@@ -3013,7 +3828,10 @@ style_data = {
         },
         {
             "name": "scroll-snap-align",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "include_paths": ["cc/input/scroll_snap_data.h"],
@@ -3022,7 +3840,7 @@ style_data = {
             "type_name": "cc::ScrollSnapAlign",
             "converter": "ConvertSnapAlign",
             "keywords": ["none", "start", "end", "center"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "scroll-snap-stop",
@@ -3030,11 +3848,14 @@ style_data = {
             "field_template": "keyword",
             "keywords": ["normal", "always"],
             "default_value": "normal",
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "scroll-snap-type",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "include_paths": ["cc/input/scroll_snap_data.h"],
@@ -3042,34 +3863,52 @@ style_data = {
             "getter": "GetScrollSnapType",
             "type_name": "cc::ScrollSnapType",
             "converter": "ConvertSnapType",
-            "keywords": ["none", "x", "y", "block", "inline", "both", "mandatory", "proximity"],
-            "typedom_types": ["Keyword"]
+            "keywords": [
+                "none",
+                "x",
+                "y",
+                "block",
+                "inline",
+                "both",
+                "mandatory",
+                "proximity",
+            ],
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "shape-image-threshold",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "0.0",
             "type_name": "float",
             "computed_style_custom_functions": ["setter"],
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "shape-margin",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "<length>",
             "default_value": "Length::Fixed(0)",
             "converter": "ConvertLength",
             "keywords": ["none"],
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "shape-outside",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
@@ -3080,7 +3919,7 @@ style_data = {
             "type_name": "ShapeValue",
             "computed_style_custom_functions": ["getter"],
             "converter": "ConvertShapeValue",
-            "keywords": ["none"]
+            "keywords": ["none"],
         },
         {
             "name": "shape-rendering",
@@ -3102,14 +3941,22 @@ style_data = {
             "field_group": "*",
             "field_template": "keyword",
             "keywords": [
-                "none", "normal", "spell-out", "digits", "literal-punctuation",
-                "no-punctuation"
+                "none",
+                "normal",
+                "spell-out",
+                "digits",
+                "literal-punctuation",
+                "no-punctuation",
             ],
             "default_value": "normal",
         },
         {
             "name": "stop-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "svg": True,
             "converter": "ConvertStyleColor",
@@ -3118,15 +3965,21 @@ style_data = {
         },
         {
             "name": "stop-opacity",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "converter": "ConvertAlpha",
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "stroke",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
@@ -3138,24 +3991,30 @@ style_data = {
         },
         {
             "name": "stroke-dasharray",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
             "name_for_methods": "StrokeDashArray",
             "converter": "ConvertStrokeDasharray",
             "keywords": ["none"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "stroke-dashoffset",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
             "name_for_methods": "StrokeDashOffset",
             "converter": "ConvertLength",
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "stroke-linecap",
@@ -3165,7 +4024,7 @@ style_data = {
             "name_for_methods": "CapStyle",
             "type_name": "LineCap",
             "keywords": ["butt", "round", "square"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "stroke-linejoin",
@@ -3175,49 +4034,59 @@ style_data = {
             "name_for_methods": "JoinStyle",
             "type_name": "LineJoin",
             "keywords": ["miter", "bevel", "round"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "stroke-miterlimit",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
             "name_for_methods": "StrokeMiterLimit",
             "type_name": "float",
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "stroke-opacity",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
             "converter": "ConvertAlpha",
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "stroke-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "svg": True,
             "converter": "ConvertUnzoomedLength",
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "table-layout",
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "field_template": "keyword",
-            "keywords": [
-                "auto", "fixed"
-            ],
+            "keywords": ["auto", "fixed"],
             "typedom_types": ["Keyword"],
             "default_value": "auto",
         },
         {
             "name": "tab-size",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
@@ -3238,8 +4107,15 @@ style_data = {
             "inherited": True,
             "field_template": "keyword",
             "keywords": [
-                "left", "right", "center", "justify", "-webkit-left", "-webkit-right",
-                "-webkit-center", "start", "end"
+                "left",
+                "right",
+                "center",
+                "justify",
+                "-webkit-left",
+                "-webkit-right",
+                "-webkit-center",
+                "start",
+                "end",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "start",
@@ -3254,7 +4130,7 @@ style_data = {
             "field_template": "keyword",
             "keywords": ["auto", "start", "end", "left", "right", "center", "justify"],
             "default_value": "auto",
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "text-anchor",
@@ -3262,7 +4138,7 @@ style_data = {
             "inherited": True,
             "svg": True,
             "keywords": ["start", "middle", "end"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "text-combine-upright",
@@ -3278,7 +4154,11 @@ style_data = {
         },
         {
             "name": "text-decoration-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
@@ -3297,7 +4177,10 @@ style_data = {
         },
         {
             "name": "text-decoration-line",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "visual",
             "field_template": "multi_keyword",
             "keywords": ["none", "underline", "overline", "line-through", "blink"],
@@ -3339,8 +4222,13 @@ style_data = {
         {
             "name": "text-decoration-thickness",
             "runtime_flag": "UnderlineOffsetThickness",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
-            "include_paths": ["third_party/blink/renderer/core/style/text_decoration_thickness.h"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/text_decoration_thickness.h"
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "external",
@@ -3354,14 +4242,17 @@ style_data = {
         },
         {
             "name": "text-indent",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
             "field_template": "<length>",
             "default_value": "Length::Fixed()",
             "style_builder_custom_functions": ["initial", "inherit", "value"],
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "text-justify",
@@ -3370,7 +4261,9 @@ style_data = {
             "runtime_flag": "CSS3Text",
             "field_group": "*",
             "field_template": "keyword",
-            "include_paths": ["third_party/blink/renderer/platform/text/text_justify.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/text/text_justify.h"
+            ],
             "keywords": ["auto", "none", "inter-word", "distribute"],
             "default_value": "auto",
             "getter": "GetTextJustify",
@@ -3389,7 +4282,10 @@ style_data = {
         },
         {
             "name": "text-shadow",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
@@ -3408,18 +4304,23 @@ style_data = {
         },
         {
             "name": "text-size-adjust",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/text_size_adjust.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/text_size_adjust.h"
+            ],
             "default_value": "TextSizeAdjust::AdjustAuto()",
             "getter": "GetTextSizeAdjust",
             "type_name": "TextSizeAdjust",
             "converter": "ConvertTextSizeAdjust",
             "keywords": ["none", "auto"],
-            "typedom_types": ["Keyword", "Percentage"]
+            "typedom_types": ["Keyword", "Percentage"],
         },
         {
             "name": "text-transform",
@@ -3435,7 +4336,10 @@ style_data = {
         },
         {
             "name": "text-underline-offset",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "<length>",
@@ -3449,7 +4353,10 @@ style_data = {
         },
         {
             "name": "text-underline-position",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_size": 4,
@@ -3464,7 +4371,10 @@ style_data = {
         },
         {
             "name": "top",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "surround",
@@ -3477,26 +4387,47 @@ style_data = {
         },
         {
             "name": "touch-action",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_size": 6,  # FIXME: Make this use "kTouchActionBits".
             "field_template": "primitive",
-            "include_paths": ["third_party/blink/renderer/platform/graphics/touch_action.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/graphics/touch_action.h"
+            ],
             "default_value": "TouchAction::kAuto",
             "type_name": "TouchAction",
             "converter": "ConvertFlags<blink::TouchAction>",
-            "keywords": ["auto", "none", "pan-x", "pan-left", "pan-right", "pan-y", "pan-up", "pan-down", "pinch-zoom", "manipulation"],
-            "typedom_types": ["Keyword"]
+            "keywords": [
+                "auto",
+                "none",
+                "pan-x",
+                "pan-left",
+                "pan-right",
+                "pan-y",
+                "pan-up",
+                "pan-down",
+                "pinch-zoom",
+                "manipulation",
+            ],
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "transform",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "compositable": True,
             "layout_dependent": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/transforms/transform_operations.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/transforms/transform_operations.h"
+            ],
             "keywords": ["none"],
             "default_value": "EmptyTransformOperations()",
             "typedom_types": ["Keyword", "Transform"],
@@ -3509,16 +4440,21 @@ style_data = {
             "field_template": "keyword",
             "keywords": ["fill-box", "view-box"],
             "default_value": "view-box",
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "transform-origin",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "layout_dependent": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/core/style/transform_origin.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/transform_origin.h"
+            ],
             "default_value": "TransformOrigin(Length::Percent(50.0), Length::Percent(50.0), 0)",
             "getter": "GetTransformOrigin",
             "type_name": "TransformOrigin",
@@ -3536,14 +4472,19 @@ style_data = {
         },
         {
             "name": "translate",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "compositable": True,
             "layout_dependent": True,
             "runtime_flag": "CSSIndependentTransformProperties",
             "field_group": "*",
             "field_template": "pointer",
-            "include_paths": ["third_party/blink/renderer/platform/transforms/translate_transform_operation.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/transforms/translate_transform_operation.h"
+            ],
             "wrapper_pointer_name": "scoped_refptr",
             "default_value": "nullptr",
             "type_name": "TranslateTransformOperation",
@@ -3551,13 +4492,18 @@ style_data = {
         },
         {
             "name": "rotate",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "compositable": True,
             "runtime_flag": "CSSIndependentTransformProperties",
             "field_group": "*",
             "field_template": "pointer",
-            "include_paths": ["third_party/blink/renderer/platform/transforms/rotate_transform_operation.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/transforms/rotate_transform_operation.h"
+            ],
             "wrapper_pointer_name": "scoped_refptr",
             "default_value": "nullptr",
             "type_name": "RotateTransformOperation",
@@ -3565,13 +4511,18 @@ style_data = {
         },
         {
             "name": "scale",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "compositable": True,
             "runtime_flag": "CSSIndependentTransformProperties",
             "field_group": "*",
             "field_template": "pointer",
-            "include_paths": ["third_party/blink/renderer/platform/transforms/scale_transform_operation.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/transforms/scale_transform_operation.h"
+            ],
             "wrapper_pointer_name": "scoped_refptr",
             "default_value": "nullptr",
             "type_name": "ScaleTransformOperation",
@@ -3582,10 +4533,16 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "affected_by_all": False,
             "field_template": "keyword",
-            "include_paths": ["third_party/blink/renderer/platform/text/unicode_bidi.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/text/unicode_bidi.h"
+            ],
             "keywords": [
-                "normal", "embed", "bidi-override", "isolate", "plaintext",
-                "isolate-override"
+                "normal",
+                "embed",
+                "bidi-override",
+                "isolate",
+                "plaintext",
+                "isolate-override",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "normal",
@@ -3597,18 +4554,31 @@ style_data = {
             "property_methods": ["CSSValueFromComputedStyleInternal"],
             "svg": True,
             "keywords": ["none", "non-scaling-stroke"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "vertical-align",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_custom_functions": ["inherit", "value"],
             "typedom_types": ["Keyword", "Length", "Percentage"],
-            "keywords": ["baseline", "sub", "super", "text-top", "text-bottom", "middle"],
+            "keywords": [
+                "baseline",
+                "sub",
+                "super",
+                "text-top",
+                "text-bottom",
+                "middle",
+            ],
             "valid_for_first_letter": True,
             "computed_value_comparable": True,
-            "computed_value_compare_fields": ['VerticalAlign', 'GetVerticalAlignLength']
+            "computed_value_compare_fields": [
+                "VerticalAlign",
+                "GetVerticalAlignLength",
+            ],
         },
         {
             "name": "visibility",
@@ -3625,7 +4595,10 @@ style_data = {
         },
         {
             "name": "x",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "typedom_types": ["Length", "Percentage"],
@@ -3633,7 +4606,10 @@ style_data = {
         },
         {
             "name": "y",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "svg": True,
             "typedom_types": ["Length", "Percentage"],
@@ -3641,7 +4617,10 @@ style_data = {
         },
         {
             "name": "appearance",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_size": 5,
             "field_template": "primitive",
@@ -3665,7 +4644,10 @@ style_data = {
         },
         {
             "name": "-webkit-border-horizontal-spacing",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "inherited",
@@ -3678,13 +4660,19 @@ style_data = {
         },
         {
             "name": "-webkit-border-image",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_custom_functions": ["value"],
             "valid_for_first_letter": True,
         },
         {
             "name": "-webkit-border-vertical-spacing",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "inherited",
@@ -3723,7 +4711,10 @@ style_data = {
         },
         {
             "name": "-webkit-box-flex",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "0.0f",
@@ -3731,7 +4722,10 @@ style_data = {
         },
         {
             "name": "-webkit-box-ordinal-group",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "primitive",
             "default_value": "1",
@@ -3756,10 +4750,15 @@ style_data = {
         },
         {
             "name": "-webkit-box-reflect",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "pointer",
-            "include_paths": ["third_party/blink/renderer/core/style/style_reflection.h"],
+            "include_paths": [
+                "third_party/blink/renderer/core/style/style_reflection.h"
+            ],
             "wrapper_pointer_name": "scoped_refptr",
             "default_value": "nullptr",
             "type_name": "StyleReflection",
@@ -3767,7 +4766,10 @@ style_data = {
         },
         {
             "name": "column-count",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "primitive",
@@ -3776,11 +4778,14 @@ style_data = {
             "computed_style_custom_functions": ["setter"],
             "style_builder_template": "auto",
             "keywords": ["auto"],
-            "typedom_types": ["Keyword", "Number"]
+            "typedom_types": ["Keyword", "Number"],
         },
         {
             "name": "column-gap",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
@@ -3793,7 +4798,10 @@ style_data = {
         },
         {
             "name": "row-gap",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
@@ -3806,7 +4814,11 @@ style_data = {
         },
         {
             "name": "column-rule-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
@@ -3826,20 +4838,33 @@ style_data = {
             "field_group": "*",
             "field_template": "keyword",
             "keywords": [
-                "none", "hidden", "inset", "groove", "outset", "ridge", "dotted",
-                "dashed", "solid", "double"
+                "none",
+                "hidden",
+                "inset",
+                "groove",
+                "outset",
+                "ridge",
+                "dotted",
+                "dashed",
+                "solid",
+                "double",
             ],
             "default_value": "none",
             "type_name": "EBorderStyle",
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "column-rule-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/geometry/layout_unit.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/geometry/layout_unit.h"
+            ],
             "default_value": "LayoutUnit(3)",
             "type_name": "LayoutUnit",
             "computed_style_custom_functions": ["initial", "getter", "setter"],
@@ -3849,7 +4874,10 @@ style_data = {
         },
         {
             "name": "column-span",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "keyword",
             "keywords": ["none", "all"],
@@ -3859,7 +4887,10 @@ style_data = {
         },
         {
             "name": "column-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "*",
             "field_template": "primitive",
@@ -3873,22 +4904,32 @@ style_data = {
         },
         {
             "name": "-webkit-highlight",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/wtf/text/atomic_string.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/wtf/text/atomic_string.h"
+            ],
             "default_value": "g_null_atom",
             "type_name": "AtomicString",
             "converter": "ConvertString<CSSValueID::kNone>",
         },
         {
             "name": "-webkit-hyphenate-character",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "external",
-            "include_paths": ["third_party/blink/renderer/platform/wtf/text/atomic_string.h"],
+            "include_paths": [
+                "third_party/blink/renderer/platform/wtf/text/atomic_string.h"
+            ],
             "default_value": "AtomicString()",
             "name_for_methods": "HyphenationString",
             "type_name": "AtomicString",
@@ -3900,7 +4941,14 @@ style_data = {
             "inherited": True,
             "field_group": "*",
             "field_template": "keyword",
-            "keywords": ["auto", "loose", "normal", "strict", "after-white-space", "anywhere"],
+            "keywords": [
+                "auto",
+                "loose",
+                "normal",
+                "strict",
+                "after-white-space",
+                "anywhere",
+            ],
             "default_value": "auto",
             "type_name": "LineBreak",
         },
@@ -3915,7 +4963,10 @@ style_data = {
         },
         {
             "name": "-webkit-line-clamp",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "field_group": "*",
             "field_template": "external",
             "default_value": "0",
@@ -3923,7 +4974,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-box-image-outset",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "mask_box",
             "style_builder_template_args": {
@@ -3932,7 +4986,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-box-image-repeat",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_template": "mask_box",
             "style_builder_template_args": {
                 "modifier_type": "Repeat",
@@ -3940,7 +4997,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-box-image-slice",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "mask_box",
             "style_builder_template_args": {
@@ -3949,13 +5009,19 @@ style_data = {
         },
         {
             "name": "-webkit-mask-box-image-source",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_custom_functions": ["value"],
         },
         {
             "name": "-webkit-mask-box-image-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "mask_box",
             "style_builder_template_args": {
@@ -3964,7 +5030,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-clip",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_template": "mask_layer",
             "style_builder_template_args": {
                 "fill_type": "Clip",
@@ -3972,7 +5041,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-composite",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_template": "mask_layer",
             "style_builder_template_args": {
                 "fill_type": "Composite",
@@ -3980,17 +5052,23 @@ style_data = {
         },
         {
             "name": "-webkit-mask-image",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "mask_layer",
             "style_builder_template_args": {
                 "fill_type": "Image",
-                "fill_type_getter": "GetImage"
+                "fill_type_getter": "GetImage",
             },
         },
         {
             "name": "-webkit-mask-origin",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_template": "mask_layer",
             "style_builder_template_args": {
                 "fill_type": "Origin",
@@ -3998,7 +5076,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-position-x",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "mask_layer",
             "style_builder_template_args": {
@@ -4007,7 +5088,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-position-y",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "mask_layer",
             "style_builder_template_args": {
@@ -4030,7 +5114,10 @@ style_data = {
         },
         {
             "name": "-webkit-mask-size",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "style_builder_template": "mask_layer",
             "style_builder_template_args": {
@@ -4091,7 +5178,11 @@ style_data = {
         },
         {
             "name": "-webkit-tap-highlight-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "<color>",
@@ -4107,7 +5198,11 @@ style_data = {
         },
         {
             "name": "-webkit-text-emphasis-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "external",
@@ -4122,7 +5217,10 @@ style_data = {
         },
         {
             "name": "-webkit-text-emphasis-position",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_size": 2,
@@ -4134,14 +5232,21 @@ style_data = {
         },
         {
             "name": "-webkit-text-emphasis-style",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "style_builder_custom_functions": ["initial", "inherit", "value"],
             "valid_for_marker": True,
         },
         {
             "name": "-webkit-text-fill-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "external",
@@ -4163,7 +5268,11 @@ style_data = {
         },
         {
             "name": "-webkit-text-stroke-color",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal", "ColorIncludingFallback"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+                "ColorIncludingFallback",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
@@ -4177,7 +5286,10 @@ style_data = {
         },
         {
             "name": "-webkit-text-stroke-width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "field_group": "*",
             "field_template": "primitive",
@@ -4237,7 +5349,14 @@ style_data = {
             "inherited": True,
             "field_template": "multi_keyword",  # We use a bitflag field due peformance issues
             "keywords": [
-                "none", "normal", "pre", "pre-wrap", "pre-line", "nowrap", "-webkit-nowrap", "break-spaces"
+                "none",
+                "normal",
+                "pre",
+                "pre-wrap",
+                "pre-line",
+                "nowrap",
+                "-webkit-nowrap",
+                "break-spaces",
             ],
             "typedom_types": ["Keyword"],
             "default_value": "normal",
@@ -4246,7 +5365,10 @@ style_data = {
         },
         {
             "name": "widows",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "field_group": "*",
@@ -4254,11 +5376,14 @@ style_data = {
             "computed_style_custom_functions": ["setter"],
             "default_value": "2",
             "type_name": "short",
-            "typedom_types": ["Number"]
+            "typedom_types": ["Number"],
         },
         {
             "name": "width",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "is_descriptor": True,
             "interpolable": True,
             "layout_dependent": True,
@@ -4272,10 +5397,13 @@ style_data = {
         },
         {
             "name": "will-change",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "style_builder_custom_functions": ["initial", "inherit", "value"],
             "keywords": ["auto"],
-            "typedom_types": ["Keyword"]
+            "typedom_types": ["Keyword"],
         },
         {
             "name": "word-break",
@@ -4290,19 +5418,24 @@ style_data = {
         },
         {
             "name": "word-spacing",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "inherited": True,
             "converter": "ConvertSpacing",
             "keywords": ["normal"],
-            "typedom_types": ["normal"],
             "typedom_types": ["Keyword", "Length"],
             "valid_for_first_letter": True,
             "valid_for_marker": True,
         },
         {
             "name": "z-index",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "interpolable": True,
             "field_group": "box",
             "field_template": "primitive",
@@ -4311,7 +5444,7 @@ style_data = {
             "computed_style_custom_functions": ["setter"],
             "style_builder_template": "auto",
             "keywords": ["auto"],
-            "typedom_types": ["Keyword", "Number"]
+            "typedom_types": ["Keyword", "Number"],
         },
         {
             "name": "inline-size",
@@ -4429,7 +5562,7 @@ style_data = {
                 "resolver": "inline-start",
                 "physical_group": "padding",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "padding-inline-end",
@@ -4439,7 +5572,7 @@ style_data = {
                 "resolver": "inline-end",
                 "physical_group": "padding",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "padding-block-start",
@@ -4449,7 +5582,7 @@ style_data = {
                 "resolver": "block-start",
                 "physical_group": "padding",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "padding-block-end",
@@ -4459,7 +5592,7 @@ style_data = {
                 "resolver": "block-end",
                 "physical_group": "padding",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "border-inline-start-width",
@@ -4572,7 +5705,7 @@ style_data = {
                 "resolver": "inline-start",
                 "physical_group": "inset",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "inset-inline-end",
@@ -4581,7 +5714,7 @@ style_data = {
                 "resolver": "inline-end",
                 "physical_group": "inset",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "inset-block-start",
@@ -4590,7 +5723,7 @@ style_data = {
                 "resolver": "block-start",
                 "physical_group": "inset",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
         {
             "name": "inset-block-end",
@@ -4599,9 +5732,8 @@ style_data = {
                 "resolver": "block-end",
                 "physical_group": "inset",
             },
-            "typedom_types": ["Length", "Percentage"]
+            "typedom_types": ["Length", "Percentage"],
         },
-
         {
             "name": "-webkit-border-end-color",
             "alias_for": "border-inline-end-color",
@@ -4718,7 +5850,10 @@ style_data = {
         },
         {
             "name": "-webkit-text-decorations-in-effect",
-            "property_methods": ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
+            "property_methods": [
+                "ParseSingleValue",
+                "CSSValueFromComputedStyleInternal",
+            ],
             "inherited": True,
             "style_builder_template": "empty",
         },
@@ -4832,20 +5967,31 @@ style_data = {
         {
             "name": "animation",
             "longhands": [
-                "animation-duration", "animation-timing-function", "animation-delay",
-                "animation-iteration-count", "animation-direction",
-                "animation-fill-mode", "animation-play-state", "animation-name",
-                "animation-timeline"
+                "animation-duration",
+                "animation-timing-function",
+                "animation-delay",
+                "animation-iteration-count",
+                "animation-direction",
+                "animation-fill-mode",
+                "animation-play-state",
+                "animation-name",
+                "animation-timeline",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "background",
             "longhands": [
-                "background-image", "background-position-x", "background-position-y",
-                "background-size", "background-repeat-x", "background-repeat-y",
-                "background-attachment", "background-origin", "background-clip",
-                "background-color"
+                "background-image",
+                "background-position-x",
+                "background-position-y",
+                "background-size",
+                "background-repeat-x",
+                "background-repeat-y",
+                "background-attachment",
+                "background-origin",
+                "background-clip",
+                "background-color",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -4862,20 +6008,35 @@ style_data = {
         {
             "name": "border",
             "longhands": [
-                "border-top-color", "border-top-style", "border-top-width",
-                "border-right-color", "border-right-style", "border-right-width",
-                "border-bottom-color", "border-bottom-style", "border-bottom-width",
-                "border-left-color", "border-left-style", "border-left-width",
-                "border-image-source", "border-image-slice", "border-image-width",
-                "border-image-outset", "border-image-repeat"
+                "border-top-color",
+                "border-top-style",
+                "border-top-width",
+                "border-right-color",
+                "border-right-style",
+                "border-right-width",
+                "border-bottom-color",
+                "border-bottom-style",
+                "border-bottom-width",
+                "border-left-color",
+                "border-left-style",
+                "border-left-width",
+                "border-image-source",
+                "border-image-slice",
+                "border-image-width",
+                "border-image-outset",
+                "border-image-repeat",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-block",
             "longhands": [
-                "border-block-start-color", "border-block-start-style", "border-block-start-width",
-                "border-block-end-color", "border-block-end-style", "border-block-end-width"
+                "border-block-start-color",
+                "border-block-start-style",
+                "border-block-start-width",
+                "border-block-end-color",
+                "border-block-end-style",
+                "border-block-end-width",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -4887,8 +6048,9 @@ style_data = {
         {
             "name": "border-block-end",
             "longhands": [
-                "border-block-end-width", "border-block-end-style",
-                "border-block-end-color"
+                "border-block-end-width",
+                "border-block-end-style",
+                "border-block-end-color",
             ],
             "property_methods": ["ParseShorthand"],
             "direction_aware_options": {
@@ -4899,8 +6061,9 @@ style_data = {
         {
             "name": "border-block-start",
             "longhands": [
-                "border-block-start-width", "border-block-start-style",
-                "border-block-start-color"
+                "border-block-start-width",
+                "border-block-start-style",
+                "border-block-start-color",
             ],
             "property_methods": ["ParseShorthand"],
             "direction_aware_options": {
@@ -4921,31 +6084,42 @@ style_data = {
         {
             "name": "border-bottom",
             "longhands": [
-                "border-bottom-width", "border-bottom-style", "border-bottom-color"
+                "border-bottom-width",
+                "border-bottom-style",
+                "border-bottom-color",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-color",
             "longhands": [
-                "border-top-color", "border-right-color", "border-bottom-color",
-                "border-left-color"
+                "border-top-color",
+                "border-right-color",
+                "border-bottom-color",
+                "border-left-color",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-image",
             "longhands": [
-                "border-image-source", "border-image-slice", "border-image-width",
-                "border-image-outset", "border-image-repeat"
+                "border-image-source",
+                "border-image-slice",
+                "border-image-width",
+                "border-image-outset",
+                "border-image-repeat",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-inline",
             "longhands": [
-                "border-inline-start-color", "border-inline-start-style", "border-inline-start-width",
-                "border-inline-end-color", "border-inline-end-style", "border-inline-end-width"
+                "border-inline-start-color",
+                "border-inline-start-style",
+                "border-inline-start-width",
+                "border-inline-end-color",
+                "border-inline-end-style",
+                "border-inline-end-width",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -4957,8 +6131,9 @@ style_data = {
         {
             "name": "border-inline-end",
             "longhands": [
-                "border-inline-end-width", "border-inline-end-style",
-                "border-inline-end-color"
+                "border-inline-end-width",
+                "border-inline-end-style",
+                "border-inline-end-color",
             ],
             "property_methods": ["ParseShorthand"],
             "direction_aware_options": {
@@ -4969,8 +6144,9 @@ style_data = {
         {
             "name": "border-inline-start",
             "longhands": [
-                "border-inline-start-width", "border-inline-start-style",
-                "border-inline-start-color"
+                "border-inline-start-width",
+                "border-inline-start-style",
+                "border-inline-start-color",
             ],
             "property_methods": ["ParseShorthand"],
             "direction_aware_options": {
@@ -4991,37 +6167,46 @@ style_data = {
         {
             "name": "border-left",
             "longhands": [
-                "border-left-width", "border-left-style", "border-left-color"
+                "border-left-width",
+                "border-left-style",
+                "border-left-color",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-radius",
             "longhands": [
-                "border-top-left-radius", "border-top-right-radius",
-                "border-bottom-right-radius", "border-bottom-left-radius"
+                "border-top-left-radius",
+                "border-top-right-radius",
+                "border-bottom-right-radius",
+                "border-bottom-left-radius",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-right",
             "longhands": [
-                "border-right-width", "border-right-style", "border-right-color"
+                "border-right-width",
+                "border-right-style",
+                "border-right-color",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-spacing",
             "longhands": [
-                "-webkit-border-horizontal-spacing", "-webkit-border-vertical-spacing"
+                "-webkit-border-horizontal-spacing",
+                "-webkit-border-vertical-spacing",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "border-style",
             "longhands": [
-                "border-top-style", "border-right-style", "border-bottom-style",
-                "border-left-style"
+                "border-top-style",
+                "border-right-style",
+                "border-bottom-style",
+                "border-left-style",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
             "keywords": ["none"],
@@ -5034,8 +6219,10 @@ style_data = {
         {
             "name": "border-width",
             "longhands": [
-                "border-top-width", "border-right-width", "border-bottom-width",
-                "border-left-width"
+                "border-top-width",
+                "border-right-width",
+                "border-bottom-width",
+                "border-left-width",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -5052,17 +6239,26 @@ style_data = {
         {
             "name": "font",
             "longhands": [
-                "font-style", "font-variant-ligatures", "font-variant-caps",
-                "font-variant-numeric", "font-variant-east-asian", "font-weight",
-                "font-stretch", "font-size", "line-height", "font-family"
+                "font-style",
+                "font-variant-ligatures",
+                "font-variant-caps",
+                "font-variant-numeric",
+                "font-variant-east-asian",
+                "font-weight",
+                "font-stretch",
+                "font-size",
+                "line-height",
+                "font-family",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "font-variant",
             "longhands": [
-                "font-variant-ligatures", "font-variant-caps",
-                "font-variant-numeric", "font-variant-east-asian"
+                "font-variant-ligatures",
+                "font-variant-caps",
+                "font-variant-numeric",
+                "font-variant-east-asian",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
             "is_descriptor": True,
@@ -5070,8 +6266,12 @@ style_data = {
         {
             "name": "grid",
             "longhands": [
-                "grid-template-rows", "grid-template-columns", "grid-template-areas",
-                "grid-auto-flow", "grid-auto-rows", "grid-auto-columns"
+                "grid-template-rows",
+                "grid-template-columns",
+                "grid-template-areas",
+                "grid-auto-flow",
+                "grid-auto-rows",
+                "grid-auto-columns",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
             "layout_dependent": True,
@@ -5094,8 +6294,10 @@ style_data = {
         {
             "name": "grid-area",
             "longhands": [
-                "grid-row-start", "grid-column-start", "grid-row-end",
-                "grid-column-end"
+                "grid-row-start",
+                "grid-column-start",
+                "grid-row-end",
+                "grid-column-end",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -5132,7 +6334,9 @@ style_data = {
         {
             "name": "grid-template",
             "longhands": [
-                "grid-template-rows", "grid-template-columns", "grid-template-areas"
+                "grid-template-rows",
+                "grid-template-columns",
+                "grid-template-areas",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
             "layout_dependent": True,
@@ -5182,8 +6386,11 @@ style_data = {
         {
             "name": "offset",
             "longhands": [
-                "offset-position", "offset-path", "offset-distance", "offset-rotate",
-                "offset-anchor"
+                "offset-position",
+                "offset-path",
+                "offset-distance",
+                "offset-rotate",
+                "offset-anchor",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -5205,7 +6412,10 @@ style_data = {
         {
             "name": "padding",
             "longhands": [
-                "padding-top", "padding-right", "padding-bottom", "padding-left"
+                "padding-top",
+                "padding-right",
+                "padding-bottom",
+                "padding-left",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
             "layout_dependent": True,
@@ -5237,7 +6447,12 @@ style_data = {
         },
         {
             "name": "scroll-margin",
-            "longhands": ["scroll-margin-top", "scroll-margin-right", "scroll-margin-bottom", "scroll-margin-left"],
+            "longhands": [
+                "scroll-margin-top",
+                "scroll-margin-right",
+                "scroll-margin-bottom",
+                "scroll-margin-left",
+            ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
@@ -5253,8 +6468,10 @@ style_data = {
         {
             "name": "scroll-padding",
             "longhands": [
-                "scroll-padding-top", "scroll-padding-right", "scroll-padding-bottom",
-                "scroll-padding-left"
+                "scroll-padding-top",
+                "scroll-padding-right",
+                "scroll-padding-bottom",
+                "scroll-padding-left",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -5270,14 +6487,21 @@ style_data = {
         },
         {
             "name": "text-decoration",
-            "longhands": ["text-decoration-line", "text-decoration-thickness", "text-decoration-style", "text-decoration-color"],
+            "longhands": [
+                "text-decoration-line",
+                "text-decoration-thickness",
+                "text-decoration-style",
+                "text-decoration-color",
+            ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
         {
             "name": "transition",
             "longhands": [
-                "transition-property", "transition-duration",
-                "transition-timing-function", "transition-delay"
+                "transition-property",
+                "transition-duration",
+                "transition-timing-function",
+                "transition-delay",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -5315,7 +6539,9 @@ style_data = {
         {
             "name": "column-rule",
             "longhands": [
-                "column-rule-width", "column-rule-style", "column-rule-color"
+                "column-rule-width",
+                "column-rule-style",
+                "column-rule-color",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -5327,18 +6553,25 @@ style_data = {
         {
             "name": "-webkit-mask",
             "longhands": [
-                "-webkit-mask-image", "-webkit-mask-position-x",
-                "-webkit-mask-position-y", "-webkit-mask-size", "-webkit-mask-repeat-x",
-                "-webkit-mask-repeat-y", "-webkit-mask-origin", "-webkit-mask-clip"
+                "-webkit-mask-image",
+                "-webkit-mask-position-x",
+                "-webkit-mask-position-y",
+                "-webkit-mask-size",
+                "-webkit-mask-repeat-x",
+                "-webkit-mask-repeat-y",
+                "-webkit-mask-origin",
+                "-webkit-mask-clip",
             ],
             "property_methods": ["ParseShorthand"],
         },
         {
             "name": "-webkit-mask-box-image",
             "longhands": [
-                "-webkit-mask-box-image-source", "-webkit-mask-box-image-slice",
-                "-webkit-mask-box-image-width", "-webkit-mask-box-image-outset",
-                "-webkit-mask-box-image-repeat"
+                "-webkit-mask-box-image-source",
+                "-webkit-mask-box-image-slice",
+                "-webkit-mask-box-image-width",
+                "-webkit-mask-box-image-outset",
+                "-webkit-mask-box-image-repeat",
             ],
             "property_methods": ["ParseShorthand", "CSSValueFromComputedStyleInternal"],
         },
@@ -5731,10 +6964,7 @@ style_data = {
             "name": "-webkit-background-clip",
             "alias_for": "background-clip",
         },
-        {
-            "name": "-webkit-background-origin",
-            "alias_for": "background-origin"
-        },
+        {"name": "-webkit-background-origin", "alias_for": "background-origin"},
         {
             "name": "-webkit-background-size",
             "alias_for": "background-size",

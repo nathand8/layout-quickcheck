@@ -9,6 +9,7 @@ python = "^3.8"
 requests = "^2.23.0"
 selenium = "^3.141.0"
 python-dotenv = "^0.14.0"
+lorem = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.3"

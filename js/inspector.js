@@ -1,6 +1,3 @@
-import { generateStyles } from "./styleLogGenerator.js";
-import { applyStyles } from "./styleLogApplier.js";
-
 export function loadIframe() {
   const frame = document.getElementById("inspect-frame");
   frame.onload = () => {
@@ -32,9 +29,12 @@ export function outputIframeContents() {
   return recurse(frameBody);
 }
 
-export function modifyStyles(styleLog) {
-  const iframeDocument = window.frames[0].document;
+export function loadCurrentStateFresh() {
+  window.frames[0].document.documentElement.innerHTML =
+    window.frames[0].document.documentElement.innerHTML;
+}
 
+export function modifyStyles(styleLog) {
   Object.entries(styleLog).forEach(([elementId, styles]) => {
     applyStyles(elementId, styles);
   });
@@ -42,4 +42,13 @@ export function modifyStyles(styleLog) {
 
 export function getHtml() {
   return window.frames[0].document.documentElement.outerHTML;
+}
+
+export function applyStyles(elementId, styles) {
+  const element = window.frames[0].document.getElementById(elementId);
+  if (element) {
+    Object.entries(styles).forEach(([styleName, styleValue]) => {
+      element.style[styleName] = styleValue;
+    });
+  }
 }

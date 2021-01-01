@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# flake8: noqa: E402
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -9,9 +13,7 @@ from minify_test_file import minify
 from bug_report_helper import save_bug_report
 from datetime import datetime
 import atexit
-from dotenv import load_dotenv
 
-load_dotenv()
 
 cwd = os.getcwd()
 cwd = cwd.replace("\\", "/")
@@ -39,22 +41,25 @@ servo_retry_failures = 0
 
 required_failure_count = int(os.environ.get("FAILURE_COUNT", 0))
 is_based_on_failure = required_failure_count > 0
-required_test_count = int(os.environ.get("TEST_COUNT", 1000))
+required_test_count = int(os.environ.get("TEST_COUNT", 0))
+is_based_on_test_count = required_test_count > 0
 
 
 def should_continue():
     if is_based_on_failure:
         return num_error < required_failure_count
-    else:
+    elif is_based_on_test_count:
         return num_tests < required_test_count
+    else:
+        return True
 
 
 while should_continue():
     timestamp = datetime.now()
     formatted_timestamp = timestamp.strftime(timestamp_format)
     body = generate_layout_tree()
-    base_style_log = generate_style_log(body, 0.05)
-    modified_style_log = generate_style_log(body, 0.01)
+    base_style_log = generate_style_log(body, 0.1, is_base=True)
+    modified_style_log = generate_style_log(body, 0.1, is_base=False)
 
     (is_success, differences, test_file_name,) = test_combination(
         chrome_webdriver,
@@ -73,6 +78,7 @@ while should_continue():
             minified_base_log,
             minified_modified_log,
             minified_postfix,
+            minified_differences,
         ) = minify(
             chrome_webdriver,
             formatted_timestamp,
@@ -88,7 +94,7 @@ while should_continue():
             minified_base_log,
             minified_modified_log,
             minified_postfix,
-            differences,
+            minified_differences,
         )
         num_error += 1
 
