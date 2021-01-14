@@ -37,6 +37,7 @@ def generate_body_string(body, styles):
 def apply_log(body, styles, modified_styles):
     body_string = generate_body_string(body, styles)
     modified_style_string = json.dumps(modified_styles)
+    recreate_problem_js_string = open('recreate_template.js', 'r').read().replace("__MODIFIED_STYLE_STRING__", modified_style_string)
 
     html_template = """
 <!DOCTYPE html>
@@ -44,35 +45,7 @@ def apply_log(body, styles, modified_styles):
   <head>
     <title>Fuzzy layout</title>
     <script>
-      function toggleChangesAndCompare() {{
-        const styleLog = {modified_style_string};
-
-        const outputDimensions = () => {{
-          Array.from(document.getElementsByTagName('*')).forEach((element) => {{
-            console.log(element.id, element.getBoundingClientRect());
-          }});
-        }}
-
-        console.log('Dimensions before application');
-        outputDimensions();
-
-        Object.entries(styleLog).forEach(([id, styles]) => {{
-          const element = document.getElementById(id);
-          if (element) {{
-            Object.entries(styles).forEach(([styleName, styleValue]) => {{
-              element.style[styleName] = styleValue;
-            }});
-          }}
-        }});
-
-        console.log('Dimensions after application');
-        outputDimensions();
-
-        document.documentElement.innerHTML = document.documentElement.innerHTML;
-
-        console.log('Dimensions after fresh load');
-        outputDimensions();
-      }}
+    {recreate_problem_js_string}
     </script>
   </head>
   <body>
@@ -82,5 +55,5 @@ def apply_log(body, styles, modified_styles):
     """
 
     return html_template.format(
-        body_string=body_string, modified_style_string=modified_style_string
+        body_string=body_string, recreate_problem_js_string=recreate_problem_js_string
     )
