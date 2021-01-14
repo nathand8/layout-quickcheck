@@ -73,6 +73,7 @@ while should_continue():
     if is_success:
         num_successful += 1
     else:
+        print("Found failing test. Minimizing...")
         (
             minified_body,
             minified_base_log,
@@ -100,7 +101,6 @@ while should_continue():
 
     num_tests += 1
 
-    print(f"Finished test {num_tests}")
     print(f"Success: {num_successful}; Failed: {num_error}")
 
 
