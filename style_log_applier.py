@@ -43,35 +43,37 @@ def apply_log(body, styles, modified_styles):
 <html>
   <head>
     <title>Fuzzy layout</title>
-    <!--
-const styleLog = {modified_style_string};
+    <script>
+      function toggleChangesAndCompare() {{
+        const styleLog = {modified_style_string};
 
-const outputDimensions = () => {{
-  Array.from(document.getElementsByTagName('*')).forEach((element) => {{
-    console.log(element.id, element.getBoundingClientRect());
-  }});
-}}
+        const outputDimensions = () => {{
+          Array.from(document.getElementsByTagName('*')).forEach((element) => {{
+            console.log(element.id, element.getBoundingClientRect());
+          }});
+        }}
 
-console.log('Dimensions before application');
-outputDimensions();
+        console.log('Dimensions before application');
+        outputDimensions();
 
-Object.entries(styleLog).forEach(([id, styles]) => {{
-  const element = document.getElementById(id);
-  if (element) {{
-    Object.entries(styles).forEach(([styleName, styleValue]) => {{
-      element.style[styleName] = styleValue;
-    }});
-  }}
-}});
+        Object.entries(styleLog).forEach(([id, styles]) => {{
+          const element = document.getElementById(id);
+          if (element) {{
+            Object.entries(styles).forEach(([styleName, styleValue]) => {{
+              element.style[styleName] = styleValue;
+            }});
+          }}
+        }});
 
-console.log('Dimensions after application');
-outputDimensions();
+        console.log('Dimensions after application');
+        outputDimensions();
 
-document.documentElement.innerHTML = document.documentElement.innerHTML;
+        document.documentElement.innerHTML = document.documentElement.innerHTML;
 
-console.log('Dimensions after fresh load');
-outputDimensions();
-    -->
+        console.log('Dimensions after fresh load');
+        outputDimensions();
+      }}
+    </script>
   </head>
   <body>
     {body_string}
