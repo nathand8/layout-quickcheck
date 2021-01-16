@@ -92,3 +92,6 @@ function recreateTheProblem() {
 
   compareDimensions(dimensionsAfterApplication, dimensionsAfterFreshLoad);
 }
+
+// Automatically show differences after 500ms
+// setTimeout(recreateTheProblem, 500);
