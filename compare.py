@@ -11,6 +11,8 @@ from layout_tester import test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
 from minify_test_file import minify
 from bug_report_helper import save_bug_report
+from test_config import TestConfig
+from test_subject import TestSubject
 from datetime import datetime
 import atexit
 
@@ -73,27 +75,21 @@ while should_continue():
     if is_success:
         num_successful += 1
     else:
+        test_config = TestConfig(chrome_webdriver, formatted_timestamp)
+        test_subject = TestSubject(body, base_style_log, modified_style_log)
         print("Found failing test. Minimizing...")
         (
-            minified_body,
-            minified_base_log,
-            minified_modified_log,
+            minified_test_subject,
             minified_postfix,
             minified_differences,
-        ) = minify(
-            chrome_webdriver,
-            formatted_timestamp,
-            body,
-            base_style_log,
-            modified_style_log,
-        )
+        ) = minify(test_config, test_subject)
         save_bug_report(
             bug_report_file_dir,
             layout_file_dir,
             formatted_timestamp,
-            minified_body,
-            minified_base_log,
-            minified_modified_log,
+            minified_test_subject.html_tree,
+            minified_test_subject.base_styles,
+            minified_test_subject.modified_styles,
             minified_postfix,
             minified_differences,
         )
