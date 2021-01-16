@@ -1,5 +1,6 @@
-from layout_tester import test_combination
+from layout_tester import test_combination, test_combination_wrapper
 from copy import deepcopy
+import random
 
 
 def elements(tree):
@@ -24,133 +25,125 @@ def remove_element(tree, element_id):
         )
     )
 
+def Minify_RemoveEachElement(test_subject):
 
-def minify(chrome_webdriver, test_timestamp, body, base_style_log, modified_style_log):
-    minified_base_log = deepcopy(base_style_log)
-    minified_modified_log = deepcopy(modified_style_log)
-    iteration = 0
+    for element in elements(test_subject.html_tree):
 
-    # Minify modified log
-    for element in elements(body):
-        element_id = element["id"]
+        def removeElement(proposed_test_subject):
+            proposed_test_subject.removeElementById(element['id'])
+            return proposed_test_subject
 
-        proposed_modified = deepcopy(minified_modified_log)
-        del proposed_modified[element_id]
+        yield removeElement
 
-        is_success, *_ = test_combination(
-            chrome_webdriver,
-            test_timestamp,
-            f"-minified-{iteration}",
-            body,
-            minified_base_log,
-            proposed_modified,
-        )
-        iteration += 1
 
-        if not is_success:
-            minified_modified_log = proposed_modified
-        else:
-            for style_name, style_value in styles(minified_modified_log[element_id]):
-                if style_name != "background-color":
-                    proposed_modified = deepcopy(minified_modified_log)
-                    del proposed_modified[element_id][style_name]
+def Minify_RemoveAllStylesForEachElement(test_subject):
 
-                    is_success, *_ = test_combination(
-                        chrome_webdriver,
-                        test_timestamp,
-                        f"-minified-{iteration}",
-                        body,
-                        minified_base_log,
-                        proposed_modified,
-                    )
-                    iteration += 1
+    # Generate a function (for each id) to remove styles by id from base_styles
+    for elementId, _ in test_subject.base_styles.items():
 
-                    if not is_success:
-                        minified_modified_log = proposed_modified
+        def removeStyle(proposed_test_subject):
+            if elementId in proposed_test_subject.base_styles:
+                del proposed_test_subject.base_styles[elementId]
+            return proposed_test_subject
 
-    # Minify base log
-    for element in elements(body):
-        element_id = element["id"]
+        yield removeStyle
 
-        proposed_base = deepcopy(minified_base_log)
-        if "background-color" in proposed_base[element_id]:
-            proposed_base[element_id] = {
-                "background-color": proposed_base[element_id]["background-color"]
-            }
-        else:
-            del proposed_base[element_id]
+    # Generate a function (for each id) to remove styles by id from modified_styles
+    for elementId, _ in test_subject.modified_styles.items():
 
-        is_success, *_ = test_combination(
-            chrome_webdriver,
-            test_timestamp,
-            f"-minified-{iteration}",
-            body,
-            proposed_base,
-            minified_modified_log,
-        )
-        iteration += 1
+        def removeStyle(proposed_test_subject):
+            if elementId in proposed_test_subject.modified_styles:
+                del proposed_test_subject.modified_styles[elementId]
+            return proposed_test_subject
 
-        if not is_success:
-            minified_base_log = proposed_base
-        else:
-            for style_name, style_value in styles(minified_base_log[element_id]):
-                if style_name != "background-color":
-                    proposed_base = deepcopy(minified_base_log)
-                    del proposed_base[element_id][style_name]
+        yield removeStyle
 
-                    is_success, *_ = test_combination(
-                        chrome_webdriver,
-                        test_timestamp,
-                        f"-minified-{iteration}",
-                        body,
-                        proposed_base,
-                        minified_modified_log,
-                    )
-                    iteration += 1
 
-                    if not is_success:
-                        minified_base_log = proposed_base
+def Minify_RemoveEachStyleForEachElement(test_subject):
 
-    # Remove unnecessary elements
-    minified_body = deepcopy(body)
-    for element in elements(body):
-        element_id = element["id"]
+    # Generate a function for each style - to remove that style from base_styles
+    for elementId, styles in test_subject.base_styles.items():
+        for style_name, _ in styles.items():
 
-        if (
-            len(minified_base_log.get(element_id, {}))
-            + len(minified_modified_log.get(element_id, {}))
-            <= 0
-        ):
-            proposed_body = deepcopy(minified_body)
-            proposed_body = remove_element(proposed_body, element_id)
+            def removeStyle(proposed_test_subject):
+                if elementId in proposed_test_subject.base_styles and style_name in proposed_test_subject.base_styles[elementId]:
+                    del proposed_test_subject.base_styles[elementId][style_name]
+                return proposed_test_subject
 
-            is_success, *_ = test_combination(
-                chrome_webdriver,
-                test_timestamp,
-                f"-minified-{iteration}",
-                proposed_body,
-                minified_base_log,
-                minified_modified_log,
-            )
+            yield removeStyle
+
+    # Generate a function for each style - to remove that style from modified_styles
+    for elementId, styles in test_subject.modified_styles.items():
+        for style_name, _ in styles.items():
+
+            def removeStyle(proposed_test_subject):
+                if elementId in proposed_test_subject.modified_styles and style_name in proposed_test_subject.modified_styles[elementId]:
+                    del proposed_test_subject.modified_styles[elementId][style_name]
+                return proposed_test_subject
+
+            yield removeStyle
+
+
+def Enhance_MinHeightWidthPerElement(test_subject):
+
+    # Generate a function for each element that gives it a min width
+    # (and another function for min height)
+    for element in elements(test_subject.html_tree):
+        elementId = element['id']
+
+        def giveMinSize(proposed_test_subject):
+            if elementId in proposed_test_subject.base_styles:
+                proposed_test_subject.base_styles[elementId]['min-width'] = "50px"
+                proposed_test_subject.base_styles[elementId]['min-height'] = "50px"
+            else:
+                proposed_test_subject.base_styles[elementId] = {
+                    'min-width': "50px",
+                    'min-height': "50px"
+                }
+            return proposed_test_subject
+
+        yield giveMinSize
+        
+
+def Enhance_BackgroundColorPerElement(test_subject):
+
+    BACKGROUND_COLORS = ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+
+    # Generate a function for each element that gives it a background-color
+    for element in elements(test_subject.html_tree):
+        elementId = element['id']
+        background_color = random.choice(BACKGROUND_COLORS)
+
+        def giveMinSize(proposed_test_subject):
+            if elementId in proposed_test_subject.base_styles:
+                proposed_test_subject.base_styles[elementId]['background-color'] = background_color
+            else:
+                proposed_test_subject.base_styles[elementId] = {'background-color': background_color}
+            return proposed_test_subject
+
+        yield giveMinSize
+
+
+def minify(test_config, test_subject):
+
+    def run_manipulations(iteration, test_subject, manipulations_generator):
+        for manipulation in manipulations_generator:
+            proposed_test_subject = manipulation(test_subject.deepcopy())
+            
+            bug_gone, *_ = test_combination_wrapper(test_config, proposed_test_subject)
             iteration += 1
+            if not bug_gone:
+                test_subject = proposed_test_subject
+        return (iteration, test_subject)
 
-            if not is_success:
-                minified_body = proposed_body
-
+    iteration = 1
+    (iteration, test_subject) = run_manipulations(iteration, test_subject, Minify_RemoveEachElement(test_subject))
+    (iteration, test_subject) = run_manipulations(iteration, test_subject, Minify_RemoveAllStylesForEachElement(test_subject))
+    (iteration, test_subject) = run_manipulations(iteration, test_subject, Minify_RemoveEachStyleForEachElement(test_subject))
+    (iteration, test_subject) = run_manipulations(iteration, test_subject, Enhance_MinHeightWidthPerElement(test_subject))
+    (iteration, test_subject) = run_manipulations(iteration, test_subject, Enhance_BackgroundColorPerElement(test_subject))
+    
     # Create final representations of minified files
-    is_success, minified_differences, _ = test_combination(
-        chrome_webdriver,
-        test_timestamp,
-        f"-minified-{iteration}",
-        minified_body,
-        minified_base_log,
-        minified_modified_log,
-    )
-
-    return (
-        minified_body,
-        minified_base_log,
-        minified_modified_log,
-        f"-minified-{iteration}",
-        minified_differences,
-    )
+    _, minified_differences, _ = test_combination_wrapper(test_config, test_subject)
+    test_config.prefix = f"-minified-{iteration}"
+    return (test_subject, test_config.prefix, minified_differences)
