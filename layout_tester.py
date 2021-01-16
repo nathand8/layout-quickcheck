@@ -13,7 +13,12 @@ cwd = cwd.replace("\\", "/")
 layout_file_dir = os.getenv("LAYOUT_FILE_DIR", f"{cwd}/layoutfiles")
 relative_layout_path = os.getenv("RELATIVE_LAYOUT_PATH", "layoutfiles")
 
+# Wrapper around test_combination that uses a TestSubject
+# test_subject of type TestSubject
+def test_combination_wrapper(test_config, test_subject):
+    return test_combination(test_config.webdriver, test_config.timestamp, test_config.postfix, test_subject.html_tree, test_subject.base_styles, test_subject.modified_styles)
 
+# Returns (differencesIsNone, differencesList, fileName)
 def test_combination(
     chrome_webdriver, test_timestamp, postfix, body, base_style_log, modified_style_log
 ):
