@@ -1,4 +1,6 @@
 import json
+import os
+import shutil
 
 
 INCLUDE_VALUE_IN_NAME = ["display"]
@@ -15,7 +17,7 @@ def all_style_names(*style_dicts):
 
 
 def save_bug_report(
-    bug_report_path,
+    bug_report_parent_folder,
     test_file_path,
     formatted_timestamp,
     body,
@@ -23,38 +25,24 @@ def save_bug_report(
     minified_modified,
     postfix,
     differences,
+    original_filepath
 ):
-    minified_base_file = f"test-file-{formatted_timestamp}{postfix}.html"
-    minified_modified_file = f"test-file-{formatted_timestamp}{postfix}-modified.html"
-    bug_report_file = f"bug-helper-{formatted_timestamp}.js"
+    # Create a folder to hold all the bug report files
+    bug_folder = os.path.join(bug_report_parent_folder, f"bug-report-{formatted_timestamp}{postfix}")
+    os.mkdir(bug_folder)
+
+    # Copy the original file
+    bug_filepath = os.path.join(bug_folder, "bug.html")
+    shutil.copy(original_filepath, bug_filepath)
+
+    # Custom bug helper file
+    bug_report_filename = f"bug-helper-{formatted_timestamp}.js"
+    bug_helper_filepath = os.path.join(bug_folder, bug_report_filename)
     styles_used = list(set(all_style_names(minified_base, minified_modified)))
     styles_used.sort()
     styles_used_string = ",".join(styles_used)
 
-    with open(f"{bug_report_path}/{bug_report_file}", "w") as f:
-        f.write(f"// minified file {test_file_path}/{minified_base_file} \n")
-        f.write(
-            f"// minified modified file {test_file_path}/{minified_modified_file} \n"
-        )
-        f.write(
-            """
-Object.entries(styleLog).forEach(([id, styles]) => {
-  const element = document.getElementById(id);
-  Object.entries(styles).forEach(([styleName, styleValue]) => {
-    element.style[styleName] = styleValue;
-  });
-});
-
-Object.entries(styleLog).forEach(([id, styles]) => {
-  const element = window.frames[0].document.getElementById(id);
-  if (element) {
-    Object.entries(styles).forEach(([styleName, styleValue]) => {
-      element.style[styleName] = styleValue;
-    });
-  }
-});
-"""
-        )
+    with open(bug_helper_filepath, "w") as f:
         f.write(f"const differences = {json.dumps(differences)}\n")
         f.write(f"const baseLog = {json.dumps(minified_base)}\n")
         f.write(f"const styleLog = {json.dumps(minified_modified)}\n")

@@ -1,7 +1,20 @@
-def save_file(path, formatted_timestamp, layout, postfix=''):
-    new_file_name = f'test-file-{formatted_timestamp}{postfix}.html'
+import os
 
-    with open(f'{path}/{new_file_name}', 'w') as html_file:
+def get_file_path(parent_path, formatted_timestamp, postfix=''):
+    filename = f'test-file-{formatted_timestamp}{postfix}.html'
+    filepath = os.path.join(parent_path, filename)
+    return filepath, filename
+
+
+def save_file(filepath, layout):
+    with open(filepath, 'w') as html_file:
         html_file.write(layout)
 
-    return new_file_name
+
+def remove_file(filepath):
+    if os.path.exists(filepath):
+        os.remove(filepath)
+    else:
+        print(f"Removing File Error: File not found {filepath}")
+
+

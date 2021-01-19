@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 import os
 from layout_tester import test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
+from html_file_generator import remove_file
 from minify_test_file import minify
 from bug_report_helper import save_bug_report
 from test_config import TestConfig
@@ -63,7 +64,7 @@ while should_continue():
     base_style_log = generate_style_log(body, 0.1, is_base=True)
     modified_style_log = generate_style_log(body, 0.1, is_base=False)
 
-    (is_success, differences, test_file_name,) = test_combination(
+    (no_differences, differences, test_filepath) = test_combination(
         chrome_webdriver,
         formatted_timestamp,
         "",
@@ -72,7 +73,7 @@ while should_continue():
         modified_style_log,
     )
 
-    if is_success:
+    if no_differences:
         num_successful += 1
     else:
         test_config = TestConfig(chrome_webdriver, formatted_timestamp)
@@ -92,12 +93,17 @@ while should_continue():
             minified_test_subject.modified_styles,
             minified_postfix,
             minified_differences,
+            test_filepath
         )
         num_error += 1
 
     num_tests += 1
 
     print(f"Success: {num_successful}; Failed: {num_error}")
+
+    # Clean up the test file
+    remove_file(test_filepath)
+
 
 
 def terminate_browsers():

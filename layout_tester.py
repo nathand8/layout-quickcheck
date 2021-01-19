@@ -2,7 +2,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from html_file_generator import save_file
+from html_file_generator import save_file, get_file_path
 from style_log_applier import apply_log
 from layout_comparer import compare_layout
 import os
@@ -22,9 +22,10 @@ def test_combination_wrapper(test_config, test_subject):
 def test_combination(
     chrome_webdriver, test_timestamp, postfix, body, base_style_log, modified_style_log
 ):
+    test_filepath, test_filename = get_file_path(layout_file_dir, test_timestamp, postfix)
     applied_layout = apply_log(body, base_style_log, modified_style_log)
-    test_file_name = save_file(layout_file_dir, test_timestamp, applied_layout, postfix)
-    test_web_page = f"http://localhost:8000/{relative_layout_path}/{test_file_name}"
+    save_file(test_filepath, applied_layout)
+    test_web_page = f"http://localhost:8000/{relative_layout_path}/{test_filename}"
 
     chrome_webdriver.get(f"{inspector_file}?url={test_web_page}")
     try:
@@ -49,4 +50,4 @@ def test_combination(
 
     differences = compare_layout(base_values, modified_values)
 
-    return (differences is None), differences, test_file_name
+    return (differences is None), differences, test_filepath
