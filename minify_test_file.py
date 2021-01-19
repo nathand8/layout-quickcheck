@@ -1,4 +1,5 @@
 from layout_tester import test_combination, test_combination_wrapper
+from css_generators.length import matches_length_pattern
 from copy import deepcopy
 import random
 
@@ -84,6 +85,38 @@ def Minify_RemoveEachStyleForEachElement(test_subject):
             yield removeStyle
 
 
+# Try simplifying css lengths (e.g "-1496vh" or "+1240vmin") to "-20px" or "20px"
+def Minify_SimplifyLengthStyles(test_subject):
+
+    # Generate a function for each style that is a length - change to a simple length
+    for elementId, styles in test_subject.base_styles.items():
+        for style_name, style_value in styles.items():
+            if matches_length_pattern(style_value):
+
+                def removeStyle(proposed_test_subject):
+                    if style_value.startswith("-"):
+                        proposed_test_subject.base_styles[elementId][style_name] = "-20px"
+                    else:
+                        proposed_test_subject.base_styles[elementId][style_name] = "20px"
+                    return proposed_test_subject
+
+                yield removeStyle
+
+    # Generate a function for each style that is a length - change to a simple length
+    for elementId, styles in test_subject.modified_styles.items():
+        for style_name, style_value in styles.items():
+            if matches_length_pattern(style_value):
+
+                def removeStyle(proposed_test_subject):
+                    if style_value.startswith("-"):
+                        proposed_test_subject.modified_styles[elementId][style_name] = "-20px"
+                    else:
+                        proposed_test_subject.modified_styles[elementId][style_name] = "20px"
+                    return proposed_test_subject
+
+                yield removeStyle
+
+
 def Enhance_MinHeightWidthPerElement(test_subject):
 
     # Generate a function for each element that gives it a min width
@@ -140,6 +173,7 @@ def minify(test_config, test_subject):
     (iteration, test_subject) = run_manipulations(iteration, test_subject, Minify_RemoveEachElement(test_subject))
     (iteration, test_subject) = run_manipulations(iteration, test_subject, Minify_RemoveAllStylesForEachElement(test_subject))
     (iteration, test_subject) = run_manipulations(iteration, test_subject, Minify_RemoveEachStyleForEachElement(test_subject))
+    (iteration, test_subject) = run_manipulations(iteration, test_subject, Minify_SimplifyLengthStyles(test_subject))
     (iteration, test_subject) = run_manipulations(iteration, test_subject, Enhance_MinHeightWidthPerElement(test_subject))
     (iteration, test_subject) = run_manipulations(iteration, test_subject, Enhance_BackgroundColorPerElement(test_subject))
     
