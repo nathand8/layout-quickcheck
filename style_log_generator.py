@@ -33,7 +33,7 @@ def is_supported_type(typedom_type, current_style):
 
 
 def generate_style(style_probability, is_base):
-    styles = {"background-color": generate_color()} if is_base else {}
+    styles = {}
     for current_style in style_data["data"]:
         if current_style["name"] not in STYLES_TO_IGNORE:
             if random() <= style_probability:
