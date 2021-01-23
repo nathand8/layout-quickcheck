@@ -26,6 +26,7 @@ def remove_element(tree, element_id):
         )
     )
 
+
 def Minify_RemoveEachElement(test_subject):
 
     for element in elements(test_subject.html_tree):
