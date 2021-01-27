@@ -87,6 +87,7 @@ while should_continue():
             minified_postfix,
             minified_differences,
         ) = minify(test_config, test_subject)
+
         save_bug_report(
             bug_report_file_dir,
             layout_file_dir,
