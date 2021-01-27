@@ -1,0 +1,6 @@
+decorator==4.4.2
+lorem==0.1.1
+py==1.10.0
+python-dotenv==0.15.0
+selenium==3.141.0
+urllib3==1.26.3
