@@ -32,6 +32,9 @@ def test_combination(
         timeout = 5
         WebDriverWait(chrome_webdriver, timeout).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
 
+        # Wait until page is loaded
+        WebDriverWait(chrome_webdriver, timeout).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
+
         chrome_webdriver.execute_script(
             "inspectorTools.modifyStyles(arguments[0])", modified_style_log
         )
