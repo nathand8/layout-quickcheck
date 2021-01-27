@@ -43,6 +43,7 @@ def apply_log(body, styles, modified_styles):
 <!DOCTYPE html>
 <html>
   <head>
+    <script type="text/javascript" src="/jsdist/main.js"></script>
     <title>Fuzzy layout</title>
     <script>
     {recreate_problem_js_string}

@@ -1,21 +1,4 @@
-export function loadIframe() {
-  const frame = document.getElementById("inspect-frame");
-  frame.onload = () => {
-    console.log(outputIframeContents());
-    document.getElementById("status").innerHTML = "Ready";
-  };
-
-  const windowUrl = new URL(window.location.href);
-  const testUrl = windowUrl.searchParams.get("url");
-  if (testUrl !== null) {
-    frame.src = testUrl;
-  } else {
-    frame.src = "testfiles/basic.html";
-  }
-}
-
-export function outputIframeContents() {
-  const frameBody = window.frames[0].document.body;
+export function outputElementDimensions() {
 
   const recurse = (element) => {
     const { x, y, width, height } = element.getBoundingClientRect();
@@ -26,12 +9,11 @@ export function outputIframeContents() {
     return values;
   };
 
-  return recurse(frameBody);
+  return recurse(document.body);
 }
 
 export function loadCurrentStateFresh() {
-  window.frames[0].document.documentElement.innerHTML =
-    window.frames[0].document.documentElement.innerHTML;
+  document.documentElement.innerHTML = document.documentElement.innerHTML;
 }
 
 export function modifyStyles(styleLog) {
@@ -40,12 +22,8 @@ export function modifyStyles(styleLog) {
   });
 }
 
-export function getHtml() {
-  return window.frames[0].document.documentElement.outerHTML;
-}
-
 export function applyStyles(elementId, styles) {
-  const element = window.frames[0].document.getElementById(elementId);
+  const element = document.getElementById(elementId);
   if (element) {
     Object.entries(styles).forEach(([styleName, styleValue]) => {
       element.style[styleName] = styleValue;
