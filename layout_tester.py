@@ -27,23 +27,22 @@ def test_combination(
     save_file(test_filepath, applied_layout)
     test_web_page = f"http://localhost:8000/{relative_layout_path}/{test_filename}"
 
-    chrome_webdriver.get(f"{inspector_file}?url={test_web_page}")
+    chrome_webdriver.get(f"{test_web_page}")
     try:
         timeout = 5
-        iframe_ready = EC.text_to_be_present_in_element((By.ID, "status"), "Ready")
-        WebDriverWait(chrome_webdriver, timeout).until(iframe_ready)
+        WebDriverWait(chrome_webdriver, timeout).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
 
         chrome_webdriver.execute_script(
             "inspectorTools.modifyStyles(arguments[0])", modified_style_log
         )
         base_values = chrome_webdriver.execute_script(
-            "return inspectorTools.outputIframeContents()"
+            "return inspectorTools.outputElementDimensions()"
         )
         chrome_webdriver.execute_script(
             "inspectorTools.loadCurrentStateFresh()"
         )
         modified_values = chrome_webdriver.execute_script(
-            "return inspectorTools.outputIframeContents()"
+            "return inspectorTools.outputElementDimensions()"
         )
     except TimeoutException:
         print("Failed to load test page due to timeout")
