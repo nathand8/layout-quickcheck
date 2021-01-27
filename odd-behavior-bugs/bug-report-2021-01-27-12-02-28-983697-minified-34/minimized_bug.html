@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fuzzy layout</title>
+    <script>
+function simpleRecreate() {
+
+// Make the style changes
+document.getElementById("faab94b323c14fdbb3fdb364b2597c0e").style["padding-right"] = "1459mm";
+document.getElementById("faab94b323c14fdbb3fdb364b2597c0e").style["white-space"] = "break-spaces";
+
+
+// Get the dimensions
+console.log("Dimensions after style changes, before reload");
+console.log("#faab94b323c14fdbb3fdb364b2597c0e", document.getElementById("faab94b323c14fdbb3fdb364b2597c0e").getBoundingClientRect());
+
+
+// Reload the elements
+document.documentElement.innerHTML = document.documentElement.innerHTML;
+
+// Get the dimensions again
+console.log("Dimensions after reload");
+console.log("#faab94b323c14fdbb3fdb364b2597c0e", document.getElementById("faab94b323c14fdbb3fdb364b2597c0e").getBoundingClientRect());
+
+
+}
+    </script>
+  </head>
+  <body>
+    
+              <div style="" id="faab94b323c14fdbb3fdb364b2597c0e">
+                
+              </div>
+            
+        <div style="padding: 100px;">
+            <button id="apply_styles_button">Apply Styles Above</button>
+        </div>
+  </body>
+  <script>
+    document.getElementById("apply_styles_button").onclick = simpleRecreate
+  </script>
+</html>
+    

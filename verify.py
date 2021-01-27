@@ -58,8 +58,8 @@ if __name__ == "__main__":
     print("Chrome Version   :", browser_version)
     print("WebDriver Version:", driver_version)
 
-    url = "http://localhost:8000/odd-behavior-bugs/bug-report-2021-01-27-05-26-52-274354-minified-86/bug.html"
-    modified_styles = {"03e40bd619664c4fb84c60028fd23ce0": {"margin-left": "-20px", "margin-top": "auto", "margin-block-start": "20px"}}
+    url = "http://localhost:8000/bugreportfiles/bug-report-2021-01-27-12-02-28-983697-minified-34/bug.html"
+    modified_styles = {"faab94b323c14fdbb3fdb364b2597c0e": {"padding-right": "1459mm", "white-space": "break-spaces"}}; 
 
     differences = test_combination(chrome_webdriver, url, modified_styles)
 

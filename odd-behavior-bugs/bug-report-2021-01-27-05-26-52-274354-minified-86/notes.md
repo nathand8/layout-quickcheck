@@ -42,6 +42,7 @@ Finding the right wait condition:
 - Using javascript to determine when page is loaded -> NO BUG
     - Waiting for one complete timeout cycle
     - This WORKS!... But it's painfully slow. (4x)
+    - This adds about 500ms for each wait
 - Using javascript to determine when page is loaded -> BUG
     - Waiting for page load event
     - Note: Event had already fired. Had to use https://stackoverflow.com/a/53525488/1457295
