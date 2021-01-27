@@ -6,6 +6,7 @@ from html_file_generator import save_file, get_file_path
 from style_log_applier import apply_log
 from layout_comparer import compare_layout
 import os
+import time
 
 inspector_file = "http://localhost:8000/inspector.html"
 cwd = os.getcwd()
@@ -30,10 +31,18 @@ def test_combination(
     chrome_webdriver.get(f"{test_web_page}")
     try:
         timeout = 5
-        WebDriverWait(chrome_webdriver, timeout).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
+        poll_frequency = 0.01
+        # Performance on CADE machines (Jan 27, 2020)
+        # poll_frequency = 0.0001, inspectorTools ~ 2.6ms, pageLoad ~ 5.6ms
+        # poll_frequency = 0.001, inspectorTools ~ 2.8ms, pageLoad ~ 6.0ms
+        # poll_frequency = 0.01, inspectorTools ~ 3.2ms, pageLoad ~ 15ms
+        # poll_frequency = 0.1, inspectorTools ~ 3.0ms, pageLoad ~ 105ms
+
+        # Wait until inspectorTools is loaded
+        WebDriverWait(chrome_webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
 
         # Wait until page is loaded
-        WebDriverWait(chrome_webdriver, timeout).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
+        WebDriverWait(chrome_webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
 
         chrome_webdriver.execute_script(
             "inspectorTools.modifyStyles(arguments[0])", modified_style_log
