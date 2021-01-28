@@ -33,6 +33,21 @@ export function applyStyles(elementId, styles) {
 
 export function isPageLoaded() {
 
+  // Wait for animation frame (Attempt 4)
+  if (!window.pageLoadTimeout) {
+    window.pageIsLoaded = false;
+    window.pageLoadTimeout = window.requestAnimationFrame(function() {
+      window.pageIsLoaded = true;
+    });
+  }
+  if (window.pageIsLoaded) {
+    window.pageIsLoaded = false;
+    window.pageLoadTimeout = false;
+    return true;
+  } else {
+    return false;
+  }
+
   // Wait for the document 'load' event (Attempt 3)
   // let navData = window.performance.getEntriesByType("navigation");
   // if (navData.length > 0 && navData[0].loadEventEnd > 0) {
@@ -45,13 +60,13 @@ export function isPageLoaded() {
   // return window.pageIsLoaded;
 
   // Wait for one complete timeout cycle (Attempt 2)
-  if (!window.pageLoadTimeout) {
-    window.pageIsLoaded = false;
-    window.pageLoadTimeout = setTimeout(() => {
-      window.pageIsLoaded = true;
-    })
-  }
-  return window.pageIsLoaded;
+  // if (!window.pageLoadTimeout) {
+  //   window.pageIsLoaded = false;
+  //   window.pageLoadTimeout = setTimeout(() => {
+  //     window.pageIsLoaded = true;
+  //   })
+  // }
+  // return window.pageIsLoaded;
 
   // Wait for document state (Attempt 1)
   // return document.readyState == "complete";

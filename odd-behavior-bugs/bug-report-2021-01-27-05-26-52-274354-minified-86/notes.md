@@ -39,11 +39,17 @@ Finding the right wait condition:
     - Wait for manual 0.4 seconds (using time.sleep)
 - Using javascript to determine when page is loaded -> BUG
     - Triggering on document.readyState
-- Using javascript to determine when page is loaded -> NO BUG
+- Using javascript to determine when page is loaded -> ~~NO BUG~~ BUG
     - Waiting for one complete timeout cycle
     - This WORKS!... But it's painfully slow. (4x)
     - This adds about 500ms for each wait
+    - Update: Changed poll_frequency to 0.0001 and the bug appears
+    - This is not a good solution. It only works if poll_frequency > 0.5... which is similar to a manual sleep
 - Using javascript to determine when page is loaded -> BUG
     - Waiting for page load event
     - Note: Event had already fired. Had to use https://stackoverflow.com/a/53525488/1457295
+- Waiting on requestForAnimationFrame -> BUG
+    - With the poll_frequency at 0.0001s, the bug is still there
+    - With the poll_frequency at 0.5s, the bug is gone
+    - This is essentially like having a manual 0.5s wait
     
