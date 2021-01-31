@@ -1,3 +1,4 @@
+from file_config import FileConfig
 from test_config import TestConfig
 from test_subject import TestSubject
 from selenium.common.exceptions import TimeoutException
@@ -10,16 +11,15 @@ import os
 inspector_file = "http://localhost:8000/inspector.html"
 cwd = os.getcwd()
 cwd = cwd.replace("\\", "/")
-layout_file_dir = os.getenv("LAYOUT_FILE_DIR", f"{cwd}/layoutfiles")
-relative_layout_path = os.getenv("RELATIVE_LAYOUT_PATH", "layoutfiles")
 
 
 # Returns (differencesIsNone, differencesList, fileName)
 def test_combination(test_config: TestConfig, test_subject: TestSubject):
-    test_filepath, test_filename = get_file_path(layout_file_dir, test_config.timestamp)
+    file_config = FileConfig()
+    test_filepath, test_filename = get_file_path(file_config.layout_file_dir, test_config.timestamp)
     save_as_web_page(test_subject, test_filepath)
 
-    test_web_page = f"http://localhost:8000/{relative_layout_path}/{test_filename}"
+    test_web_page = f"http://localhost:8000/{file_config.relative_url_path}/{test_filename}"
 
     differences = run_test_on_page(test_web_page, test_config, test_subject)
 

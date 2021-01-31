@@ -9,6 +9,7 @@ class FileConfig:
         cwd = cwd.replace("\\", "/")
         self.bug_report_file_dir = os.environ.get("BUG_REPORT_FILE_DIR", f"{cwd}/bugreportfiles")
         self.layout_file_dir = os.environ.get("LAYOUT_FILE_DIR", f"{cwd}/layoutfiles")
+        self.relative_url_path = os.getenv("RELATIVE_LAYOUT_PATH", "layoutfiles")
 
         if not os.path.exists(self.layout_file_dir):
             os.makedirs(self.layout_file_dir)
