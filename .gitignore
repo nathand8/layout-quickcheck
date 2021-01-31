@@ -5,3 +5,4 @@ node_modules
 jsdist
 .env
 bugreportfiles
+odd_behavior_bugs

@@ -1,7 +1,7 @@
 import os
 
-def get_file_path(parent_path, formatted_timestamp, postfix=''):
-    filename = f'test-file-{formatted_timestamp}{postfix}.html'
+def get_file_path(parent_path, formatted_timestamp):
+    filename = f'test-file-{formatted_timestamp}.html'
     filepath = os.path.join(parent_path, filename)
     return filepath, filename
 

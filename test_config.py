@@ -1,6 +1,5 @@
 class TestConfig:
-    def __init__(self, webdriver, timestamp, postfix=""):
+
+    def __init__(self, webdriver, timestamp):
         self.webdriver = webdriver
         self.timestamp = timestamp
-        self.postfix = postfix
-        pass

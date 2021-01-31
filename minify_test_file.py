@@ -1,4 +1,4 @@
-from layout_tester import test_combination, test_combination_wrapper
+from layout_tester import test_combination
 from css_generators.length import matches_length_pattern
 from copy import deepcopy
 import random
@@ -164,7 +164,7 @@ def minify(test_config, test_subject):
         for manipulation in manipulations_generator:
             proposed_test_subject = manipulation(test_subject.deepcopy())
             
-            bug_gone, *_ = test_combination_wrapper(test_config, proposed_test_subject)
+            bug_gone, *_ = test_combination(test_config, proposed_test_subject)
             iteration += 1
             if not bug_gone:
                 test_subject = proposed_test_subject
@@ -179,6 +179,5 @@ def minify(test_config, test_subject):
     (iteration, test_subject) = run_manipulations(iteration, test_subject, Enhance_BackgroundColorPerElement(test_subject))
     
     # Create final representations of minified files
-    _, minified_differences, _ = test_combination_wrapper(test_config, test_subject)
-    test_config.prefix = f"-minified-{iteration}"
-    return (test_subject, test_config.prefix, minified_differences)
+    _, minified_differences, _ = test_combination(test_config, test_subject)
+    return (test_subject, minified_differences)

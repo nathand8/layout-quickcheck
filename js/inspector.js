@@ -33,20 +33,24 @@ export function applyStyles(elementId, styles) {
 
 export function isPageLoaded() {
 
+  // Wait for console log (Attempt 5)
+  console.log("Wait!");
+  return true;
+
   // Wait for animation frame (Attempt 4)
-  if (!window.pageLoadTimeout) {
-    window.pageIsLoaded = false;
-    window.pageLoadTimeout = window.requestAnimationFrame(function() {
-      window.pageIsLoaded = true;
-    });
-  }
-  if (window.pageIsLoaded) {
-    window.pageIsLoaded = false;
-    window.pageLoadTimeout = false;
-    return true;
-  } else {
-    return false;
-  }
+  // if (!window.pageLoadTimeout) {
+  //   window.pageIsLoaded = false;
+  //   window.pageLoadTimeout = window.requestAnimationFrame(function() {
+  //     window.pageIsLoaded = true;
+  //   });
+  // }
+  // if (window.pageIsLoaded) {
+  //   window.pageIsLoaded = false;
+  //   window.pageLoadTimeout = false;
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 
   // Wait for the document 'load' event (Attempt 3)
   // let navData = window.performance.getEntriesByType("navigation");

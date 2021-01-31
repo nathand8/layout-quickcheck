@@ -18,17 +18,8 @@ from datetime import datetime
 import atexit
 
 
-cwd = os.getcwd()
-cwd = cwd.replace("\\", "/")
-layout_file_dir = os.environ.get("LAYOUT_FILE_DIR", f"{cwd}/layoutfiles")
-bug_report_file_dir = os.environ.get("BUG_REPORT_FILE_DIR", f"{cwd}/bugreportfiles")
-is_manual_test = False
 timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
 
-if not os.path.exists(layout_file_dir):
-    os.makedirs(layout_file_dir)
-if not os.path.exists(bug_report_file_dir):
-    os.makedirs(bug_report_file_dir)
 
 num_tests = 0
 num_successful = 0
@@ -66,36 +57,26 @@ while should_continue():
     body = generate_layout_tree()
     base_style_log = generate_style_log(body, 0.1, is_base=True)
     modified_style_log = generate_style_log(body, 0.1, is_base=False)
+    test_config = TestConfig(chrome_webdriver, formatted_timestamp)
+    test_subject = TestSubject(body, base_style_log, modified_style_log)
 
-    (no_differences, differences, test_filepath) = test_combination(
-        chrome_webdriver,
-        formatted_timestamp,
-        "",
-        body,
-        base_style_log,
-        modified_style_log,
-    )
+    (no_differences, differences, test_filepath) = test_combination(test_config, test_subject)
 
     if no_differences:
         num_successful += 1
     else:
-        test_config = TestConfig(chrome_webdriver, formatted_timestamp)
-        test_subject = TestSubject(body, base_style_log, modified_style_log)
+
+        # TODO: Force another test with long waits to ensure this is a bug
+
         print("Found failing test. Minimizing...")
         (
             minified_test_subject,
-            minified_postfix,
             minified_differences,
         ) = minify(test_config, test_subject)
 
         save_bug_report(
-            bug_report_file_dir,
-            layout_file_dir,
-            formatted_timestamp,
-            minified_test_subject.html_tree,
-            minified_test_subject.base_styles,
-            minified_test_subject.modified_styles,
-            minified_postfix,
+            test_config,
+            minified_test_subject,
             minified_differences,
             test_filepath
         )

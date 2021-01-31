@@ -1,46 +1,9 @@
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from html_file_generator import save_file, get_file_path
-from style_log_applier import apply_log
-from layout_comparer import compare_layout
+from layout_tester import run_test_on_page
 import os
-import time
-
-# Returns (differencesIsNone, differencesList, fileName)
-def test_combination(chrome_webdriver, test_web_page, modified_style_log):
-
-    chrome_webdriver.get(f"{test_web_page}")
-    try:
-        timeout = 5
-
-        # Wait until the inspectorTools has loaded
-        WebDriverWait(chrome_webdriver, timeout).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
-
-        # Wait until page is loaded
-        WebDriverWait(chrome_webdriver, timeout).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
-
-        chrome_webdriver.execute_script(
-            "inspectorTools.modifyStyles(arguments[0])", modified_style_log
-        )
-        base_values = chrome_webdriver.execute_script(
-            "return inspectorTools.outputElementDimensions()"
-        )
-        chrome_webdriver.execute_script(
-            "inspectorTools.loadCurrentStateFresh()"
-        )
-        modified_values = chrome_webdriver.execute_script(
-            "return inspectorTools.outputElementDimensions()"
-        )
-    except TimeoutException:
-        print("Failed to load test page due to timeout")
-
-    differences = compare_layout(base_values, modified_values)
-
-    return differences
+from test_subject import TestSubject
+from test_config import TestConfig
 
 
 if __name__ == "__main__":
@@ -53,14 +16,22 @@ if __name__ == "__main__":
         executable_path=os.environ.get("CHROME_DRIVER_PATH"), options=chrome_options
     )
 
+    # chrome_webdriver.set_window_size(1000, 1000)
+
     browser_version = chrome_webdriver.capabilities['browserVersion']
     driver_version = chrome_webdriver.capabilities['chrome']['chromedriverVersion'].split(' ')[0]
     print("Chrome Version   :", browser_version)
     print("WebDriver Version:", driver_version)
 
-    url = "http://localhost:8000/bugreportfiles/bug-report-2021-01-27-12-02-28-983697-minified-34/bug.html"
-    modified_styles = {"faab94b323c14fdbb3fdb364b2597c0e": {"padding-right": "1459mm", "white-space": "break-spaces"}}; 
+    # url = "http://localhost:8000/odd-behavior-bugs/bug-report-2021-01-27-12-02-28-983697-minified-34/bug.html"
+    # modified_styles = {"faab94b323c14fdbb3fdb364b2597c0e": {"padding-right": "1459mm", "white-space": "break-spaces"}}
 
-    differences = test_combination(chrome_webdriver, url, modified_styles)
+    url = "http://localhost:8000/bugreportfiles/bug-report-2021-01-30-23-05-19-908613-minified-136/bug.html"
+    modified_styles = {"e2349c93c3e74b21990e6865b688b794": {"animation-direction": "alternate", "font-feature-settings": "normal", "clip-path": "none", "line-height-step": "-1546vmin", "offset-path": "none", "overscroll-behavior-x": "none", "overscroll-behavior-y": "none", "padding-top": "1758em", "scroll-margin-right": "+103vmin", "scroll-padding-left": "auto", "text-justify": "auto", "text-underline-offset": "auto", "transform": "none", "y": "1537ch", "margin-inline-start": "510vi", "inset-block-end": "-961vh"}, "f9e5a944ea9c45da90087170f27235a4": {"animation-direction": "alternate-reverse", "animation-fill-mode": "backwards", "font-kerning": "normal", "font-weight": "bold", "font-feature-settings": "normal", "text-rendering": "optimizespeed", "backdrop-filter": "none", "backface-visibility": "visible", "border-image-width": "-25vw", "bottom": "auto", "box-sizing": "border-box", "caret-color": "auto", "counter-set": "none", "cx": "992cm", "d": "none", "flood-color": "currentcolor", "height": "-695vmin", "left": "1449mm", "lighting-color": "currentcolor", "offset-distance": "+1227rlh", "overflow-y": "scroll", "padding-right": "518vmin", "perspective": "+82vh", "right": "auto", "scroll-margin-inline-end": "-1782vh", "scroll-padding-right": "auto", "scroll-snap-type": "both", "shape-outside": "none", "shape-rendering": "auto", "text-decoration-color": "currentcolor", "text-decoration-style": "wavy", "top": "-480rem", "column-span": "none", "z-index": "auto", "margin-block-end": "1602rlh", "inset-inline-start": "1682in"}} 
+
+    test_subject = TestSubject({}, {}, modified_styles)
+    test_config = TestConfig(chrome_webdriver, "")
+
+    differences = run_test_on_page(url, test_config, test_subject)
 
     print("differences:", differences)
