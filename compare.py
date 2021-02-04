@@ -69,7 +69,7 @@ while should_continue():
             minified_differences,
         ) = minify(test_config, test_subject)
 
-        if differences is None:
+        if minified_differences is None:
             print("Can't reproduce the problem after minimizing...")
             num_cant_reproduce += 1
         else:
@@ -80,7 +80,7 @@ while should_continue():
             minified_test_subject,
             minified_differences,
             test_filepath,
-            cant_reproduce = differences is None
+            cant_reproduce = minified_differences is None
         )
 
     num_tests += 1
