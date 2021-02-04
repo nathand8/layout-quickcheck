@@ -41,25 +41,23 @@ def run_test_on_page(test_url, test_config: TestConfig, test_subject: TestSubjec
         # poll_frequency = 0.1, inspectorTools ~ 3.0ms, pageLoad ~ 105ms
 
         # Wait until inspectorTools is loaded
-        WebDriverWait(test_config.webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
-
-        # time.sleep(0.7)
+        # WebDriverWait(test_config.webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
 
         # Wait until page is loaded
-        WebDriverWait(test_config.webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
+        # WebDriverWait(test_config.webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
 
-        test_config.webdriver.execute_script(
-            "inspectorTools.modifyStyles(arguments[0])", test_subject.modified_styles.map
-        )
-        base_values = test_config.webdriver.execute_script(
-            "return inspectorTools.outputElementDimensions()"
-        )
-        test_config.webdriver.execute_script(
-            "inspectorTools.loadCurrentStateFresh()"
-        )
-        modified_values = test_config.webdriver.execute_script(
-            "return inspectorTools.outputElementDimensions()"
-        )
+        # Make the style changes
+        test_config.webdriver.execute_script("makeStyleChanges()")
+
+        # Measure the elements
+        base_values = test_config.webdriver.execute_script("return outputElementDimensions()")
+
+        # Reload the page exactly as it is (including style changes)
+        test_config.webdriver.execute_script("reload()")
+
+        # Measure the elements again
+        modified_values = test_config.webdriver.execute_script("return outputElementDimensions()")
+
     except TimeoutException:
         print("Failed to load test page due to timeout")
 

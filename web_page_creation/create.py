@@ -7,7 +7,6 @@ html_template = """
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="/jsdist/main.js"></script>
     <title>Fuzzy layout</title>
     <script>
     {js_string}

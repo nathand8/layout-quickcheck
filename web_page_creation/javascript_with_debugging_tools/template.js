@@ -1,3 +1,29 @@
+
+// Helper function to output dimensions
+// Output to be consumed by layout_comparer.py : compare_layout()
+//
+// Output Format: {
+//   x: 10,
+//   y: 10,
+//   width: 1200,
+//   height: 900,
+//   children: [{...}, ...]
+// }
+function outputElementDimensions() {
+
+  const recurse = (element) => {
+    const { x, y, width, height } = element.getBoundingClientRect();
+    const values = { x, y, width, height };
+    values.children = Array.from(element.children).map((child) =>
+      recurse(child)
+    );
+    return values;
+  };
+
+  return recurse(document.body);
+}
+
+
 // This function will take two dictionaires of dimensions and compare them
 // Looks for dimensions that are NOT equal
 function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
@@ -36,7 +62,9 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
 }
 
 // Get all element dimensions on the page
-// Returns object in this format: {
+// Output to be consumed by compareDimensions()
+//
+// Output format: {
 //    'id<tag>': {BoundingClientRect},
 //    'id<tag>': {BoundingClientRect},
 //    ...
