@@ -8,21 +8,10 @@ def create(test_subject: TestSubject):
         get_dimensions = get_dimensions(test_subject)
     )
 
+
 def make_style_changes(test_subject: TestSubject):
-    """
-    Create a string that will make style changes in javascript
+    return test_subject.modified_styles.toJS()
 
-    Example Output: 
-
-        document.getElementById("912A37J38G").style["min-width"] = "200px";
-        document.getElementById("912A37J38G").style["margin-left"] = "10em";
-        document.getElementById("PTN873OUW").style["background-color"] = "blue";
-        
-    """
-    ret_string = ""
-    for (elementId, styles) in test_subject.modified_styles.map.items():
-        for (style_name, style_value) in styles.items():
-            ret_string += f'document.getElementById("{elementId}").style["{style_name}"] = "{style_value}";\n'
     
 def get_dimensions(test_subject: TestSubject):
     """
