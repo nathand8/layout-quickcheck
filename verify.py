@@ -1,5 +1,4 @@
 from layout_tester import run_test_on_page
-import os
 import sys
 from webdrivers import chrome
 

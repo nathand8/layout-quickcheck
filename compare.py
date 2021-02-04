@@ -55,7 +55,7 @@ while should_continue():
     test_config = TestConfig(chrome_webdriver, formatted_timestamp)
     test_subject = TestSubject(body, StyleMap(base_style_log), StyleMap(modified_style_log))
 
-    (no_differences, differences, test_filepath) = test_combination(test_config, test_subject)
+    (no_differences, differences, test_filepath) = test_combination(test_config, test_subject, verify=True)
 
     if no_differences:
         num_successful += 1
