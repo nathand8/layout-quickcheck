@@ -55,16 +55,7 @@ const outputDimensions = () => {
 
 // Make the style changes to the page
 function makeStyleChanges() {
-  const styleLog = __MODIFIED_STYLE_STRING__;
-
-  Object.entries(styleLog).forEach(([id, styles]) => {
-    const element = document.getElementById(id);
-    if (element) {
-      Object.entries(styles).forEach(([styleName, styleValue]) => {
-        element.style[styleName] = styleValue;
-      });
-    }
-  });
+  __MODIFIED_STYLE_STRING__
 }
 
 // Reload all of the elements/styles on the page
