@@ -55,6 +55,9 @@ def generate_style(style_probability, is_base):
 def generate_child():
     child_tag = "div"
     child_id = uuid.uuid4().hex
+    for n in range(10): # Replace the numbers with letters, for ease of use in JS
+        child_id = child_id.replace(str(n), choice("abcdefghijklmnopqrstuvwxyz"))
+
     grandchildren = generate_children(child_tag)
 
     return {
