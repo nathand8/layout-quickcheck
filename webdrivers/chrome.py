@@ -11,4 +11,5 @@ def getWebDriver():
     chrome_webdriver = WebDriver(
         executable_path=os.environ.get("CHROME_DRIVER_PATH"), options=chrome_options
     )
+    chrome_webdriver.set_window_size(1000, 1000)
     return chrome_webdriver

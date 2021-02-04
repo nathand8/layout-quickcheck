@@ -7,8 +7,6 @@ if __name__ == "__main__":
 
     chrome_webdriver = chrome.getWebDriver()
 
-    chrome_webdriver.set_window_size(1000, 1000)
-
     browser_version = chrome_webdriver.capabilities['browserVersion']
     driver_version = chrome_webdriver.capabilities['chrome']['chromedriverVersion'].split(' ')[0]
     print("Chrome Version   :", browser_version)
