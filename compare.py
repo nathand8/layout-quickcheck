@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.chrome.options import Options as ChromeOptions
 import os
 from layout_tester import test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
@@ -17,6 +15,7 @@ from test_subject import TestSubject
 from style_map import StyleMap
 from datetime import datetime
 import atexit
+from webdrivers import chrome
 
 
 timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
@@ -27,13 +26,7 @@ num_successful = 0
 num_error = 0
 num_cant_reproduce = 0
 
-chrome_options = ChromeOptions()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-chrome_webdriver = WebDriver(
-    executable_path=os.environ.get("CHROME_DRIVER_PATH"), options=chrome_options
-)
+chrome_webdriver = chrome.getWebDriver()
 
 servo_session_key = None
 servo_retry_failures = 0
