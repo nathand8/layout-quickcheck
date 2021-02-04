@@ -14,16 +14,16 @@ class StyleMap():
 
         Example Output: 
 
-        var abeofmwlekrifj = document.getElementById("abeofmwlekrifj");
-        if (abeofmwlekrifj) {
-            abeofmwlekrifj.style["min-width"] = "200px";
-            abeofmwlekrifj.style["margin-left"] = "10em";
-        }
+            var abeofmwlekrifj = document.getElementById("abeofmwlekrifj");
+            if (abeofmwlekrifj) {
+                abeofmwlekrifj.style["min-width"] = "200px";
+                abeofmwlekrifj.style["margin-left"] = "10em";
+            }
 
-        var zomelfjeiwle = document.getElementById("zomelfjeiwle");
-        if (zomelfjeiwle) {
-            zomelfjeiwle.style["background-color"] = "blue";
-        }
+            var zomelfjeiwle = document.getElementById("zomelfjeiwle");
+            if (zomelfjeiwle) {
+                zomelfjeiwle.style["background-color"] = "blue";
+            }
             
         """
         ret_string = "\n"

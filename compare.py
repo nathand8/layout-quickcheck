@@ -25,6 +25,7 @@ timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
 num_tests = 0
 num_successful = 0
 num_error = 0
+num_cant_reproduce = 0
 
 chrome_options = ChromeOptions()
 chrome_options.add_argument('--headless')
@@ -75,17 +76,23 @@ while should_continue():
             minified_differences,
         ) = minify(test_config, test_subject)
 
+        if differences is None:
+            print("Can't reproduce the problem after minimizing...")
+            num_cant_reproduce += 1
+        else:
+            num_error += 1
+
         save_bug_report(
             test_config,
             minified_test_subject,
             minified_differences,
-            test_filepath
+            test_filepath,
+            cant_reproduce = differences is None
         )
-        num_error += 1
 
     num_tests += 1
 
-    print(f"Success: {num_successful}; Failed: {num_error}")
+    print(f"Success: {num_successful}; Failed: {num_error}; Can't Reproduce: {num_cant_reproduce}")
 
     # Clean up the test file
     remove_file(test_filepath)

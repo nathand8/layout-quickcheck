@@ -24,7 +24,8 @@ def save_bug_report(
     test_config: TestConfig,
     test_subject: TestSubject,
     differences,
-    original_filepath
+    original_filepath,
+    cant_reproduce = False
 ):
     file_config = FileConfig()
 
@@ -53,3 +54,11 @@ def save_bug_report(
     # Minimized file
     minimized_bug_filepath = os.path.join(bug_folder, "minimized_bug.html")
     save_as_web_page(test_subject, minimized_bug_filepath, True)
+
+    # Flag the file as non-reproducable
+    if cant_reproduce:
+        cant_reproduce_notes_filepath = os.path.join(bug_folder, "CANT_REPRODUCE.txt")
+        with open(cant_reproduce_notes_filepath, "w") as file:
+            file.write("""Can't reproduce bug after minification:
+            - Bug was detected at some point during the process
+            - During minification, we lost the bug...""")
