@@ -1,4 +1,5 @@
 from copy import deepcopy
+from style_map import StyleMap
 
 class TestSubject:
     html_tree = {}
@@ -8,17 +9,17 @@ class TestSubject:
     #     children: [html_tree, ...]
     # }
 
-    base_styles = {}
+    base_styles: StyleMap
     # Format: base_styles = [{
     #     '1293918237': {'background-color': 'blue', ...}
     # }, ...]
 
-    modified_styles = {}
+    modified_styles: StyleMap
     # Format: modified_styles = [{
     #     '1293918237': {'background-color': 'blue', ...}
     # }, ...]
 
-    def __init__(self, html_tree, base_styles, modified_styles):
+    def __init__(self, html_tree, base_styles: StyleMap, modified_styles: StyleMap):
         self.html_tree = html_tree
         self.base_styles = base_styles
         self.modified_styles = modified_styles
@@ -40,7 +41,5 @@ class TestSubject:
     
     def removeElementById(self, id):
         self._removeElementInTreeById(id, self.html_tree)
-        if id in self.base_styles:
-            del self.base_styles[id]
-        if id in self.modified_styles:
-            del self.modified_styles[id]
+        self.base_styles.removeById(id)
+        self.modified_styles.removeById(id)

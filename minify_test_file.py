@@ -40,22 +40,22 @@ def Minify_RemoveEachElement(test_subject):
 
 def Minify_RemoveAllStylesForEachElement(test_subject):
 
-    # Generate a function (for each id) to remove styles by id from base_styles
-    for elementId, _ in test_subject.base_styles.items():
+    # Generate a function (for each id) to remove styles by id from base_styles.map
+    for elementId, _ in test_subject.base_styles.map.items():
 
         def removeStyle(proposed_test_subject):
-            if elementId in proposed_test_subject.base_styles:
-                del proposed_test_subject.base_styles[elementId]
+            if elementId in proposed_test_subject.base_styles.map:
+                del proposed_test_subject.base_styles.map[elementId]
             return proposed_test_subject
 
         yield removeStyle
 
-    # Generate a function (for each id) to remove styles by id from modified_styles
-    for elementId, _ in test_subject.modified_styles.items():
+    # Generate a function (for each id) to remove styles by id from modified_styles.map
+    for elementId, _ in test_subject.modified_styles.map.items():
 
         def removeStyle(proposed_test_subject):
-            if elementId in proposed_test_subject.modified_styles:
-                del proposed_test_subject.modified_styles[elementId]
+            if elementId in proposed_test_subject.modified_styles.map:
+                del proposed_test_subject.modified_styles.map[elementId]
             return proposed_test_subject
 
         yield removeStyle
@@ -63,24 +63,24 @@ def Minify_RemoveAllStylesForEachElement(test_subject):
 
 def Minify_RemoveEachStyleForEachElement(test_subject):
 
-    # Generate a function for each style - to remove that style from base_styles
-    for elementId, styles in test_subject.base_styles.items():
+    # Generate a function for each style - to remove that style from base_styles.map
+    for elementId, styles in test_subject.base_styles.map.items():
         for style_name, _ in styles.items():
 
             def removeStyle(proposed_test_subject):
-                if elementId in proposed_test_subject.base_styles and style_name in proposed_test_subject.base_styles[elementId]:
-                    del proposed_test_subject.base_styles[elementId][style_name]
+                if elementId in proposed_test_subject.base_styles.map and style_name in proposed_test_subject.base_styles.map[elementId]:
+                    del proposed_test_subject.base_styles.map[elementId][style_name]
                 return proposed_test_subject
 
             yield removeStyle
 
-    # Generate a function for each style - to remove that style from modified_styles
-    for elementId, styles in test_subject.modified_styles.items():
+    # Generate a function for each style - to remove that style from modified_styles.map
+    for elementId, styles in test_subject.modified_styles.map.items():
         for style_name, _ in styles.items():
 
             def removeStyle(proposed_test_subject):
-                if elementId in proposed_test_subject.modified_styles and style_name in proposed_test_subject.modified_styles[elementId]:
-                    del proposed_test_subject.modified_styles[elementId][style_name]
+                if elementId in proposed_test_subject.modified_styles.map and style_name in proposed_test_subject.modified_styles.map[elementId]:
+                    del proposed_test_subject.modified_styles.map[elementId][style_name]
                 return proposed_test_subject
 
             yield removeStyle
@@ -90,29 +90,29 @@ def Minify_RemoveEachStyleForEachElement(test_subject):
 def Minify_SimplifyLengthStyles(test_subject):
 
     # Generate a function for each style that is a length - change to a simple length
-    for elementId, styles in test_subject.base_styles.items():
+    for elementId, styles in test_subject.base_styles.map.items():
         for style_name, style_value in styles.items():
             if matches_length_pattern(style_value):
 
                 def removeStyle(proposed_test_subject):
                     if style_value.startswith("-"):
-                        proposed_test_subject.base_styles[elementId][style_name] = "-20px"
+                        proposed_test_subject.base_styles.map[elementId][style_name] = "-20px"
                     else:
-                        proposed_test_subject.base_styles[elementId][style_name] = "20px"
+                        proposed_test_subject.base_styles.map[elementId][style_name] = "20px"
                     return proposed_test_subject
 
                 yield removeStyle
 
     # Generate a function for each style that is a length - change to a simple length
-    for elementId, styles in test_subject.modified_styles.items():
+    for elementId, styles in test_subject.modified_styles.map.items():
         for style_name, style_value in styles.items():
             if matches_length_pattern(style_value):
 
                 def removeStyle(proposed_test_subject):
                     if style_value.startswith("-"):
-                        proposed_test_subject.modified_styles[elementId][style_name] = "-20px"
+                        proposed_test_subject.modified_styles.map[elementId][style_name] = "-20px"
                     else:
-                        proposed_test_subject.modified_styles[elementId][style_name] = "20px"
+                        proposed_test_subject.modified_styles.map[elementId][style_name] = "20px"
                     return proposed_test_subject
 
                 yield removeStyle
@@ -126,11 +126,11 @@ def Enhance_MinHeightWidthPerElement(test_subject):
         elementId = element['id']
 
         def giveMinSize(proposed_test_subject):
-            if elementId in proposed_test_subject.base_styles:
-                proposed_test_subject.base_styles[elementId]['min-width'] = "50px"
-                proposed_test_subject.base_styles[elementId]['min-height'] = "50px"
+            if elementId in proposed_test_subject.base_styles.map:
+                proposed_test_subject.base_styles.map[elementId]['min-width'] = "50px"
+                proposed_test_subject.base_styles.map[elementId]['min-height'] = "50px"
             else:
-                proposed_test_subject.base_styles[elementId] = {
+                proposed_test_subject.base_styles.map[elementId] = {
                     'min-width': "50px",
                     'min-height': "50px"
                 }
@@ -149,10 +149,10 @@ def Enhance_BackgroundColorPerElement(test_subject):
         background_color = random.choice(BACKGROUND_COLORS)
 
         def giveMinSize(proposed_test_subject):
-            if elementId in proposed_test_subject.base_styles:
-                proposed_test_subject.base_styles[elementId]['background-color'] = background_color
+            if elementId in proposed_test_subject.base_styles.map:
+                proposed_test_subject.base_styles.map[elementId]['background-color'] = background_color
             else:
-                proposed_test_subject.base_styles[elementId] = {'background-color': background_color}
+                proposed_test_subject.base_styles.map[elementId] = {'background-color': background_color}
             return proposed_test_subject
 
         yield giveMinSize

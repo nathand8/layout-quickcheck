@@ -49,7 +49,7 @@ def run_test_on_page(test_url, test_config: TestConfig, test_subject: TestSubjec
         WebDriverWait(test_config.webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
 
         test_config.webdriver.execute_script(
-            "inspectorTools.modifyStyles(arguments[0])", test_subject.modified_styles
+            "inspectorTools.modifyStyles(arguments[0])", test_subject.modified_styles.map
         )
         base_values = test_config.webdriver.execute_script(
             "return inspectorTools.outputElementDimensions()"

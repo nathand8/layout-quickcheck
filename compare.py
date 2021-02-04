@@ -14,6 +14,7 @@ from minify_test_file import minify
 from bug_report_helper import save_bug_report
 from test_config import TestConfig
 from test_subject import TestSubject
+from style_map import StyleMap
 from datetime import datetime
 import atexit
 
@@ -58,7 +59,7 @@ while should_continue():
     base_style_log = generate_style_log(body, 0.1, is_base=True)
     modified_style_log = generate_style_log(body, 0.1, is_base=False)
     test_config = TestConfig(chrome_webdriver, formatted_timestamp)
-    test_subject = TestSubject(body, base_style_log, modified_style_log)
+    test_subject = TestSubject(body, StyleMap(base_style_log), StyleMap(modified_style_log))
 
     (no_differences, differences, test_filepath) = test_combination(test_config, test_subject)
 

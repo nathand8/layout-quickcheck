@@ -6,7 +6,7 @@ from test_subject import TestSubject
 def create(test_subject: TestSubject):
 
     body = test_subject.html_tree
-    styles = test_subject.base_styles
+    styles = test_subject.base_styles.map
 
     def reduce_children(tree):
         return reduce(generate_element_string, tree, "")

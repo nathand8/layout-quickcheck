@@ -20,7 +20,7 @@ def make_style_changes(test_subject: TestSubject):
         
     """
     ret_string = ""
-    for (elementId, styles) in test_subject.modified_styles.items():
+    for (elementId, styles) in test_subject.modified_styles.map.items():
         for (style_name, style_value) in styles.items():
             ret_string += f'document.getElementById("{elementId}").style["{style_name}"] = "{style_value}";\n'
     
@@ -35,7 +35,7 @@ def get_dimensions(test_subject: TestSubject):
     """
     # TODO: Only show dimension changes for elements that actually change dimensions
     ret_string = ""
-    for elementId in {**test_subject.base_styles, **test_subject.modified_styles}:
+    for elementId in {**test_subject.base_styles.map, **test_subject.modified_styles.map}:
         ret_string += f'console.log("#{elementId}", document.getElementById("{elementId}").getBoundingClientRect());\n'
     
     return ret_string

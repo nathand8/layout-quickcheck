@@ -39,14 +39,14 @@ def save_bug_report(
     # Custom bug helper file
     bug_report_filename = f"bug-helper-{test_config.timestamp}.js"
     bug_helper_filepath = os.path.join(bug_folder, bug_report_filename)
-    styles_used = list(set(all_style_names(test_subject.base_styles, test_subject.modified_styles)))
+    styles_used = list(set(all_style_names(test_subject.base_styles.map, test_subject.modified_styles.map)))
     styles_used.sort()
     styles_used_string = ",".join(styles_used)
 
     with open(bug_helper_filepath, "w") as f:
         f.write(f"const differences = {json.dumps(differences)}\n")
-        f.write(f"const baseLog = {json.dumps(test_subject.base_styles)}\n")
-        f.write(f"const styleLog = {json.dumps(test_subject.modified_styles)}\n")
+        f.write(f"const baseLog = {json.dumps(test_subject.base_styles.map)}\n")
+        f.write(f"const styleLog = {json.dumps(test_subject.modified_styles.map)}\n")
         f.write(f"const stylesUsed = {json.dumps(styles_used)}\n")
         f.write(f'const stylesUsedString = "{styles_used_string}"\n')
     
