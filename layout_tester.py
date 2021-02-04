@@ -21,14 +21,14 @@ def test_combination(test_config: TestConfig, test_subject: TestSubject):
 
     test_web_page = f"http://localhost:8000/{file_config.relative_url_path}/{test_filename}"
 
-    differences = run_test_on_page(test_web_page, test_config, test_subject)
+    differences = run_test_on_page(test_web_page, test_config.webdriver)
 
     return (differences is None), differences, test_filepath
 
 
-def run_test_on_page(test_url, test_config: TestConfig, test_subject: TestSubject):
+def run_test_on_page(test_url, webdriver):
 
-    test_config.webdriver.get(f"{test_url}")
+    webdriver.get(f"{test_url}")
     base_values = {}
     modified_values = {}
     try:
@@ -41,22 +41,22 @@ def run_test_on_page(test_url, test_config: TestConfig, test_subject: TestSubjec
         # poll_frequency = 0.1, inspectorTools ~ 3.0ms, pageLoad ~ 105ms
 
         # Wait until inspectorTools is loaded
-        # WebDriverWait(test_config.webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
+        # WebDriverWait(webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return typeof(inspectorTools) !== 'undefined'"))
 
         # Wait until page is loaded
-        # WebDriverWait(test_config.webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
+        # WebDriverWait(webdriver, timeout, poll_frequency=poll_frequency).until(lambda d: d.execute_script("return inspectorTools.isPageLoaded();"))
 
         # Make the style changes
-        test_config.webdriver.execute_script("makeStyleChanges()")
+        webdriver.execute_script("makeStyleChanges()")
 
         # Measure the elements
-        base_values = test_config.webdriver.execute_script("return outputElementDimensions()")
+        base_values = webdriver.execute_script("return outputElementDimensions()")
 
         # Reload the page exactly as it is (including style changes)
-        test_config.webdriver.execute_script("reload()")
+        webdriver.execute_script("reload()")
 
         # Measure the elements again
-        modified_values = test_config.webdriver.execute_script("return outputElementDimensions()")
+        modified_values = webdriver.execute_script("return outputElementDimensions()")
 
     except TimeoutException:
         print("Failed to load test page due to timeout")
