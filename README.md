@@ -2,6 +2,16 @@
 
 ## Setup
 
+### Simplified Setup
+
+#### NPM Install
+`npm install`
+
+#### Make Python Environment
+`python3 -m venv .env`
+`source .env/bin/activate`
+`pip install -r requirements.txt`
+
 ### Dependencies
 
 #### Python
@@ -56,3 +66,53 @@ A `.env.example` file is provided an easy base for creating the `.env` file.
 `TEST_COUNT` and `FAILURE_COUNT` are optional. If neither is specified the
 script will run forever. Otherwise the first one reached will stop the script.
 
+
+## For VSCode
+
+#### Example launch.json
+
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Compare.py",
+            "type": "python",
+            "request": "launch",
+            "program": "compare.py",
+            "console": "integratedTerminal",
+            "env": {"CHROME_DRIVER_PATH": "/usr/local/bin/chromedriver-helper", "FAILURE_COUNT": "10"},
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "npm: build - layout-fuzzer"
+        },
+        {
+            "name": "Verify.py",
+            "type": "python",
+            "request": "launch",
+            "program": "verify.py",
+            "console": "integratedTerminal",
+            "env": {"CHROME_DRIVER_PATH": "/usr/local/bin/chromedriver-helper"},
+            "args": ["http://localhost:8000/bugreportfiles/bug-report-2021-02-05-10-33-10-848096/bug.html"],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "npm: build - layout-fuzzer"
+        }
+    ]
+}
+```
+
+#### Example tasks.json
+```
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build - layout-fuzzer",
+			"detail": "webpack --config webpack.config.js"
+		}
+	]
+}
+```
