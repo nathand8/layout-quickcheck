@@ -13,6 +13,6 @@ if __name__ == "__main__":
 
     url = sys.argv[1]
 
-    differences = run_test_on_page(url, chrome_webdriver)
+    differences = run_test_on_page(url, chrome_webdriver, slow=True)
 
     print("Differences:", differences)

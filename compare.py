@@ -25,6 +25,7 @@ num_tests = 0
 num_successful = 0
 num_error = 0
 num_cant_reproduce = 0
+num_no_mod_styles_bugs = 0
 
 chrome_webdriver = chrome.getWebDriver()
 
@@ -72,31 +73,26 @@ while should_continue():
         if minified_differences is None:
             print("Can't reproduce the problem after minimizing...")
             num_cant_reproduce += 1
+        elif len(minified_test_subject.modified_styles.map) == 0:
+            num_no_mod_styles_bugs += 1
         else:
             num_error += 1
+            save_bug_report(
+                test_config,
+                minified_test_subject,
+                minified_differences,
+                test_filepath,
+                cant_reproduce = minified_differences is None
+            )
 
-        save_bug_report(
-            test_config,
-            minified_test_subject,
-            minified_differences,
-            test_filepath,
-            cant_reproduce = minified_differences is None
-        )
+
 
     num_tests += 1
 
-    print(f"Success: {num_successful}; Failed: {num_error}; Can't Reproduce: {num_cant_reproduce}")
+    print(f"Success: {num_successful}; Failed: {num_error}; Bugs With No Modified Styles: {num_no_mod_styles_bugs}; Can't Reproduce: {num_cant_reproduce}")
 
     # Clean up the test file
     remove_file(test_filepath)
 
 
 
-def terminate_browsers():
-    print("closing browsers")
-    if chrome_webdriver is not None:
-        print("Closing Chrome")
-        chrome_webdriver.close()
-
-
-atexit.register(terminate_browsers)
