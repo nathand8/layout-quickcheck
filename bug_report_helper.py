@@ -34,8 +34,12 @@ def save_bug_report(
     os.mkdir(bug_folder)
 
     # Copy the original file
-    bug_filepath = os.path.join(bug_folder, "bug.html")
+    bug_filepath = os.path.join(bug_folder, "original_bug.html")
     shutil.copy(original_filepath, bug_filepath)
+
+    # Copy the minimized bug
+    min_bug_with_debug = os.path.join(bug_folder, "min_bug_with_debug.html")
+    save_as_web_page(test_subject, min_bug_with_debug)
 
     # Custom bug helper file
     bug_report_filename = f"bug-helper-{test_config.timestamp}.js"

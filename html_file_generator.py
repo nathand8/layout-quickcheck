@@ -1,6 +1,11 @@
 import os
+from datetime import datetime
+
+timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
 
 def get_file_path(parent_path, formatted_timestamp):
+    timestamp = datetime.now()
+    formatted_timestamp = timestamp.strftime(timestamp_format)
     filename = f'test-file-{formatted_timestamp}.html'
     filepath = os.path.join(parent_path, filename)
     return filepath, filename

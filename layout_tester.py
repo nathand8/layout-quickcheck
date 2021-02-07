@@ -87,3 +87,25 @@ def run_test_on_page(test_url, webdriver, slow=False):
 
     return differences
 
+
+def run_test_using_js_diff_detect(test_url, webdriver, slow=False):
+
+    webdriver.get(f"{test_url}")
+    try:
+        timeout = 5
+        poll_frequency = 0.001
+
+        # Wait until body element is loaded
+        WebDriverWait(webdriver, timeout, poll_frequency=poll_frequency).until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+        
+        if slow: time.sleep(0.5)
+
+        # Make the style changes
+        differences = webdriver.execute_script("return recreateTheProblem()")
+        return differences
+
+    except TimeoutException:
+        print("Failed to load test page due to timeout")
+        return None
+
+

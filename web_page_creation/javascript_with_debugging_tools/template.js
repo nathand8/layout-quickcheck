@@ -28,6 +28,8 @@ function outputElementDimensions() {
 // Looks for dimensions that are NOT equal
 function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
 
+  conflicting_el_ids = []
+
   // Check that the two dictionaries have the same elements
   r_elem_dims = dimensionsAfterReload
   m_elem_dims = dimensionsAfterModify
@@ -56,9 +58,11 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
       console.log("Conflicting dimensions for element", el);
       console.log("    Dimensions after reload: ", conflicting_attrs.map(attr => attr + ": " + String(r_el_dims[attr])).join(', '));
       console.log("    Dimensions after modify: ", conflicting_attrs.map(attr => attr + ": " + String(m_el_dims[attr])).join(', '));
+      conflicting_el_ids.push(el)
     }
   })
 
+  return conflicting_el_ids
 }
 
 // Get all element dimensions on the page
@@ -109,7 +113,7 @@ function recreateTheProblem() {
   dimensionsAfterFreshLoad = outputDimensions();
   console.log('Dimensions after fresh load', dimensionsAfterFreshLoad);
 
-  compareDimensions(dimensionsAfterApplication, dimensionsAfterFreshLoad);
+  return compareDimensions(dimensionsAfterApplication, dimensionsAfterFreshLoad);
 }
 
 // Automatically show differences after 500ms

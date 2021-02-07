@@ -1,4 +1,4 @@
-from layout_tester import run_test_on_page
+from layout_tester import run_test_on_page, run_test_using_js_diff_detect
 import sys
 from webdrivers import chrome
 
@@ -13,6 +13,12 @@ if __name__ == "__main__":
 
     url = sys.argv[1]
 
+    # Using the same method that was used for original bug detection
     differences = run_test_on_page(url, chrome_webdriver, slow=True)
+    print("\nUsing regular difference detection...")
+    print("Differences:", differences)
 
+    # Using the JS difference detection method
+    differences = run_test_using_js_diff_detect(url, chrome_webdriver, slow=True)
+    print("\nUsing js difference detection...")
     print("Differences:", differences)
