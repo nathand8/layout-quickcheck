@@ -5,7 +5,7 @@ from test_subject import TestSubject
 
 def create(test_subject: TestSubject):
 
-    body = test_subject.html_tree
+    body = test_subject.html_tree.tree
     styles = test_subject.base_styles.map
 
     def reduce_children(tree):

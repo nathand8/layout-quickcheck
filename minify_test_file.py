@@ -29,7 +29,7 @@ def remove_element(tree, element_id):
 
 def Minify_RemoveEachElement(test_subject):
 
-    for element in elements(test_subject.html_tree):
+    for element in elements(test_subject.html_tree.tree):
 
         def removeElement(proposed_test_subject):
             proposed_test_subject.removeElementById(element['id'])
@@ -122,7 +122,7 @@ def Enhance_MinHeightWidthPerElement(test_subject):
 
     # Generate a function for each element that gives it a min width
     # (and another function for min height)
-    for element in elements(test_subject.html_tree):
+    for element in elements(test_subject.html_tree.tree):
         elementId = element['id']
 
         def giveMinSize(proposed_test_subject):
@@ -144,7 +144,7 @@ def Enhance_BackgroundColorPerElement(test_subject):
     BACKGROUND_COLORS = ['black', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
 
     # Generate a function for each element that gives it a background-color
-    for element in elements(test_subject.html_tree):
+    for element in elements(test_subject.html_tree.tree):
         elementId = element['id']
         background_color = random.choice(BACKGROUND_COLORS)
 
