@@ -41,19 +41,20 @@ def save_bug_report(
     min_bug_with_debug = os.path.join(bug_folder, "min_bug_with_debug.html")
     save_as_web_page(test_subject, min_bug_with_debug)
 
-    # Custom bug helper file
-    bug_report_filename = f"bug-helper-{test_config.timestamp}.js"
-    bug_helper_filepath = os.path.join(bug_folder, bug_report_filename)
+    # Custom bug helper file - JSON file
     styles_used = list(set(all_style_names(test_subject.base_styles.map, test_subject.modified_styles.map)))
     styles_used.sort()
     styles_used_string = ",".join(styles_used)
+    json_data = {
+        "differences": differences,
+        "styles_used": styles_used,
+        "styles_used_string": styles_used_string,
+        "test_subject": test_subject
+    }
 
-    with open(bug_helper_filepath, "w") as f:
-        f.write(f"const differences = {json.dumps(differences)}\n")
-        f.write(f"const baseLog = {json.dumps(test_subject.base_styles.map)}\n")
-        f.write(f"const styleLog = {json.dumps(test_subject.modified_styles.map)}\n")
-        f.write(f"const stylesUsed = {json.dumps(styles_used)}\n")
-        f.write(f'const stylesUsedString = "{styles_used_string}"\n')
+    json_data_filepath = os.path.join(bug_folder, "data.json")
+    with open(json_data_filepath, "w") as f:
+        f.write(json.dumps(json_data, indent=4, default=lambda o: o.__dict__))
     
     # Minimized file
     minimized_bug_filepath = os.path.join(bug_folder, "minimized_bug.html")

@@ -8,8 +8,10 @@ if __name__ == "__main__":
 
     browser_version = chrome_webdriver.capabilities['browserVersion']
     driver_version = chrome_webdriver.capabilities['chrome']['chromedriverVersion'].split(' ')[0]
+    window_size = chrome_webdriver.get_window_size()
     print("Chrome Version   :", browser_version)
     print("WebDriver Version:", driver_version)
+    print("Window Size:", window_size)
 
     url = sys.argv[1]
 
