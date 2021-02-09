@@ -2,24 +2,18 @@ import os
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import atexit
-
-webdrivers_to_close = []
-registered = False
+import types
 
 
-def terminate_browsers():
-    global webdrivers_to_close
-
-    print("Closing Firefox WebDrivers")
-    for webdriver in webdrivers_to_close:
-        try:
-            webdriver.close()
-        except:
-            pass
-        try:
-            webdriver.quit()
-        except:
-            pass
+def finish(webdriver):
+    try:
+        webdriver.close()
+    except:
+        pass
+    try:
+        webdriver.quit()
+    except:
+        pass
 
 
 def getWebDriver(window_width=1000, window_height=1000, headless=True):
@@ -39,11 +33,8 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True):
 
     firefox_webdriver.set_window_size(window_width, window_height)
 
-    webdrivers_to_close.append(firefox_webdriver)
-
-    if not registered:
-        atexit.register(terminate_browsers)
-        registered = True
+    firefox_webdriver.finish = types.MethodType(finish, firefox_webdriver)
+    atexit.register(lambda: firefox_webdriver.finish())
 
     return firefox_webdriver
 

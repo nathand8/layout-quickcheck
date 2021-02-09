@@ -31,28 +31,28 @@ def test_variants(test_subject: TestSubject):
     chrome_webdriver = chrome.getWebDriver()
     bug_gone, *_ = test_combination(chrome_webdriver, test_subject)
     variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.close()
+    chrome_webdriver.finish()
 
     # Force a "slow" run
     description = "Slow - Forced Waits"
     chrome_webdriver = chrome.getWebDriver()
     bug_gone, *_ = test_combination(chrome_webdriver, test_subject, slow=True)
     variants.append(get_variant(chrome_webdriver, bug_gone, description, forced_slow=True))
-    chrome_webdriver.close()
+    chrome_webdriver.finish()
 
     # Smaller Window
     description = "Smaller Window Size"
     chrome_webdriver = chrome.getWebDriver(window_width=500, window_height=500)
     bug_gone, *_ = test_combination(chrome_webdriver, test_subject)
     variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.close()
+    chrome_webdriver.finish()
 
     # Larger Window Size
     description = "Larger Window Size"
     chrome_webdriver = chrome.getWebDriver(window_width=2400, window_height=2400)
     bug_gone, *_ = test_combination(chrome_webdriver, test_subject)
     variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.close()
+    chrome_webdriver.finish()
 
     # Using JS Change Detection
     description = "JavaScript Difference Detection"
@@ -62,14 +62,14 @@ def test_variants(test_subject: TestSubject):
     bug_gone = differences is None
     variants.append(get_variant(chrome_webdriver, bug_gone, description, diff_method="JavaScript"))
     remove_file(test_filepath)
-    chrome_webdriver.close()
+    chrome_webdriver.finish()
 
     # Run in Firefox
     description = "Firefox Browser"
     firefox_webdriver = firefox.getWebDriver()
     bug_gone, *_ = test_combination(firefox_webdriver, test_subject)
     variants.append(get_variant(firefox_webdriver, bug_gone, description))
-    firefox_webdriver.close()
+    firefox_webdriver.finish()
 
     # Summarize the variants
     summary = {}
