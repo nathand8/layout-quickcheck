@@ -10,10 +10,9 @@ registered = False
 def terminate_browsers():
     global webdrivers_to_close
 
-    print("Closing Browsers")
+    print("Closing Firefox WebDrivers")
     for webdriver in webdrivers_to_close:
         try:
-            print("Closing Firefox Instance")
             webdriver.close()
         except:
             pass

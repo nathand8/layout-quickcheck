@@ -77,7 +77,9 @@ while should_continue():
             num_no_mod_styles_bugs += 1
         else:
             num_error += 1
+            print("Testing variants of setup...")
             variants = test_variants(minified_test_subject)
+            print("Saving bug report...")
             save_bug_report(
                 variants,
                 minified_test_subject,
