@@ -29,6 +29,8 @@ num_cant_reproduce = 0
 num_no_mod_styles_bugs = 0
 
 chrome_webdriver = chrome.getWebDriver()
+chrome_webdriver2 = chrome.getWebDriver()
+chrome_webdriver3 = chrome.getWebDriver()
 
 servo_session_key = None
 servo_retry_failures = 0

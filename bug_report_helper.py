@@ -67,3 +67,7 @@ def save_bug_report(
             file.write("""Can't reproduce bug after minification:
             - Bug was detected at some point during the process
             - During minification, we lost the bug...""")
+
+def test_variants(test_subject: TestSubject, test_config: TestConfig):
+    pass
+    #
