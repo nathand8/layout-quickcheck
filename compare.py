@@ -14,16 +14,11 @@ from bug_report_helper import save_bug_report
 from test_subject import TestSubject
 from element_tree import ElementTree
 from style_map import StyleMap
-from datetime import datetime
-import atexit
 from webdrivers import chrome
+from counter import Counter
 
 
-num_tests = 0
-num_successful = 0
-num_error = 0
-num_cant_reproduce = 0
-num_no_mod_styles_bugs = 0
+counter = Counter()
 
 chrome_webdriver = chrome.getWebDriver()
 
@@ -38,9 +33,9 @@ is_based_on_test_count = required_test_count > 0
 
 def should_continue():
     if is_based_on_failure:
-        return num_error < required_failure_count
+        return counter.num_error < required_failure_count
     elif is_based_on_test_count:
-        return num_tests < required_test_count
+        return counter.num_tests < required_test_count
     else:
         return True
 
@@ -54,7 +49,7 @@ while should_continue():
     (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, test_subject, keep_file=True)
 
     if no_differences:
-        num_successful += 1
+        counter.incSuccess()
     else:
 
         # TODO: Force another test with long waits to ensure this is a bug
@@ -67,11 +62,11 @@ while should_continue():
 
         if minified_differences is None:
             print("Can't reproduce the problem after minimizing...")
-            num_cant_reproduce += 1
+            counter.incNoRepro()
         elif len(minified_test_subject.modified_styles.map) == 0:
-            num_no_mod_styles_bugs += 1
+            counter.incNoMod()
         else:
-            num_error += 1
+            counter.incError()
             print("Testing variants of setup...")
             variants = test_variants(minified_test_subject)
             print("Saving bug report...")
@@ -84,9 +79,11 @@ while should_continue():
 
 
 
-    num_tests += 1
+    counter.incTests()
+    output = counter.getStatusString()
+    if output:
+        print(output)
 
-    print(f"Success: {num_successful}; Failed: {num_error}; Bugs With No Modified Styles: {num_no_mod_styles_bugs}; Can't Reproduce: {num_cant_reproduce}")
 
     # Clean up the test file
     remove_file(test_filepath)
