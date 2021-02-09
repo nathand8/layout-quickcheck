@@ -1,13 +1,14 @@
 import json
 import os
 import shutil
-from test_config import TestConfig
 from test_subject import TestSubject
 from file_config import FileConfig
 from web_page_creation.create import save_as_web_page
+from datetime import datetime
 
 
 INCLUDE_VALUE_IN_NAME = ["display"]
+timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
 
 
 def all_style_names(*style_dicts):
@@ -21,16 +22,17 @@ def all_style_names(*style_dicts):
 
 
 def save_bug_report(
-    test_config: TestConfig,
+    variants,
     test_subject: TestSubject,
     differences,
-    original_filepath,
-    cant_reproduce = False
+    original_filepath
 ):
     file_config = FileConfig()
 
     # Create a folder to hold all the bug report files
-    bug_folder = os.path.join(file_config.bug_report_file_dir, f"bug-report-{test_config.timestamp}")
+    timestamp = datetime.now()
+    formatted_timestamp = timestamp.strftime(timestamp_format)
+    bug_folder = os.path.join(file_config.bug_report_file_dir, f"bug-report-{formatted_timestamp}")
     os.mkdir(bug_folder)
 
     # Copy the original file
@@ -46,10 +48,11 @@ def save_bug_report(
     styles_used.sort()
     styles_used_string = ",".join(styles_used)
     json_data = {
-        "differences": differences,
         "styles_used": styles_used,
         "styles_used_string": styles_used_string,
-        "test_subject": test_subject
+        "variants": variants,
+        "differences": differences,
+        "test_subject": test_subject,
     }
 
     json_data_filepath = os.path.join(bug_folder, "data.json")
@@ -59,15 +62,3 @@ def save_bug_report(
     # Minimized file
     minimized_bug_filepath = os.path.join(bug_folder, "minimized_bug.html")
     save_as_web_page(test_subject, minimized_bug_filepath, True)
-
-    # Flag the file as non-reproducable
-    if cant_reproduce:
-        cant_reproduce_notes_filepath = os.path.join(bug_folder, "CANT_REPRODUCE.txt")
-        with open(cant_reproduce_notes_filepath, "w") as file:
-            file.write("""Can't reproduce bug after minification:
-            - Bug was detected at some point during the process
-            - During minification, we lost the bug...""")
-
-def test_variants(test_subject: TestSubject, test_config: TestConfig):
-    pass
-    #

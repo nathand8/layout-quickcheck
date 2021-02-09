@@ -158,13 +158,13 @@ def Enhance_BackgroundColorPerElement(test_subject):
         yield giveMinSize
 
 
-def minify(test_config, test_subject):
+def minify(webdriver, test_subject):
 
     def run_manipulations(iteration, test_subject, manipulations_generator):
         for manipulation in manipulations_generator:
             proposed_test_subject = manipulation(test_subject.deepcopy())
             
-            bug_gone, *_ = test_combination(test_config, proposed_test_subject)
+            bug_gone, *_ = test_combination(webdriver, proposed_test_subject)
             iteration += 1
             if not bug_gone:
                 test_subject = proposed_test_subject
@@ -179,5 +179,5 @@ def minify(test_config, test_subject):
     (iteration, test_subject) = run_manipulations(iteration, test_subject, Enhance_BackgroundColorPerElement(test_subject))
     
     # Create final representations of minified files
-    _, minified_differences, _ = test_combination(test_config, test_subject)
+    _, minified_differences, _ = test_combination(webdriver, test_subject)
     return (test_subject, minified_differences)

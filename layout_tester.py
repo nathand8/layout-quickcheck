@@ -1,11 +1,10 @@
 from file_config import FileConfig
-from test_config import TestConfig
 from test_subject import TestSubject
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from html_file_generator import get_file_path
+from html_file_generator import get_file_path, remove_file
 from layout_comparer import compare_layout
 from web_page_creation.create import save_as_web_page
 import os
@@ -17,23 +16,23 @@ cwd = cwd.replace("\\", "/")
 
 
 # Returns (differencesIsNone, differencesList, fileName)
-def test_combination(test_config: TestConfig, test_subject: TestSubject, verify=False):
+def test_combination(webdriver, test_subject: TestSubject, verify=False):
     file_config = FileConfig()
-    test_filepath, test_filename = get_file_path(file_config.layout_file_dir, test_config.timestamp)
+    test_filepath, test_filename = get_file_path(file_config.layout_file_dir)
     save_as_web_page(test_subject, test_filepath)
 
     test_web_page = f"http://localhost:8000/{file_config.relative_url_path}/{test_filename}"
 
-    differences = run_test_on_page(test_web_page, test_config.webdriver)
+    differences = run_test_on_page(test_web_page, webdriver)
 
     if (differences is not None) and verify: # If a bug is detected, verify by running the test again very slowly
         print("Bug detected, running slow to verify")
-        differences = run_test_on_page(test_web_page, test_config.webdriver, slow=True)
+        differences = run_test_on_page(test_web_page, webdriver, slow=True)
         if differences is None:
             print("False bug avoided by running very slowly")
         else:
             print("Bug still detected on slow run, must be a real bug")
-
+    
     return (differences is None), differences, test_filepath
 
 
