@@ -16,6 +16,10 @@ def terminate_browsers():
             webdriver.close()
         except:
             pass
+        try:
+            webdriver.quit()
+        except:
+            pass
 
 
 def getWebDriver(window_width=1000, window_height=1000, headless=True):
