@@ -19,9 +19,6 @@ import atexit
 from webdrivers import chrome
 
 
-timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
-
-
 num_tests = 0
 num_successful = 0
 num_error = 0
@@ -49,8 +46,6 @@ def should_continue():
 
 
 while should_continue():
-    timestamp = datetime.now()
-    formatted_timestamp = timestamp.strftime(timestamp_format)
     body = generate_layout_tree()
     base_style_log = generate_style_log(body, 0.1, is_base=True)
     modified_style_log = generate_style_log(body, 0.1, is_base=False)

@@ -28,3 +28,10 @@ class FileConfig:
         filename = f'test-file-{formatted_timestamp}.html'
         filepath = os.path.join(self.layout_file_dir, filename)
         return filepath, filename
+    
+
+    def getTimestampBugReport(self):
+        timestamp = datetime.now()
+        formatted_timestamp = timestamp.strftime(timestamp_format)
+        bug_folder = os.path.join(self.bug_report_file_dir, f"bug-report-{formatted_timestamp}")
+        return bug_folder

@@ -8,7 +8,6 @@ from datetime import datetime
 
 
 INCLUDE_VALUE_IN_NAME = ["display"]
-timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
 
 
 def all_style_names(*style_dicts):
@@ -28,11 +27,9 @@ def save_bug_report(
     original_filepath
 ):
     file_config = FileConfig()
+    bug_folder = file_config.getTimestampBugReport()
 
     # Create a folder to hold all the bug report files
-    timestamp = datetime.now()
-    formatted_timestamp = timestamp.strftime(timestamp_format)
-    bug_folder = os.path.join(file_config.bug_report_file_dir, f"bug-report-{formatted_timestamp}")
     os.mkdir(bug_folder)
 
     # Copy the original file
