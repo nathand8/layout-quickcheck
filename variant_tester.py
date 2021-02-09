@@ -71,4 +71,12 @@ def test_variants(test_subject: TestSubject):
     variants.append(get_variant(firefox_webdriver, bug_gone, description))
     firefox_webdriver.close()
 
-    return variants
+    # Summarize the variants
+    summary = {}
+    for variant in variants:
+        summary[variant["description"]] = variant["bug_detected"]
+
+    return {
+        "Test Variant Summary": summary,
+        "Test Variant Details": variants
+    }
