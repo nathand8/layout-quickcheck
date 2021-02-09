@@ -1,9 +1,8 @@
-from web_page_creation.create import save_as_web_page
-from html_file_generator import get_file_path, remove_file
-from file_config import FileConfig
+from html_file_generator import remove_file
 from layout_tester import run_test_using_js_diff_detect, test_combination
 from webdrivers import chrome, firefox
 from test_subject import TestSubject
+from web_page_creation.test_subject_converter import saveTestSubjectAsWebPage
 
 
 
@@ -58,14 +57,9 @@ def test_variants(test_subject: TestSubject):
     # Using JS Change Detection
     description = "JavaScript Difference Detection"
     chrome_webdriver = chrome.getWebDriver()
-
-    file_config = FileConfig()
-    test_filepath, test_filename = get_file_path(file_config.layout_file_dir)
-    save_as_web_page(test_subject, test_filepath)
-    test_web_page = f"http://localhost:8000/{file_config.relative_url_path}/{test_filename}"
+    test_filepath, test_web_page = saveTestSubjectAsWebPage(test_subject)
     differences = run_test_using_js_diff_detect(test_web_page, chrome_webdriver, slow=True)
     bug_gone = differences is None
-
     variants.append(get_variant(chrome_webdriver, bug_gone, description, diff_method="JavaScript"))
     remove_file(test_filepath)
     chrome_webdriver.close()

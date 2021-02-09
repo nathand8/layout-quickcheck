@@ -4,9 +4,8 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from html_file_generator import get_file_path, remove_file
 from layout_comparer import compare_layout
-from web_page_creation.create import save_as_web_page
+from web_page_creation.test_subject_converter import saveTestSubjectAsWebPage
 import os
 import time
 
@@ -17,13 +16,9 @@ cwd = cwd.replace("\\", "/")
 
 # Returns (differencesIsNone, differencesList, fileName)
 def test_combination(webdriver, test_subject: TestSubject, slow=False):
-    file_config = FileConfig()
-    test_filepath, test_filename = get_file_path(file_config.layout_file_dir)
-    save_as_web_page(test_subject, test_filepath)
+    test_filepath, test_url = saveTestSubjectAsWebPage(test_subject)
 
-    test_web_page = f"http://localhost:8000/{file_config.relative_url_path}/{test_filename}"
-
-    differences = run_test_on_page(test_web_page, webdriver, slow=slow)
+    differences = run_test_on_page(test_url, webdriver, slow=slow)
     
     return (differences is None), differences, test_filepath
 
