@@ -6,3 +6,4 @@ jsdist
 .env
 bugreportfiles
 odd_behavior_bugs
+geckodriver.log

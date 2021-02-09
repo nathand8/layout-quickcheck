@@ -2,21 +2,21 @@ from web_page_creation.create import save_as_web_page
 from html_file_generator import get_file_path, remove_file
 from file_config import FileConfig
 from layout_tester import run_test_using_js_diff_detect, test_combination
-from webdrivers import chrome
+from webdrivers import chrome, firefox
 from test_subject import TestSubject
 
 
 
 def get_variant(webdriver, bug_gone, description, diff_method="Python"):
+
+    browser_name = webdriver.capabilities['browserName']
     browser_version = webdriver.capabilities['browserVersion']
-    driver_version = webdriver.capabilities['chrome']['chromedriverVersion'].split(' ')[0]
     window_size = webdriver.get_window_size()
     return {
         "description": description,
         "bug_detected": not bug_gone,
-        "browser": "Chrome",
+        "browser": browser_name,
         "browser_version": browser_version,
-        "browser_driver_version": driver_version,
         "window_size": window_size,
         "diff_method": diff_method
     }
@@ -62,5 +62,11 @@ def test_variants(test_subject: TestSubject):
     remove_file(test_filepath)
     chrome_webdriver.close()
 
+    # Run in Firefox
+    description = "Firefox Browser"
+    firefox_webdriver = firefox.getWebDriver()
+    bug_gone, *_ = test_combination(firefox_webdriver, test_subject)
+    variants.append(get_variant(firefox_webdriver, bug_gone, description))
+    firefox_webdriver.close()
 
     return variants
