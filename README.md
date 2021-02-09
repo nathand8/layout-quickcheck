@@ -81,7 +81,12 @@ script will run forever. Otherwise the first one reached will stop the script.
             "request": "launch",
             "program": "compare.py",
             "console": "integratedTerminal",
-            "env": {"CHROME_DRIVER_PATH": "/usr/local/bin/chromedriver-helper", "FAILURE_COUNT": "10"},
+            "env": {
+                "CHROME_DRIVER_PATH": "/usr/local/bin/chromedriver-helper", 
+                "FIREFOX_DRIVER_PATH": "/usr/local/bin/geckodriver", 
+                // "TEST_COUNT": "10",
+                "FAILURE_COUNT": "5",
+            },
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "npm: build - layout-fuzzer"
         },
@@ -91,8 +96,11 @@ script will run forever. Otherwise the first one reached will stop the script.
             "request": "launch",
             "program": "verify.py",
             "console": "integratedTerminal",
-            "env": {"CHROME_DRIVER_PATH": "/usr/local/bin/chromedriver-helper"},
-            "args": ["http://localhost:8000/bugreportfiles/bug-report-2021-02-05-10-33-10-848096/bug.html"],
+            "env": {
+                "CHROME_DRIVER_PATH": "/usr/local/bin/chromedriver-helper",
+                "FIREFOX_DRIVER_PATH": "/home/u0777729/local-webdrivers/geckodriver", 
+            },
+            "args": ["http://localhost:8000/bugreportfiles/bug.html"],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "npm: build - layout-fuzzer"
         }
