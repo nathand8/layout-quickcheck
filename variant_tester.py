@@ -7,7 +7,7 @@ from test_subject import TestSubject
 
 
 
-def get_variant(webdriver, bug_gone, description, diff_method="Python"):
+def get_variant(webdriver, bug_gone, description, diff_method="Python", forced_slow=False):
 
     browser_name = webdriver.capabilities['browserName']
     browser_version = webdriver.capabilities['browserVersion']
@@ -18,7 +18,8 @@ def get_variant(webdriver, bug_gone, description, diff_method="Python"):
         "browser": browser_name,
         "browser_version": browser_version,
         "window_size": window_size,
-        "diff_method": diff_method
+        "diff_method": diff_method,
+        "forced_slow": forced_slow,
     }
 
 
@@ -31,6 +32,13 @@ def test_variants(test_subject: TestSubject):
     chrome_webdriver = chrome.getWebDriver()
     bug_gone, *_ = test_combination(chrome_webdriver, test_subject)
     variants.append(get_variant(chrome_webdriver, bug_gone, description))
+    chrome_webdriver.close()
+
+    # Force a "slow" run
+    description = "Slow - Forced Waits"
+    chrome_webdriver = chrome.getWebDriver()
+    bug_gone, *_ = test_combination(chrome_webdriver, test_subject, slow=True)
+    variants.append(get_variant(chrome_webdriver, bug_gone, description, forced_slow=True))
     chrome_webdriver.close()
 
     # Smaller Window

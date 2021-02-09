@@ -16,22 +16,14 @@ cwd = cwd.replace("\\", "/")
 
 
 # Returns (differencesIsNone, differencesList, fileName)
-def test_combination(webdriver, test_subject: TestSubject, verify=False):
+def test_combination(webdriver, test_subject: TestSubject, slow=False):
     file_config = FileConfig()
     test_filepath, test_filename = get_file_path(file_config.layout_file_dir)
     save_as_web_page(test_subject, test_filepath)
 
     test_web_page = f"http://localhost:8000/{file_config.relative_url_path}/{test_filename}"
 
-    differences = run_test_on_page(test_web_page, webdriver)
-
-    if (differences is not None) and verify: # If a bug is detected, verify by running the test again very slowly
-        print("Bug detected, running slow to verify")
-        differences = run_test_on_page(test_web_page, webdriver, slow=True)
-        if differences is None:
-            print("False bug avoided by running very slowly")
-        else:
-            print("Bug still detected on slow run, must be a real bug")
+    differences = run_test_on_page(test_web_page, webdriver, slow=slow)
     
     return (differences is None), differences, test_filepath
 

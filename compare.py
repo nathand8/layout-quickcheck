@@ -56,7 +56,7 @@ while should_continue():
     modified_style_log = generate_style_log(body, 0.1, is_base=False)
     test_subject = TestSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
 
-    (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, test_subject, verify=True)
+    (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, test_subject)
 
     if no_differences:
         num_successful += 1
