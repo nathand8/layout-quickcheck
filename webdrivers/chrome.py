@@ -4,7 +4,6 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 import atexit
 import types
 
-
 def finish(webdriver):
     try:
         webdriver.close()
@@ -26,9 +25,9 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
 
-    chrome_webdriver = WebDriver(
-        executable_path=os.environ.get("CHROME_DRIVER_PATH"), options=chrome_options
-    )
+    driver_path = os.environ.get("CHROME_DRIVER_PATH")
+    chrome_webdriver = WebDriver(executable_path=driver_path, options=chrome_options)
+    
     chrome_webdriver.set_window_size(window_width, window_height)
 
     chrome_webdriver.finish = types.MethodType(finish, chrome_webdriver)
