@@ -37,5 +37,8 @@ if __name__ == "__main__":
     print("JS Diff:", count_matches(bugs, lambda v: v["JavaScript Difference Detection"]))
     print("Firefox:", count_matches(bugs, lambda v: v["Firefox Browser"]))
 
+    print("Unique StyleSets", len(set([bug["styles_used_string"] for bug in bugs])))
+    # print(json.dumps(bugs[-1], indent=4))
+
 
 
