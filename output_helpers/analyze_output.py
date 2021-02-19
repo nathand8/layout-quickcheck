@@ -39,6 +39,8 @@ if __name__ == "__main__":
 
     print("Unique StyleSets", len(set([bug["styles_used_string"] for bug in bugs])))
     # print(json.dumps(bugs[-1], indent=4))
+    
+    # symmetric difference
 
 
 

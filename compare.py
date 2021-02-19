@@ -40,6 +40,7 @@ def find_bugs(counter):
                 # print("Can't reproduce the problem after minimizing...")
                 counter.incNoRepro()
             elif len(minified_test_subject.modified_styles.map) == 0:
+                # Hypothesis: caused by "content-visibility"
                 counter.incNoMod()
             else:
                 counter.incError()
