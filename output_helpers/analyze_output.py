@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     bugs = collect_json_reports(bug_report_dir, DEFAULT_JSON_FILENAME)
 
-    print("Total Total:", len(bugs))
+    # print("Total Total:", len(bugs))
     print("Total:", count_matches(bugs, lambda v: True))
     print("Default:", count_matches(bugs, lambda v: v["Default Variant"]))
     print("Slow:", count_matches(bugs, lambda v: v["Slow - Forced Waits"]))

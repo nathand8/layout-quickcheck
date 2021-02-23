@@ -59,3 +59,6 @@ def save_bug_report(
     # Minimized file
     minimized_bug_filepath = os.path.join(bug_folder, "minimized_bug.html")
     save_as_web_page(test_subject, minimized_bug_filepath, True)
+
+    # Return a URL
+    return "http://localhost:8000/" + "/".join(min_bug_with_debug.split('/')[-3:])

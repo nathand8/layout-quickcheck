@@ -23,45 +23,53 @@ def find_bugs(counter):
     chrome_webdriver = chrome.getWebDriver()
 
     while counter.should_continue():
+
+        # Stage 1 - Generate & Test
         body = generate_layout_tree()
         base_style_log = generate_style_log(body, 0.1, is_base=True)
         modified_style_log = generate_style_log(body, 0.1, is_base=False)
-        test_subject = TestSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
 
+        test_subject = TestSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
         (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, test_subject, keep_file=True)
 
         if no_differences:
             counter.incSuccess()
+
         else:
-            # print("Found failing test. Minimizing...")
+            # Stage 2 - Minifying Bug
+            print("Found bug. Minifying...")
             (minified_test_subject, minified_differences) = minify(chrome_webdriver, test_subject)
 
+            # False Positive Detection
             if minified_differences is None:
-                # print("Can't reproduce the problem after minimizing...")
+                print("False positive (could not reproduce)")
                 counter.incNoRepro()
             elif len(minified_test_subject.modified_styles.map) == 0:
-                # Hypothesis: caused by "content-visibility"
+                print("False positive (no modified styles)")
                 counter.incNoMod()
+
             else:
                 counter.incError()
-                # print("Testing variants of setup...")
+
+                # Stage 3 - Test Variants
+                print("Minified bug. Testing variants...")
                 variants = test_variants(minified_test_subject)
-                # print("Saving bug report...")
-                save_bug_report(
+
+                print("Variants tested. Saving bug report...")
+                url = save_bug_report(
                     variants,
                     minified_test_subject,
                     minified_differences,
                     test_filepath
                 )
+                print(url)
 
         counter.incTests()
         output = counter.getStatusString()
         if output:
             print(output)
-            time.sleep(2)
 
-
-        # Clean up the test file
+        # Clean Up
         remove_file(test_filepath)
 
 
@@ -83,7 +91,6 @@ if __name__ == "__main__":
                 "traceback": exc_traceback,
             }
             counter.incCrash(exc=exc)
-            time.sleep(10)
 
     if counter.num_crash > 0:
         print("Crash Errors:\n")

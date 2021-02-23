@@ -53,7 +53,7 @@ class Counter():
         interval_triggered = self.num_successful % self.feedback_interval == 0
         if self.feedback_triggered or interval_triggered:
             self.feedback_triggered = False
-            return f"Success: {self.num_successful};  Failed: {self.num_error};  Bugs With No Modified Styles: {self.num_no_mod_styles_bugs};  Can't Reproduce: {self.num_cant_reproduce};  Crashes: {self.num_crash}"
+            return f"Success: {self.num_successful};  Bugs: {self.num_error};  Bugs With No Modified Styles: {self.num_no_mod_styles_bugs};  Can't Reproduce: {self.num_cant_reproduce};  Crashes: {self.num_crash}"
         else:
             return None
             
