@@ -46,7 +46,7 @@ class Counter():
             self.crash_exceptions.append(exc)
 
     def should_continue(self):
-        if self.num_crash > self.crash_limit:
+        if self.num_crash >= self.crash_limit:
             return False
         if self.bug_limit > 0 and self.num_error >= self.bug_limit:
             return False

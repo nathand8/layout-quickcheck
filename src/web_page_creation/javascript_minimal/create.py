@@ -2,7 +2,7 @@ from test_subject import TestSubject
 
 def create(test_subject: TestSubject):
 
-    script_string = open('web_page_creation/javascript_minimal/template.js', 'r').read()
+    script_string = open('src/web_page_creation/javascript_minimal/template.js', 'r').read()
     return script_string.format(
         make_style_changes = make_style_changes(test_subject),
         get_dimensions = get_dimensions(test_subject)
