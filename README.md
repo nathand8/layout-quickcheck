@@ -14,13 +14,14 @@ source .env/bin/activate
 pip install -r requirements.txt
 ```
 
-### Install Selenium
-
 ### Install Browser Drivers
+Install the Chrome Webdriver ([here](https://chromedriver.chromium.org/getting-started)). Optionally, you can install the Firefox Webdriver ([here](https://github.com/mozilla/geckodriver/releases)) and the Safari Webdriver ([here](https://webkit.org/blog/6900/webdriver-support-in-safari-10/))
+
 After installing, specify the driver paths through environment variables
 ```bash
 export CHROME_DRIVER_PATH="/usr/local/bin/chromedriver"
-export FIREFOX_DRIVER_PATH="/usr/local/bin/geckodriver"
+export FIREFOX_DRIVER_PATH="/usr/local/bin/geckodriver"    # Optional
+export SAFARI_DRIVER_PATH="/usr/bin/safaridriver"          # Optional
 ```
 
 
@@ -89,11 +90,27 @@ Configuration is done through environment variables.
 
 | Environment Variable | Use | Default | Example |
 |----------------------|-----|---------| ------- |
-| `CHROME_DRIVER_PATH`    | Location of the Chrome driver. | N/A | `/path/to/chromedriver` |
-| `FIREFOX_DRIVER_PATH`    | Location of the Firefox driver. | N/A | `/path/to/geckodriver` |
+| `CHROME_DRIVER_PATH`    | Location of the Chrome driver. | N/A | `/usr/local/bin/chromedriver` |
+| `FIREFOX_DRIVER_PATH`    | Location of the Firefox driver. | N/A | `/usr/local/bin/geckodriver` |
+| `SAFARI_DRIVER_PATH`    | Location of the Safari driver. | N/A | `/usr/bin/safaridriver` |
 | `BUG_REPORT_FILE_DIR` | Location to store bug reports. | `cwd/bugreportfiles` | `/path/to/bug/reports` |
 | `LAYOUT_FILE_DIR`    | Location to store generated layout files. | `cwd/layoutfiles` | `/path/to/layout/dir` |
 | `RELATIVE_LAYOUT_URL` | Path to test files from root of server. | `layoutfiles` | `relative/path` |
+
+
+# FAQ
+
+
+#### Running on Safari
+If you get this error
+```
+selenium.common.exceptions.SessionNotCreatedException: Message: Could not create a session: You must enable the 'Allow Remote Automation' option in Safari's Develop menu to control Safari via WebDriver.
+```
+
+Try running this command (it may require a password)
+```bash
+safaridriver --enable
+```
 
 
 # Legal
