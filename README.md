@@ -27,13 +27,17 @@ export FIREFOX_DRIVER_PATH="/usr/local/bin/geckodriver"
 ## Run
 
 ### Start Web Server
-Run web server that serves files from the root of the repo. Any web server running on port 8000 will work.
+Run a web server on port 8000 that serves files from the root of the repo.
 
 For convenience, a script is provided
-`python3 src/threaded_web_server.py`
+```bash
+python3 src/threaded_web_server.py
+```
 
 ### Run the Bug Finder
-`python3 src/compare.py`
+```bash
+python3 src/compare.py
+```
 
 
 ## Output
@@ -43,15 +47,20 @@ For convenience, a script is provided
 Bug reports are generated in `./bugreportfiles` by default.
 
 Each bug report has the following files:
-- `data.json` - Data about the bug
-  - Variants - Other tests run on this bug (eg. other browsers or different window sizes)
-  - HTML/Styles Used
-  - Differences detected
-- `minimized_bug.html` - Minimal web page showcasing the bug
+- `data.json`
+    - Data about the bug
+    - Variants - Other tests run on this bug (eg. other browsers or different window sizes)
+    - HTML/Styles Used
+    - Differences detected
+- `minimized_bug.html` 
+    - Minimal web page showcasing the bug
     - Open this page in a web browser and run `simpleRecreate()` in the console
-- `min_bug_with_debug.html` - Minimized HTML/CSS to showcase the bug, but with extra debugging tools
+- `min_bug_with_debug.html` 
+    - Minimized HTML/CSS to showcase the bug, but with extra debugging tools
     - Open this page in a web browser and run `recreateTheProblem()` in the console
-- `original_bug.html` - Unminimized HTML/CSS - Very large
+- `original_bug.html` 
+    - Unminimized HTML/CSS 
+    - Very large with extraneous styles
     - Open this page in a web browser and run `recreateTheProblem()` in the console
 
 ## Configuration
@@ -68,6 +77,6 @@ Configuration is done through environment variables.
 | `FAILURE_COUNT` | Stop testing after this many failures. | N/A | `10` |
 | `TEST_COUNT` | Stop testing after this many total tests. | N/A | `1000` |
 
-`TEST_COUNT` and `FAILURE_COUNT` are optional. If neither is specified the
-script will run forever. If both are specified, the first one reached will 
-stop the script.
+`TEST_COUNT` and `FAILURE_COUNT` are optional
+- If neither is specified the script will run forever
+- If both are specified, the first one reached will stop the script
