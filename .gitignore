@@ -1,9 +1,9 @@
 .vscode
+.python-version
 **/__pycache__
-layoutfiles
-node_modules
-jsdist
 .env
 bugreportfiles
-odd_behavior_bugs
-geckodriver.log
+layoutfiles
+*.log
+node_modules
+jsdist
