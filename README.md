@@ -78,3 +78,7 @@ Configuration is done through environment variables.
 `TEST_COUNT` and `FAILURE_COUNT` are optional
 - If neither is specified the script will run forever
 - If both are specified, the first one reached will stop the script
+
+# Legal
+
+Licensed for use throught the [MIT License](MIT-LICENSE).
