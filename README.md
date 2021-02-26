@@ -63,21 +63,38 @@ Each bug report has the following files:
 
 # Configuration
 
+### Run Options
+
+```bash
+usage: compare.py [-h] [-v] [-b BUG_LIMIT] [-t TEST_LIMIT]
+
+find bugs in browser layout calculation - run forever unless specified otherwise
+
+examples: 
+    compare.py -b 1         # Find one bug and quit 
+    compare.py -t 2000      # Run 2000 tests and quit
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         increase output verbosity (repeatable argument -v, -vv, -vvv, -vvvv)
+  -b BUG_LIMIT, --bug-limit BUG_LIMIT
+                        quit after finding this many bugs
+  -t TEST_LIMIT, --test-limit TEST_LIMIT
+                        quit after running this many tests
+```
+
+### Environment Variables
+
 Configuration is done through environment variables.
 
 | Environment Variable | Use | Default | Example |
 |----------------------|-----|---------| ------- |
 | `CHROME_DRIVER_PATH`    | Location of the Chrome driver. | N/A | `/path/to/chromedriver` |
 | `FIREFOX_DRIVER_PATH`    | Location of the Firefox driver. | N/A | `/path/to/geckodriver` |
-| `LAYOUT_FILE_DIR`    | Location to store generated layout files. | `cwd/layoutfiles` | `/path/to/layout/dir` |
-| `RELATIVE_LAYOUT_PATH` | Path to test files from root of server. | `layoutfiles` | `relative/path` |
 | `BUG_REPORT_FILE_DIR` | Location to store bug reports. | `cwd/bugreportfiles` | `/path/to/bug/reports` |
-| `FAILURE_COUNT` | Stop testing after this many failures. | N/A | `10` |
-| `TEST_COUNT` | Stop testing after this many total tests. | N/A | `1000` |
+| `LAYOUT_FILE_DIR`    | Location to store generated layout files. | `cwd/layoutfiles` | `/path/to/layout/dir` |
+| `RELATIVE_LAYOUT_URL` | Path to test files from root of server. | `layoutfiles` | `relative/path` |
 
-`TEST_COUNT` and `FAILURE_COUNT` are optional
-- If neither is specified the script will run forever
-- If both are specified, the first one reached will stop the script
 
 # Legal
 

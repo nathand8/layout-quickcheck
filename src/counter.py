@@ -1,6 +1,6 @@
 class Counter():
 
-    def __init__(self, bug_limit=None, test_limit=None, crash_limit=1, feedback_interval=100):
+    def __init__(self, bug_limit=0, test_limit=0, crash_limit=1, feedback_interval=100):
 
         # Counts
         self.num_tests = 0                  # Total number of tests

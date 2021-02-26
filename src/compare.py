@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, time, traceback
+import os, sys, traceback, argparse
 from layout_tester import test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
 from html_file_generator import remove_file
@@ -71,10 +71,13 @@ def find_bugs(counter):
 
 if __name__ == "__main__":
 
-    bug_limit = int(os.environ.get("FAILURE_COUNT", 0))
-    test_limit = int(os.environ.get("TEST_COUNT", 0))
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="""find bugs in browser layout calculation - run forever unless specified otherwise\n\nexamples: \n    compare.py -b 1         # Find one bug and quit \n    compare.py -t 2000      # Run 2000 tests and quit""")
+    parser.add_argument("-v", "--verbose", help="increase output verbosity (repeatable argument -v, -vv, -vvv, -vvvv)", action="count", default=0)
+    parser.add_argument("-b", "--bug-limit", help="quit after finding this many bugs", type=int, default=0)
+    parser.add_argument("-t", "--test-limit", help="quit after running this many tests", type=int, default=0)
+    args = parser.parse_args()
 
-    counter = Counter(bug_limit, test_limit)
+    counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit)
 
     while counter.should_continue():
         try:

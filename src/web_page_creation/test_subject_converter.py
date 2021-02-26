@@ -5,6 +5,6 @@ def saveTestSubjectAsWebPage(test_subject):
     file_config = FileConfig()
     filepath, filename = file_config.getTimestampFilePath()
     save_as_web_page(test_subject, filepath)
-    url = f"http://localhost:8000/{file_config.relative_url_path}/{filename}"
+    url = f"http://localhost:8000/{file_config.relative_url}/{filename}"
 
     return filepath, url
