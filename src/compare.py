@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-# flake8: noqa: E402
-from variant_tester import test_variants
-from dotenv import load_dotenv
-
-load_dotenv()
 
 import os, sys, time, traceback
 from layout_tester import test_combination
@@ -11,6 +6,7 @@ from style_log_generator import generate_layout_tree, generate_style_log
 from html_file_generator import remove_file
 from minify_test_file import minify
 from bug_report_helper import save_bug_report
+from variant_tester import test_variants
 from test_subject import TestSubject
 from element_tree import ElementTree
 from style_map import StyleMap
