@@ -3,16 +3,11 @@
 
 # Setup
 
-### Setup Python VirtualEnv (Optional)
-```bash
-python3 -m venv .env
-source .env/bin/activate
-```
-
 ### Install Python Requirements
 ```bash
 pip install -r requirements.txt
 ```
+(You can create a [python virtual environment](https://docs.python.org/3/tutorial/venv.html) if you want)
 
 ### Install Browser Drivers
 Install the Chrome Webdriver ([here](https://chromedriver.chromium.org/getting-started)). Optionally, you can install the Firefox Webdriver ([here](https://github.com/mozilla/geckodriver/releases)) and the Safari Webdriver ([here](https://webkit.org/blog/6900/webdriver-support-in-safari-10/))
