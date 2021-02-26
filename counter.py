@@ -2,7 +2,7 @@ class Counter():
     feedback_interval = 1000    # Show status update every n successful tests
     feedback_triggered = True   # Show the first status update
 
-    def __init__(self, bug_limit=None, test_limit=None, crash_limit=10):
+    def __init__(self, bug_limit=None, test_limit=None, crash_limit=1):
         self.num_tests = 0                  # Total number of tests
         self.num_successful = 0             # Number of tests that had no bug
         self.num_error = 0                  # Number of tests that had a bug
@@ -14,7 +14,7 @@ class Counter():
         # Criteria for when to stop testing
         self.bug_limit = bug_limit
         self.test_limit = test_limit
-        self.crash_limit = 10
+        self.crash_limit = crash_limit
     
     def incTests(self):
         self.num_tests += 1
