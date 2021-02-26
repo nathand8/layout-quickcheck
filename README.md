@@ -10,11 +10,14 @@ pip install -r requirements.txt
 (You can create a [python virtual environment](https://docs.python.org/3/tutorial/venv.html) if you want)
 
 ### Install Browser Drivers
-Install the Chrome Webdriver ([here](https://chromedriver.chromium.org/getting-started)). Optionally, you can install the Firefox Webdriver ([here](https://github.com/mozilla/geckodriver/releases)) and the Safari Webdriver ([here](https://webkit.org/blog/6900/webdriver-support-in-safari-10/))
+Install the Chrome Webdriver ([here](https://chromedriver.chromium.org/getting-started)).
 
-After installing, specify the driver paths through environment variables
+Optionally, you can install the Firefox Webdriver ([here](https://github.com/mozilla/geckodriver/releases)) and the Safari Webdriver ([here](https://webkit.org/blog/6900/webdriver-support-in-safari-10/))
+
+Declare the driver paths through environment variables
 ```bash
 export CHROME_DRIVER_PATH="/usr/local/bin/chromedriver"
+
 export FIREFOX_DRIVER_PATH="/usr/local/bin/geckodriver"    # Optional
 export SAFARI_DRIVER_PATH="/usr/bin/safaridriver"          # Optional
 ```
@@ -26,7 +29,7 @@ export SAFARI_DRIVER_PATH="/usr/bin/safaridriver"          # Optional
 ```bash
 python3 src/threaded_web_server.py
 ```
-If a different web server is preferred, run the web server on port 8000 that serves files from the root of the repo.
+If a different web server is preferred, run the web server on port 8000 from the root of the repo.
 
 ### Run the Bug Finder
 ```bash

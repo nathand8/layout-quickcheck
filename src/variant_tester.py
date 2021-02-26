@@ -1,9 +1,9 @@
 from html_file_generator import remove_file
 from layout_tester import run_test_using_js_diff_detect, test_combination
-from webdrivers import chrome, firefox
+from webdrivers import chrome, firefox, safari
 from test_subject import TestSubject
 from web_page_creation.test_subject_converter import saveTestSubjectAsWebPage
-
+import traceback
 
 
 def get_variant(webdriver, bug_gone, description, diff_method="Python", forced_slow=False):
@@ -20,6 +20,16 @@ def get_variant(webdriver, bug_gone, description, diff_method="Python", forced_s
         "diff_method": diff_method,
         "forced_slow": forced_slow,
     }
+
+
+def print_crash_output(variant_description):
+    """
+    Print helpful output after crashing
+    """
+    exception_lines = traceback.format_exc().splitlines()
+    nonblank_lines = list(filter(lambda x: x, exception_lines))
+    lastline = nonblank_lines[-1] if len(nonblank_lines) > 0 else ""
+    print(f"Variant '{variant_description}' Failed: \n  {lastline}")
 
 
 def test_variants(test_subject: TestSubject):
@@ -65,11 +75,24 @@ def test_variants(test_subject: TestSubject):
     chrome_webdriver.finish()
 
     # Run in Firefox
-    description = "Firefox Browser"
-    firefox_webdriver = firefox.getWebDriver()
-    bug_gone, *_ = test_combination(firefox_webdriver, test_subject)
-    variants.append(get_variant(firefox_webdriver, bug_gone, description))
-    firefox_webdriver.finish()
+    try:
+        description = "Firefox Browser"
+        firefox_webdriver = firefox.getWebDriver()
+        bug_gone, *_ = test_combination(firefox_webdriver, test_subject)
+        variants.append(get_variant(firefox_webdriver, bug_gone, description))
+        firefox_webdriver.finish()
+    except:
+        print_crash_output(description)
+
+    # Run in Safari
+    try:
+        description = "Safari Browser"
+        safari_webdriver = safari.getWebDriver()
+        bug_gone, *_ = test_combination(safari_webdriver, test_subject)
+        variants.append(get_variant(safari_webdriver, bug_gone, description))
+        safari_webdriver.finish()
+    except:
+        print_crash_output(description)
 
     # Summarize the variants
     summary = {}

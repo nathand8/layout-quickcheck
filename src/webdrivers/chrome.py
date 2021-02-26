@@ -16,7 +16,10 @@ def finish(webdriver):
 
 
 def getWebDriver(window_width=1000, window_height=1000, headless=True):
-    global registered, webdrivers_to_close
+
+    driver_path = os.environ.get("CHROME_DRIVER_PATH", None)
+    if not driver_path:
+        raise RuntimeError("Chrome Driver not found")
 
     chrome_options = ChromeOptions()
 
@@ -25,7 +28,6 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
 
-    driver_path = os.environ.get("CHROME_DRIVER_PATH")
     chrome_webdriver = WebDriver(executable_path=driver_path, options=chrome_options)
     
     chrome_webdriver.set_window_size(window_width, window_height)
