@@ -1,7 +1,7 @@
 # Browser Layout Testing - QuickCheck
 
 
-## Setup
+# Setup
 
 ### Setup Python VirtualEnv (Optional)
 ```bash
@@ -24,15 +24,13 @@ export FIREFOX_DRIVER_PATH="/usr/local/bin/geckodriver"
 ```
 
 
-## Run
+# Run
 
 ### Start Web Server
-Run a web server on port 8000 that serves files from the root of the repo.
-
-For convenience, a script is provided
 ```bash
 python3 src/threaded_web_server.py
 ```
+If a different web server is preferred, run the web server on port 8000 that serves files from the root of the repo.
 
 ### Run the Bug Finder
 ```bash
@@ -40,7 +38,7 @@ python3 src/compare.py
 ```
 
 
-## Output
+# Output
 
 ### Bug Reports
 
@@ -63,7 +61,7 @@ Each bug report has the following files:
     - Very large with extraneous styles
     - Open this page in a web browser and run `recreateTheProblem()` in the console
 
-## Configuration
+# Configuration
 
 Configuration is done through environment variables.
 
