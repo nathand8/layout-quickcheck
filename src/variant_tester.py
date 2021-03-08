@@ -9,7 +9,11 @@ import traceback
 def get_variant(webdriver, bug_gone, description, diff_method="Python", forced_slow=False):
 
     browser_name = webdriver.capabilities['browserName']
-    browser_version = webdriver.capabilities['browserVersion']
+    browser_version = "unknown"
+    if "browserVersion" in webdriver.capabilities:
+        browser_version = webdriver.capabilities['browserVersion']
+    elif "version" in webdriver.capabilities:
+        browser_version = webdriver.capabilities['version']
     window_size = webdriver.get_window_size()
     return {
         "description": description,
