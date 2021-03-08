@@ -5,19 +5,26 @@
 
 ### Install Python Requirements
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 (You can create a [python virtual environment](https://docs.python.org/3/tutorial/venv.html) if you want)
 
 ### Install Browser Drivers
-Install the Chrome Webdriver ([here](https://chromedriver.chromium.org/getting-started)).
+Install the [Chrome Webdriver](https://chromedriver.chromium.org/getting-started), [Firefox Webdriver](https://github.com/mozilla/geckodriver/releases), and [Safari Webdriver](https://webkit.org/blog/6900/webdriver-support-in-safari-10/) (ships by default with MacOS).
 
-Optionally, you can install the Firefox Webdriver ([here](https://github.com/mozilla/geckodriver/releases)) and the Safari Webdriver ([here](https://webkit.org/blog/6900/webdriver-support-in-safari-10/))
+##### On MacOS
+```bash
+brew install chromedriver
+brew install geckodriver
+xattr -d com.apple.quarantine /usr/local/bin/chromedriver
+xattr -d com.apple.quarantine /usr/local/bin/geckodriver
+# Safari Driver ships by default at /usr/bin/safaridriver
+```
 
-Declare the driver paths through environment variables
+### Declare Paths to Browser Drivers
+
 ```bash
 export CHROME_DRIVER_PATH="/usr/local/bin/chromedriver"
-
 export FIREFOX_DRIVER_PATH="/usr/local/bin/geckodriver"    # Optional
 export SAFARI_DRIVER_PATH="/usr/bin/safaridriver"          # Optional
 ```
