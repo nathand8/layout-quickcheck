@@ -105,4 +105,4 @@ safaridriver --enable
 
 # Legal
 
-Licensed for use throught the [MIT License](MIT-LICENSE).
+Licensed for use through the [MIT License](MIT-LICENSE).
