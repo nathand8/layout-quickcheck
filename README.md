@@ -5,7 +5,7 @@
 
 ### Install Python Requirements
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 (You can create a [python virtual environment](https://docs.python.org/3/tutorial/venv.html) if you want)
 
