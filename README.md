@@ -12,7 +12,7 @@ pip3 install -r requirements.txt
 ### Install Browser Drivers
 Install the [Chrome Webdriver](https://chromedriver.chromium.org/getting-started), [Firefox Webdriver](https://github.com/mozilla/geckodriver/releases), and [Safari Webdriver](https://webkit.org/blog/6900/webdriver-support-in-safari-10/) (ships by default with MacOS).
 
-#### On MacOS
+##### On MacOS
 ```bash
 brew install chromedriver
 brew install geckodriver
