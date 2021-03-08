@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e -x
 
 START=`date "+%m/%d/%Y %H:%M:%S"`
 python3 src/compare.py -t 10000
