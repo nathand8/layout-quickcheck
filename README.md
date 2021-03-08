@@ -25,17 +25,9 @@ export SAFARI_DRIVER_PATH="/usr/bin/safaridriver"          # Optional
 
 # Run
 
-### Start Web Server
-```bash
-python3 src/threaded_web_server.py
-```
-If a different web server is preferred, run the web server on port 8000 from the root of the repo.
-
-### Run the Bug Finder
 ```bash
 python3 src/compare.py
 ```
-
 
 # Output
 
