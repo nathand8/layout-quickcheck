@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
+import json
 import os, sys, traceback, argparse
+from css_generators.style_generate_config import StyleGenerateConfig
 from layout_tester import test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
 from html_file_generator import remove_file
@@ -13,6 +15,9 @@ from style_map import StyleMap
 from webdrivers import chrome
 from counter import Counter
 
+def parse_config(config_path):
+    with open(config_path, 'r') as f:
+        return json.loads(f.read())
 
 def find_bugs(counter):
 
@@ -69,13 +74,20 @@ def find_bugs(counter):
         remove_file(test_filepath)
 
 
+DEFAULT_CONFIG_FILE = "./config/default.config.json"
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="""find bugs in browser layout calculation - run forever unless specified otherwise\n\nexamples: \n    compare.py -b 1         # Find one bug and quit \n    compare.py -t 2000      # Run 2000 tests and quit""")
     parser.add_argument("-v", "--verbose", help="increase output verbosity (repeatable argument -v, -vv, -vvv, -vvvv)", action="count", default=0)
     parser.add_argument("-b", "--bug-limit", help="quit after finding this many bugs", type=int, default=0)
     parser.add_argument("-t", "--test-limit", help="quit after running this many tests", type=int, default=0)
+    parser.add_argument("-c", "--config-file", help="path to config file to use", type=str, default=DEFAULT_CONFIG_FILE)
     args = parser.parse_args()
+
+    # Initialize Config
+    config = parse_config(args.config_file)
+    StyleGenerateConfig(config)
 
     counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit)
 
