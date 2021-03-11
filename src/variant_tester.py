@@ -35,6 +35,21 @@ def print_crash_output(variant_description):
     lastline = nonblank_lines[-1] if len(nonblank_lines) > 0 else ""
     print(f"Variant '{variant_description}' Failed: \n  {lastline}")
 
+VARIANTS = {}
+
+def variant(f):
+    VARIANTS[f.__doc__] = f
+    return f
+
+@variant
+def chrome():
+    "Chrome Browser"
+    pass
+
+@variant
+def firefox():
+    pass
+
 
 def test_variants(test_subject: TestSubject):
 

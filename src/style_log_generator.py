@@ -7,7 +7,7 @@ from css_generators.keyword import create_generator as create_keyword_generator
 from css_generators.color import generate as generate_color
 
 SUPPORTED_STYLE_TYPES = ["Length", "Keyword"]
-STYLES_TO_IGNORE = ["content-visibility", "writing-mode"]
+STYLES_TO_IGNORE = ["content-visibility", "writing-mode"] # TODO: Move to default config
 
 has_children = {"body": 0.99, "div": 0.3}
 has_multiple_children = {"body": 0.75, "div": 0.25}
@@ -44,7 +44,7 @@ def generate_style(style_probability, is_base):
                     if is_supported_type(choice, current_style)
                 ]
                 if len(type_choices) > 0:
-                    type_choice = choice(type_choices)
+                    type_choice = choice(type_choices) # random.choices(type_choices, list_of_weights)
                     generator = type_to_generator(type_choice, current_style)
                     style_name = current_style["name"]
                     style_value = generator()
