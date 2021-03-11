@@ -2,16 +2,10 @@
 {
     "style-weights": {
 
-        "margin": 3,
+        "content-visibility": 0,
+        "writing-mode": 0,
 
-        "margin:length": 5,
-        "margin:percent": 5,
-        "margin:auto": 5,
+        "display": 50
 
-        "text-align": 0,
-
-        "display:inline": 0,
-        "display:table": 0,
-        "display:grid": 3
     }
 }
