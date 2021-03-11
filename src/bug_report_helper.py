@@ -1,7 +1,7 @@
 import json
 import os
 import shutil
-from test_subject import TestSubject
+from run_subject import RunSubject
 from file_config import FileConfig
 from web_page_creation.create import save_as_web_page
 from datetime import datetime
@@ -22,7 +22,7 @@ def all_style_names(*style_dicts):
 
 def save_bug_report(
     variants,
-    test_subject: TestSubject,
+    run_subject: RunSubject,
     differences,
     original_filepath
 ):
@@ -38,10 +38,10 @@ def save_bug_report(
 
     # Copy the minimized bug
     min_bug_with_debug = os.path.join(bug_folder, "min_bug_with_debug.html")
-    save_as_web_page(test_subject, min_bug_with_debug)
+    save_as_web_page(run_subject, min_bug_with_debug)
 
     # Custom bug helper file - JSON file
-    styles_used = list(set(all_style_names(test_subject.base_styles.map, test_subject.modified_styles.map)))
+    styles_used = list(set(all_style_names(run_subject.base_styles.map, run_subject.modified_styles.map)))
     styles_used.sort()
     styles_used_string = ",".join(styles_used)
     json_data = {
@@ -49,7 +49,7 @@ def save_bug_report(
         "styles_used_string": styles_used_string,
         "variants": variants,
         "differences": differences,
-        "test_subject": test_subject,
+        "run_subject": run_subject,
     }
 
     json_data_filepath = os.path.join(bug_folder, "data.json")
@@ -58,7 +58,7 @@ def save_bug_report(
     
     # Minimized file
     minimized_bug_filepath = os.path.join(bug_folder, "minimized_bug.html")
-    save_as_web_page(test_subject, minimized_bug_filepath, True)
+    save_as_web_page(run_subject, minimized_bug_filepath, True)
 
     # Return a URL
     url = "file://" + os.path.abspath(min_bug_with_debug)

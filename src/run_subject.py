@@ -2,7 +2,7 @@ from copy import deepcopy
 from style_map import StyleMap
 from element_tree import ElementTree
 
-class TestSubject:
+class RunSubject:
     html_tree: ElementTree
     # Format: html_tree = {
     #     tag: 'div',
@@ -26,7 +26,7 @@ class TestSubject:
         self.modified_styles = modified_styles
 
     def deepcopy(self):
-        return TestSubject(
+        return RunSubject(
             deepcopy(self.html_tree),
             deepcopy(self.base_styles),
             deepcopy(self.modified_styles)

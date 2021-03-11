@@ -7,7 +7,7 @@ from html_file_generator import remove_file
 from minify_test_file import minify
 from bug_report_helper import save_bug_report
 from variant_tester import test_variants
-from test_subject import TestSubject
+from run_subject import RunSubject
 from element_tree import ElementTree
 from style_map import StyleMap
 from webdrivers import chrome
@@ -25,8 +25,8 @@ def find_bugs(counter):
         base_style_log = generate_style_log(body, 0.1, is_base=True)
         modified_style_log = generate_style_log(body, 0.1, is_base=False)
 
-        test_subject = TestSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
-        (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, test_subject, keep_file=True)
+        run_subject = RunSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
+        (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, run_subject, keep_file=True)
 
         if no_differences:
             counter.incSuccess()
@@ -34,13 +34,13 @@ def find_bugs(counter):
         else:
             # Stage 2 - Minifying Bug
             print("Found bug. Minifying...")
-            (minified_test_subject, minified_differences) = minify(chrome_webdriver, test_subject)
+            (minified_run_subject, minified_differences) = minify(chrome_webdriver, run_subject)
 
             # False Positive Detection
             if minified_differences is None:
                 print("False positive (could not reproduce)")
                 counter.incNoRepro()
-            elif len(minified_test_subject.modified_styles.map) == 0:
+            elif len(minified_run_subject.modified_styles.map) == 0:
                 print("False positive (no modified styles)")
                 counter.incNoMod()
 
@@ -49,12 +49,12 @@ def find_bugs(counter):
 
                 # Stage 3 - Test Variants
                 print("Minified bug. Testing variants...")
-                variants = test_variants(minified_test_subject)
+                variants = test_variants(minified_run_subject)
 
                 print("Variants tested. Saving bug report...")
                 url = save_bug_report(
                     variants,
-                    minified_test_subject,
+                    minified_run_subject,
                     minified_differences,
                     test_filepath
                 )

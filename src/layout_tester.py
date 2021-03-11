@@ -1,20 +1,20 @@
 from html_file_generator import remove_file
 from file_config import FileConfig
-from test_subject import TestSubject
+from run_subject import RunSubject
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from layout_comparer import compare_layout
-from web_page_creation.test_subject_converter import saveTestSubjectAsWebPage
+from web_page_creation.run_subject_converter import saveTestSubjectAsWebPage
 import os
 import time
 
 
 # Returns (differencesIsNone, differencesList, fileName)
 # @param keep_file - keep the intermediate file, the caller is responsible for cleanup
-def test_combination(webdriver, test_subject: TestSubject, slow=False, keep_file=False):
-    test_filepath, test_url = saveTestSubjectAsWebPage(test_subject)
+def test_combination(webdriver, run_subject: RunSubject, slow=False, keep_file=False):
+    test_filepath, test_url = saveTestSubjectAsWebPage(run_subject)
 
     differences = run_test_on_page(test_url, webdriver, slow=slow)
     
