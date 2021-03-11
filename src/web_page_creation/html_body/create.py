@@ -1,12 +1,12 @@
 from functools import reduce
 import json
-from test_subject import TestSubject
+from run_subject import RunSubject
 
 
-def create(test_subject: TestSubject):
+def create(run_subject: RunSubject):
 
-    body = test_subject.html_tree.tree
-    styles = test_subject.base_styles.map
+    body = run_subject.html_tree.tree
+    styles = run_subject.base_styles.map
 
     def reduce_children(tree):
         return reduce(generate_element_string, tree, "")

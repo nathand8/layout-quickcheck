@@ -79,6 +79,8 @@ optional arguments:
                         quit after finding this many bugs
   -t TEST_LIMIT, --test-limit TEST_LIMIT
                         quit after running this many tests
+  -c CONFIG_FILE, --config-file CONFIG_FILE
+                        path to config file to use
 ```
 
 ### Environment Variables

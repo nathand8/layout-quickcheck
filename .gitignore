@@ -7,3 +7,4 @@ layoutfiles
 *.log
 node_modules
 jsdist
+*.pyc
