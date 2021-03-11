@@ -1,0 +1,17 @@
+
+{
+    "style-weights": {
+
+        "margin": 3,
+
+        "margin:length": 5,
+        "margin:percent": 5,
+        "margin:auto": 5,
+
+        "text-align": 0,
+
+        "display:inline": 0,
+        "display:table": 0,
+        "display:grid": 3
+    }
+}
