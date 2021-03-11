@@ -27,8 +27,8 @@ def find_bugs(counter):
 
         # Stage 1 - Generate & Test
         body = generate_layout_tree()
-        base_style_log = generate_style_log(body, 0.1, is_base=True)
-        modified_style_log = generate_style_log(body, 0.1, is_base=False)
+        base_style_log = generate_style_log(body)
+        modified_style_log = generate_style_log(body)
 
         run_subject = RunSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
         (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, run_subject, keep_file=True)

@@ -5,7 +5,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_getStyleProbability(self):
         config = {
-            "style_weights": {
+            "style-weights": {
                 "margin-top": -10,
                 "margin-bottom": 0,
                 "margin-left": 200,
@@ -15,7 +15,6 @@ class TestStringMethods(unittest.TestCase):
             }
         }
         sgc = StyleGenerateConfig(config)
-        print(sgc.getStyleProbability("margin-top"))
         self.assertAlmostEqual(0.00, sgc.getStyleProbability("margin-top"))
         self.assertAlmostEqual(0.00, sgc.getStyleProbability("margin-bottom"))
         self.assertAlmostEqual(1.00, sgc.getStyleProbability("margin-left"))
