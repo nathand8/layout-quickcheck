@@ -6,6 +6,7 @@ from css_generators.length import generate as generate_length
 from css_generators.keyword import create_generator as create_keyword_generator
 from css_generators.color import generate as generate_color
 from css_generators.style_generate_config import StyleGenerateConfig
+from css_generators.custom_generators import generators_for as custom_generators_for
 
 SUPPORTED_STYLE_TYPES = ["Length", "Keyword"]
 
@@ -44,9 +45,10 @@ def generate_style():
                 for choice in typedom_types
                 if is_supported_type(choice, current_style)
             ]
-            if len(type_choices) > 0:
-                type_choice = choice(type_choices) # random.choices(type_choices, list_of_weights)
-                generator = type_to_generator(type_choice, current_style)
+            generators = [type_to_generator(type_choice, current_style) for type_choice in type_choices]
+            generators.extend(custom_generators_for(current_style["name"]))
+            if len(generators) > 0:
+                generator = choice(generators)
                 style_name = current_style["name"]
                 style_value = generator()
                 styles[style_name] = style_value

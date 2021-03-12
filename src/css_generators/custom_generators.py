@@ -1,4 +1,4 @@
-import random
+import random, math
 
 custom_generators = {}
 
@@ -11,13 +11,15 @@ def generator(style_name):
     
     return decorator_generator
 
+def generators_for(style_name):
+    return custom_generators.get(style_name, [])
+
 
 def _length_px():
     """
     Generate a length in px
 
-    Examples:
-        12px
+    Example:
         1440px
     """
     MAX_NUMBER = 2000
@@ -30,14 +32,10 @@ def _list_of_lengths():
     """
     An arbitrary length list of lengths.
 
-    0 < List Length < ~30 
-    List Length = ~3 on average
-
     Examples:
-        grid-template-columns: 1093px, 255px, 1825px, 12px;
+        grid-template-columns: 1093px 255px 1825px 12px;
         grid-template-columns: 492px;
     """
-    l = [_length_px()]
-    while random.random() < 0.6:
-        l.append(_length_px())
+    list_length = math.ceil(random.gammavariate(2, 2))
+    l = [_length_px() for _ in range(list_length)]
     return " ".join(l)

@@ -2,20 +2,33 @@ import unittest
 import os, sys
 sys.path.insert(0, "./src")
 
-from css_generators.custom_generators import custom_generators, generator, _list_of_lengths
+from css_generators.custom_generators import custom_generators, generator, _list_of_lengths, generators_for
 
 class TestCustomDecorators(unittest.TestCase):
 
     def test_generator_decorator(self):
-        def example(): return "__test__"
-        decorated_example = generator("__style_name__")(example)
-        stored_examples = custom_generators.get("__style_name__")
+        custom_generators.clear()
+        def example(): return "custom_styles"
+        decorated_example = generator("_style_name_")(example)
+        stored_examples = generators_for("_style_name_")
         self.assertEqual(1, len(stored_examples))
-        self.assertEqual("__test__", example())
-        self.assertEqual("__test__", decorated_example())
-        self.assertEqual("__test__", stored_examples[0]())
+        self.assertEqual("custom_styles", example())
+        self.assertEqual("custom_styles", decorated_example())
+        self.assertEqual("custom_styles", stored_examples[0]())
         self.assertEqual(example, decorated_example)
         self.assertEqual(example, stored_examples[0])
+
+    def test_generator_decorator_multiple(self):
+        custom_generators.clear()
+        def example(): return "custom_styles"
+        example_copy1 = generator("_style_name_1_")(example)
+        example_copy2 = generator("_style_name_2_")(example_copy1)
+        self.assertEqual(1, len(generators_for("_style_name_1_")))
+        self.assertEqual(1, len(generators_for("_style_name_2_")))
+        self.assertEqual(example, example_copy1)
+        self.assertEqual(example, example_copy2)
+        self.assertEqual("custom_styles", generators_for("_style_name_1_")[0]())
+        self.assertEqual("custom_styles", generators_for("_style_name_2_")[0]())
     
     def test__list_of_lengths(self):
         results = [_list_of_lengths() for _ in range(10)]
