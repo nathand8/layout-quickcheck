@@ -2,7 +2,7 @@ import unittest
 import os, sys
 sys.path.insert(0, "./src")
 
-from css_generators.custom_generators import custom_generators, generator, _list_of_lengths, generators_for
+from css_generators.custom_generators import custom_generators, generator, grid_template_list, generators_for
 
 class TestCustomDecorators(unittest.TestCase):
 
@@ -30,8 +30,8 @@ class TestCustomDecorators(unittest.TestCase):
         self.assertEqual("custom_styles", generators_for("_style_name_1_")[0]())
         self.assertEqual("custom_styles", generators_for("_style_name_2_")[0]())
     
-    def test__list_of_lengths(self):
-        results = [_list_of_lengths() for _ in range(10)]
+    def test_grid_template(self):
+        results = [grid_template_list() for _ in range(10)]
         self.assertFalse(all([r == results[0] for r in results]))
         self.assertTrue(all([len(r.split()) > 0 for r in results]))
 

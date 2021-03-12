@@ -14,28 +14,38 @@ def generator(style_name):
 def generators_for(style_name):
     return custom_generators.get(style_name, [])
 
+# =============================
+# Helper Functions
+# =============================
 
-def _length_px():
-    """
-    Generate a length in px
+def _p_length_px():
+    """ Positive Length in pixels. Eg 110px """
+    return str(random.randint(0, 2000)) + "px"
 
-    Example:
-        1440px
-    """
-    MAX_NUMBER = 2000
-    i = random.randint(0, MAX_NUMBER)
-    return str(i) + "px"
+def _percent():
+    """ Percentage """
+    return str(random.randint(0, 100)) + "%"
 
+def _p_length_fr():
+    """ Positive Length in fractional units. Eg 12fr """
+    return str(random.randint(0, 100)) + "fr"
+
+
+# =============================
+# Custom Generators
+# =============================
 
 @generator("grid-template-columns")
-def _list_of_lengths():
+@generator("grid-template-rows")
+def grid_template_list():
     """
-    An arbitrary length list of lengths.
+    List of lengths. Values can be a length, percentage, factor, etc
 
     Examples:
-        grid-template-columns: 1093px 255px 1825px 12px;
-        grid-template-columns: 492px;
+        grid-template-columns: 1093px 255px 1825px 12px 400px;
+        grid-template-columns: 1093px 10% 3fr;
     """
+    value_types = [_p_length_px, _percent, _p_length_fr]
     list_length = math.ceil(random.gammavariate(2, 2))
-    l = [_length_px() for _ in range(list_length)]
+    l = [random.choice(value_types)() for _ in range(list_length)]
     return " ".join(l)
