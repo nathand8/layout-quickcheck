@@ -21,19 +21,19 @@
         "display:inline-grid": 100,
 
         "grid-template-areas": 0,
-        "grid-template-columns": 30,
-        "grid-template-rows": 30,
+        "grid-template-columns": 40,
+        "grid-template-rows": 40,
 
-        "column-gap": 30,
-        "row-gap": 30,
+        "column-gap": 40,
+        "row-gap": 40,
 
-        "grid-column-start": 30,
-        "grid-column-end": 30,
-        "grid-row-start": 30,
-        "grid-row-end": 30,
+        "grid-column-start": 40,
+        "grid-column-end": 40,
+        "grid-row-start": 40,
+        "grid-row-end": 40,
 
-        "grid-auto-flow": 30,
-        "grid-auto-rows": 30,
-        "grid-auto-columns": 30
+        "grid-auto-flow": 40,
+        "grid-auto-rows": 40,
+        "grid-auto-columns": 40
     }
 }
