@@ -15,7 +15,7 @@ def finish(webdriver):
         pass
 
 
-def getWebDriver(window_width=1000, window_height=1000, headless=True):
+def getWebDriver(window_width=1000, window_height=1000, headless=True, chrome_args=[]):
 
     driver_path = os.environ.get("CHROME_DRIVER_PATH", None)
     if not driver_path:
@@ -27,6 +27,9 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
+    
+    for arg in chrome_args:
+        chrome_options.add_argument(arg)
 
     chrome_webdriver = WebDriver(executable_path=driver_path, options=chrome_options)
     
