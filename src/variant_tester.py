@@ -78,6 +78,20 @@ def test_variants(run_subject: RunSubject):
     remove_file(test_filepath)
     chrome_webdriver.finish()
 
+    # Using Blink Feature LayoutNGGrid
+    description = "Chrome --enable-blink-features=LayoutNGGrid"
+    chrome_webdriver = chrome.getWebDriver(chrome_args=["--enable-blink-features=LayoutNGGrid"])
+    bug_gone, *_ = test_combination(chrome_webdriver, run_subject)
+    variants.append(get_variant(chrome_webdriver, bug_gone, description))
+    chrome_webdriver.finish()
+
+    # Using Blink Feature LayoutNGTable
+    description = "Chrome --enable-blink-features=LayoutNGTable"
+    chrome_webdriver = chrome.getWebDriver(chrome_args=["--enable-blink-features=LayoutNGTable"])
+    bug_gone, *_ = test_combination(chrome_webdriver, run_subject)
+    variants.append(get_variant(chrome_webdriver, bug_gone, description))
+    chrome_webdriver.finish()
+
     # Run in Firefox
     try:
         description = "Firefox Browser"
