@@ -1,26 +1,39 @@
 {
     "style-weights": {
 
+        "content-visibility": 0,
+        "writing-mode": 0,
+
         "display": 100,
 
-        "display:inline": 0,
         "display:table": 0,
+        "display:inline-table": 0,
+        "display:table-row-group": 0,
+        "display:table-header-group": 0,
+        "display:table-footer-group": 0,
+        "display:table-row": 0,
+        "display:table-column-group": 0,
+        "display:table-column": 0,
+        "display:table-cell": 0,
+        "display:table-caption": 0,
+
         "display:grid": 100,
+        "display:inline-grid": 100,
 
-        "grid-template-areas": 10,
-        "grid-template-columns": 10,
-        "grid-template-rows": 10,
+        "grid-template-areas": 0,
+        "grid-template-columns": 30,
+        "grid-template-rows": 30,
 
-        "column-gap": 10,
-        "row-gap": 10,
+        "column-gap": 30,
+        "row-gap": 30,
 
-        "grid-column-start": 10,
-        "grid-column-end": 10,
-        "grid-row-start": 10,
-        "grid-row-end": 10,
+        "grid-column-start": 30,
+        "grid-column-end": 30,
+        "grid-row-start": 30,
+        "grid-row-end": 30,
 
-        "grid-auto-flow": 10,
-        "grid-auto-row": 10,
-        "grid-auto-col": 10
+        "grid-auto-flow": 30,
+        "grid-auto-rows": 30,
+        "grid-auto-columns": 30
     }
 }
