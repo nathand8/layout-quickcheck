@@ -24,7 +24,7 @@ def _p_length_px():
 
 def _percent():
     """ Percentage """
-    return str(random.randint(0, 100)) + "%"
+    return str(random.randint(-200, 200)) + "%"
 
 def _p_length_fr():
     """ Positive Length in fractional units. Eg 12fr """
@@ -49,3 +49,17 @@ def grid_template_list():
     list_length = math.ceil(random.gammavariate(2, 2))
     l = [random.choice(value_types)() for _ in range(list_length)]
     return " ".join(l)
+
+@generator("grid-column-start")
+@generator("grid-column-end")
+@generator("grid-row-start")
+@generator("grid-row-end")
+def small_number():
+    return str(random.randint(-10, 10))
+
+@generator("grid-column-start")
+@generator("grid-column-end")
+@generator("grid-row-start")
+@generator("grid-row-end")
+def span_small_positive_number():
+    return "span " + str(random.randint(0, 10))
