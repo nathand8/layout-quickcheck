@@ -1,5 +1,5 @@
 from layout_tester import test_combination
-from css_generators.length import matches_length_pattern
+from css_generators.util.length import matches_length_pattern
 from copy import deepcopy
 import random
 

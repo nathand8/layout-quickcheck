@@ -2,10 +2,11 @@ import uuid
 import lorem
 from random import random, choice
 from css_generators.style_data import style_data
-from css_generators.length import generate as generate_length
-from css_generators.keyword import create_generator as create_keyword_generator
-from css_generators.color import generate as generate_color
-from css_generators.style_generate_config import StyleGenerateConfig
+from css_generators.style_generator import StyleGenerator
+from css_generators.util.length import generate as generate_length
+from css_generators.util.keyword import create_generator as create_keyword_generator
+from css_generators.util.color import generate as generate_color
+from css_generators.style_generator_config import StyleGeneratorConfig
 from css_generators.custom_generators import generators_for as custom_generators_for
 
 SUPPORTED_STYLE_TYPES = ["Length", "Keyword"]
@@ -35,22 +36,15 @@ def is_supported_type(typedom_type, current_style):
 
 def generate_style():
     styles = {}
-    style_config = StyleGenerateConfig()
+    style_config = StyleGeneratorConfig()
+    style_value_generator = StyleGenerator()
     for current_style in style_data["data"]:
         style_probability = style_config.getStyleProbability(current_style["name"])
         if random() < style_probability:
-            typedom_types = current_style.get("typedom_types", [])
-            type_choices = [
-                choice
-                for choice in typedom_types
-                if is_supported_type(choice, current_style)
-            ]
-            generators = [type_to_generator(type_choice, current_style) for type_choice in type_choices]
-            generators.extend(custom_generators_for(current_style["name"]))
-            if len(generators) > 0:
-                generator = choice(generators)
+            gen = style_value_generator.pickGenerator(current_style)
+            if gen:
                 style_name = current_style["name"]
-                style_value = generator()
+                style_value = gen()
                 styles[style_name] = style_value
     return styles
 

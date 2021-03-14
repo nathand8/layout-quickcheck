@@ -2,7 +2,7 @@
 
 import json
 import os, sys, traceback, argparse
-from css_generators.style_generate_config import StyleGenerateConfig
+from css_generators.style_generator_config import StyleGeneratorConfig
 from layout_tester import test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
 from html_file_generator import remove_file
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # Initialize Config
     config = parse_config(args.config_file)
-    StyleGenerateConfig(config)
+    StyleGeneratorConfig(config)
 
     counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit)
 

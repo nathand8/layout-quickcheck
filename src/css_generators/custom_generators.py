@@ -24,7 +24,7 @@ def _p_length_px():
 
 def _percent():
     """ Percentage """
-    return str(random.randint(0, 100)) + "%"
+    return str(random.randint(-200, 200)) + "%"
 
 def _p_length_fr():
     """ Positive Length in fractional units. Eg 12fr """
