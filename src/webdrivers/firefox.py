@@ -14,6 +14,10 @@ def finish(webdriver):
         webdriver.quit()
     except:
         pass
+    try:
+        atexit.unregister(webdriver.finish)
+    except:
+        pass
 
 
 def getWebDriver(window_width=1000, window_height=1000, headless=True):
@@ -32,7 +36,7 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True):
     firefox_webdriver.set_window_size(window_width, window_height)
 
     firefox_webdriver.finish = types.MethodType(finish, firefox_webdriver)
-    atexit.register(lambda: firefox_webdriver.finish())
+    atexit.register(firefox_webdriver.finish)
 
     return firefox_webdriver
 

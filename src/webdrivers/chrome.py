@@ -13,6 +13,10 @@ def finish(webdriver):
         webdriver.quit()
     except:
         pass
+    try:
+        atexit.unregister(webdriver.finish)
+    except:
+        pass
 
 
 def getWebDriver(window_width=1000, window_height=1000, headless=True, chrome_args=[]):
@@ -36,7 +40,7 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True, chrome_ar
     chrome_webdriver.set_window_size(window_width, window_height)
 
     chrome_webdriver.finish = types.MethodType(finish, chrome_webdriver)
-    atexit.register(lambda: chrome_webdriver.finish())
+    atexit.register(chrome_webdriver.finish)
 
     return chrome_webdriver
 

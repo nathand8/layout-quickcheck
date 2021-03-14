@@ -12,6 +12,10 @@ def finish(webdriver):
         webdriver.quit()
     except:
         pass
+    try:
+        atexit.unregister(webdriver.finish)
+    except:
+        pass
 
 
 def getWebDriver(window_width=1000, window_height=1000):
@@ -25,7 +29,7 @@ def getWebDriver(window_width=1000, window_height=1000):
     safari_webdriver.set_window_size(window_width, window_height)
 
     safari_webdriver.finish = types.MethodType(finish, safari_webdriver)
-    atexit.register(lambda: safari_webdriver.finish())
+    atexit.register(safari_webdriver.finish)
 
     return safari_webdriver
 

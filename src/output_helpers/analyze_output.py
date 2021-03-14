@@ -35,11 +35,16 @@ if __name__ == "__main__":
     print("Smaller Window:", count_matches(bugs, lambda v: v["Smaller Window Size"]))
     print("Larger Window:", count_matches(bugs, lambda v: v["Larger Window Size"]))
     print("JS Diff:", count_matches(bugs, lambda v: v["JavaScript Difference Detection"]))
-    print("Firefox:", count_matches(bugs, lambda v: v["Firefox Browser"]))
+    print("Firefox:", count_matches(bugs, lambda v: "Firefox Browser" in v and v["Firefox Browser"]))
 
     print("Unique StyleSets:", len(set([bug["styles_used_string"] for bug in bugs])))
     # print(json.dumps(bugs[-1], indent=4))
+
+    blink_grid_bugs = get_matches(bugs, lambda v: "--enable-blink-features=LayoutNGGrid" in v and v["--enable-blink-features=LayoutNGGrid"])
+    print("--enable-blink-features=LayoutNGGrid:", len(blink_grid_bugs))
     
+    blink_table_bugs = get_matches(bugs, lambda v: "--enable-blink-features=LayoutNGTable" in v and v["--enable-blink-features=LayoutNGTable"])
+    print("--enable-blink-features=LayoutNGTable:", len(blink_table_bugs))
     # symmetric difference
 
 
