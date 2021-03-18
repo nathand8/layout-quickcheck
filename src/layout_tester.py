@@ -90,7 +90,7 @@ def run_test_using_js_diff_detect(test_url, webdriver, slow=False):
 
         # Make the style changes
         differences = webdriver.execute_script("return recreateTheProblem()")
-        return differences
+        return differences == [], differences
 
     except TimeoutException:
         print("Failed to load test page due to timeout")

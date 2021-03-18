@@ -44,9 +44,8 @@ def test_variants(run_subject: RunSubject):
             webdriver = variant["driver"]()
             if variant["js_change_detection"]:
                 test_filepath, test_web_page = saveTestSubjectAsWebPage(run_subject)
-                differences = run_test_using_js_diff_detect(test_web_page, webdriver, slow=variant["force_slow"])
+                bug_gone, *_ = run_test_using_js_diff_detect(test_web_page, webdriver, slow=variant["force_slow"])
                 remove_file(test_filepath)
-                bug_gone = differences is None
             else:
                 bug_gone, *_ = test_combination(webdriver, run_subject, slow=variant["force_slow"])
             variant_results.append(format_variant_result(webdriver, bug_gone, variant["name"], forced_slow=["force_slow"]))
