@@ -1,12 +1,12 @@
 from html_file_generator import remove_file
 from layout_tester import run_test_using_js_diff_detect, test_combination
-from webdrivers import chrome, firefox, safari
 from run_subject import RunSubject
+from variants import getVariants
 from web_page_creation.run_subject_converter import saveTestSubjectAsWebPage
 import traceback
 
 
-def get_variant(webdriver, bug_gone, description, diff_method="Python", forced_slow=False):
+def format_variant_result(webdriver, bug_gone, description, diff_method="Python", forced_slow=False):
 
     browser_name = webdriver.capabilities['browserName']
     browser_version = "unknown"
@@ -38,86 +38,28 @@ def print_crash_output(variant_description):
 
 def test_variants(run_subject: RunSubject):
 
-    variants = []
+    variant_results = []
+    for variant in getVariants():
+        try:
+            webdriver = variant["driver"]()
+            if variant["js_change_detection"]:
+                test_filepath, test_web_page = saveTestSubjectAsWebPage(run_subject)
+                differences = run_test_using_js_diff_detect(test_web_page, webdriver, slow=variant["force_slow"])
+                remove_file(test_filepath)
+                bug_gone = differences is None
+            else:
+                bug_gone, *_ = test_combination(webdriver, run_subject, slow=variant["force_slow"])
+            variant_results.append(format_variant_result(webdriver, bug_gone, variant["name"], forced_slow=["force_slow"]))
+            webdriver.finish()
+        except:
+            print_crash_output(variant["name"])
 
-    # Regular run
-    description = "Default Variant"
-    chrome_webdriver = chrome.getWebDriver()
-    bug_gone, *_ = test_combination(chrome_webdriver, run_subject)
-    variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.finish()
-
-    # Force a "slow" run
-    description = "Slow - Forced Waits"
-    chrome_webdriver = chrome.getWebDriver()
-    bug_gone, *_ = test_combination(chrome_webdriver, run_subject, slow=True)
-    variants.append(get_variant(chrome_webdriver, bug_gone, description, forced_slow=True))
-    chrome_webdriver.finish()
-
-    # Smaller Window
-    description = "Smaller Window Size"
-    chrome_webdriver = chrome.getWebDriver(window_width=500, window_height=500)
-    bug_gone, *_ = test_combination(chrome_webdriver, run_subject)
-    variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.finish()
-
-    # Larger Window Size
-    description = "Larger Window Size"
-    chrome_webdriver = chrome.getWebDriver(window_width=2400, window_height=2400)
-    bug_gone, *_ = test_combination(chrome_webdriver, run_subject)
-    variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.finish()
-
-    # Using JS Change Detection
-    description = "JavaScript Difference Detection"
-    chrome_webdriver = chrome.getWebDriver()
-    test_filepath, test_web_page = saveTestSubjectAsWebPage(run_subject)
-    differences = run_test_using_js_diff_detect(test_web_page, chrome_webdriver, slow=True)
-    bug_gone = differences is None
-    variants.append(get_variant(chrome_webdriver, bug_gone, description, diff_method="JavaScript"))
-    remove_file(test_filepath)
-    chrome_webdriver.finish()
-
-    # Using Blink Feature LayoutNGGrid
-    description = "Chrome --enable-blink-features=LayoutNGGrid"
-    chrome_webdriver = chrome.getWebDriver(chrome_args=["--enable-blink-features=LayoutNGGrid"])
-    bug_gone, *_ = test_combination(chrome_webdriver, run_subject)
-    variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.finish()
-
-    # Using Blink Feature LayoutNGTable
-    description = "Chrome --enable-blink-features=LayoutNGTable"
-    chrome_webdriver = chrome.getWebDriver(chrome_args=["--enable-blink-features=LayoutNGTable"])
-    bug_gone, *_ = test_combination(chrome_webdriver, run_subject)
-    variants.append(get_variant(chrome_webdriver, bug_gone, description))
-    chrome_webdriver.finish()
-
-    # Run in Firefox
-    try:
-        description = "Firefox Browser"
-        firefox_webdriver = firefox.getWebDriver()
-        bug_gone, *_ = test_combination(firefox_webdriver, run_subject)
-        variants.append(get_variant(firefox_webdriver, bug_gone, description))
-        firefox_webdriver.finish()
-    except:
-        print_crash_output(description)
-
-    # Run in Safari
-    try:
-        description = "Safari Browser"
-        safari_webdriver = safari.getWebDriver()
-        bug_gone, *_ = test_combination(safari_webdriver, run_subject)
-        variants.append(get_variant(safari_webdriver, bug_gone, description))
-        safari_webdriver.finish()
-    except:
-        print_crash_output(description)
-
-    # Summarize the variants
+    # Summarize the variant_results
     summary = {}
-    for variant in variants:
-        summary[variant["description"]] = variant["bug_detected"]
+    for v in variant_results:
+        summary[v["description"]] = v["bug_detected"]
 
     return {
         "Test Variant Summary": summary,
-        "Test Variant Details": variants
+        "Test Variant Details": variant_results
     }

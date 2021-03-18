@@ -12,7 +12,7 @@ from variant_tester import test_variants
 from run_subject import RunSubject
 from element_tree import ElementTree
 from style_map import StyleMap
-from webdrivers import chrome
+from variants import getTargetBrowserDriver
 from counter import Counter
 
 def parse_config(config_path):
@@ -21,7 +21,7 @@ def parse_config(config_path):
 
 def find_bugs(counter):
 
-    chrome_webdriver = chrome.getWebDriver()
+    chrome_webdriver = getTargetBrowserDriver()
 
     while counter.should_continue():
 
