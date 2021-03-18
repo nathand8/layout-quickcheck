@@ -1,5 +1,5 @@
 # Browser Layout Testing - QuickCheck
-
+This is a tool that uses randomized testing to find under-invalidation bugs in web browsers.
 
 # Setup
 
