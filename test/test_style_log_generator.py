@@ -4,7 +4,7 @@ sys.path.insert(0, "./src")
 
 import unittest
 from css_generators.style_generator_config import StyleGeneratorConfig
-from style_log_generator import generate_style
+from style_log_generator import generate_styles
 
 class TestStringMethods(unittest.TestCase):
 
@@ -16,7 +16,7 @@ class TestStringMethods(unittest.TestCase):
             }
         }
         StyleGeneratorConfig(config)
-        styles = generate_style()
+        styles = generate_styles()
         self.assertFalse("margin-bottom" in styles)
         self.assertTrue("margin-left" in styles)
 

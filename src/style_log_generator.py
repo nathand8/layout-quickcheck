@@ -34,7 +34,7 @@ def is_supported_type(typedom_type, current_style):
         return False
 
 
-def generate_style():
+def generate_styles():
     styles = {}
     style_config = StyleGeneratorConfig()
     style_value_generator = StyleGenerator()
@@ -99,7 +99,7 @@ def elements(tree):
 
 
 def generate_style_log(tree):
-    return {e["id"]: generate_style() for e in elements(tree)}
+    return {e["id"]: generate_styles() for e in elements(tree)}
 
 
 def generate_layout_tree():
