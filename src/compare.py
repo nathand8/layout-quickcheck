@@ -82,6 +82,7 @@ if __name__ == "__main__":
     parser.add_argument("-v", "--verbose", help="increase output verbosity (repeatable argument -v, -vv, -vvv, -vvvv)", action="count", default=0)
     parser.add_argument("-b", "--bug-limit", help="quit after finding this many bugs", type=int, default=0)
     parser.add_argument("-t", "--test-limit", help="quit after running this many tests", type=int, default=0)
+    parser.add_argument("-l", "--crash-limit", help="quit after crashing this many times", type=int, default=1)
     parser.add_argument("-c", "--config-file", help="path to config file to use", type=str, default=DEFAULT_CONFIG_FILE)
     args = parser.parse_args()
 
@@ -89,7 +90,7 @@ if __name__ == "__main__":
     config = parse_config(args.config_file)
     StyleGeneratorConfig(config)
 
-    counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit)
+    counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit, crash_limit=args.crash_limit)
 
     while counter.should_continue():
         try:
