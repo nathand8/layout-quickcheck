@@ -104,7 +104,7 @@ if __name__ == "__main__":
             counter.incCrash(exc=exc)
 
     if counter.num_crash > 0:
-        print("Crash Errors:\n")
+        print(f"Number of crashes: {counter.num_crash}\nCrash Errors:\n")
         for exc in counter.crash_exceptions:
             traceback.print_exception(exc["etype"], exc["value"], exc["traceback"])
             print("-"*60 + "\n")
