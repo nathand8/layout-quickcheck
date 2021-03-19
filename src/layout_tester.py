@@ -1,7 +1,8 @@
+from webdrivers.target_browser import TargetBrowser
 from html_file_generator import remove_file
 from file_config import FileConfig
 from run_subject import RunSubject
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,6 +11,7 @@ from web_page_creation.run_subject_converter import saveTestSubjectAsWebPage
 import os
 import time
 
+PAGE_CRASH = "Page Crashed"
 
 # Returns (differencesIsNone, differencesList, fileName)
 # @param keep_file - keep the intermediate file, the caller is responsible for cleanup
@@ -17,20 +19,21 @@ def test_combination(webdriver, run_subject: RunSubject, slow=False, keep_file=F
     test_filepath, test_url = saveTestSubjectAsWebPage(run_subject)
 
     differences = run_test_on_page(test_url, webdriver, slow=slow)
+    no_bug = differences is None
     
     if not keep_file:
         remove_file(test_filepath)
-        return (differences is None), differences, None
+        return no_bug, differences, None
     else:
-        return (differences is None), differences, test_filepath
+        return no_bug, differences, test_filepath
 
 
 def run_test_on_page(test_url, webdriver, slow=False):
 
-    webdriver.get(f"{test_url}")
     base_values = {}
     modified_values = {}
     try:
+        webdriver.get(f"{test_url}")
         timeout = 5
         poll_frequency = 0.001
         # Performance on CADE machines (Jan 27, 2020)
@@ -70,6 +73,11 @@ def run_test_on_page(test_url, webdriver, slow=False):
 
     except TimeoutException:
         print("Failed to load test page due to timeout")
+    except WebDriverException as e:
+        if "page crash" in str(e).lower():
+            return PAGE_CRASH
+        else:
+            raise
 
     differences = compare_layout(base_values, modified_values)
 
@@ -95,5 +103,7 @@ def run_test_using_js_diff_detect(test_url, webdriver, slow=False):
     except TimeoutException:
         print("Failed to load test page due to timeout")
         return None
+    except WebDriverException:
+        return PAGE_CRASH
 
 

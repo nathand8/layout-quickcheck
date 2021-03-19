@@ -6,7 +6,7 @@ from web_page_creation.run_subject_converter import saveTestSubjectAsWebPage
 import traceback
 
 
-def format_variant_result(webdriver, bug_gone, description, diff_method="Python", forced_slow=False):
+def format_variant_result(webdriver, description, diff_method="Python", forced_slow=False):
 
     browser_name = webdriver.capabilities['browserName']
     browser_version = "unknown"
@@ -17,7 +17,6 @@ def format_variant_result(webdriver, bug_gone, description, diff_method="Python"
     window_size = webdriver.get_window_size()
     return {
         "description": description,
-        "bug_detected": not bug_gone,
         "browser": browser_name,
         "browser_version": browser_version,
         "window_size": window_size,
@@ -42,16 +41,20 @@ def test_variants(run_subject: RunSubject):
     for variant in getVariants():
         try:
             webdriver = variant["driver"]()
+            result = format_variant_result(webdriver, variant["name"], forced_slow=["force_slow"])
             if variant["js_change_detection"]:
                 test_filepath, test_web_page = saveTestSubjectAsWebPage(run_subject)
                 bug_gone, *_ = run_test_using_js_diff_detect(test_web_page, webdriver, slow=variant["force_slow"])
                 remove_file(test_filepath)
             else:
                 bug_gone, *_ = test_combination(webdriver, run_subject, slow=variant["force_slow"])
-            variant_results.append(format_variant_result(webdriver, bug_gone, variant["name"], forced_slow=["force_slow"]))
-            webdriver.finish()
+            result["bug_detected"] = not bug_gone
+            variant_results.append(result)
         except:
             print_crash_output(variant["name"])
+        finally:
+            try: webdriver.finish()
+            except: pass
 
     # Summarize the variant_results
     summary = {}

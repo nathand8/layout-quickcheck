@@ -1,3 +1,4 @@
+from webdrivers.target_browser import TargetBrowser
 from layout_tester import test_combination
 from css_generators.util.length import matches_length_pattern
 from copy import deepcopy
@@ -158,13 +159,13 @@ def Enhance_BackgroundColorPerElement(run_subject):
         yield giveMinSize
 
 
-def minify(webdriver, run_subject):
+def minify(target_browser: TargetBrowser, run_subject):
 
     def run_manipulations(iteration, run_subject, manipulations_generator):
         for manipulation in manipulations_generator:
             proposed_run_subject = manipulation(run_subject.deepcopy())
             
-            bug_gone, *_ = test_combination(webdriver, proposed_run_subject)
+            bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
             iteration += 1
             if not bug_gone:
                 run_subject = proposed_run_subject
@@ -179,5 +180,5 @@ def minify(webdriver, run_subject):
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_BackgroundColorPerElement(run_subject))
     
     # Create final representations of minified files
-    _, minified_differences, _ = test_combination(webdriver, run_subject)
+    _, minified_differences, _ = test_combination(target_browser.getDriver(), run_subject)
     return (run_subject, minified_differences)

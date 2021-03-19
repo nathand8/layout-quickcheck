@@ -2,8 +2,9 @@
 
 import json
 import os, sys, traceback, argparse
+from webdrivers.target_browser import TargetBrowser
 from css_generators.style_generator_config import StyleGeneratorConfig
-from layout_tester import test_combination
+from layout_tester import PAGE_CRASH, test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
 from html_file_generator import remove_file
 from minify_test_file import minify
@@ -12,7 +13,6 @@ from variant_tester import test_variants
 from run_subject import RunSubject
 from element_tree import ElementTree
 from style_map import StyleMap
-from variants import getTargetBrowserDriver
 from counter import Counter
 
 def parse_config(config_path):
@@ -21,7 +21,7 @@ def parse_config(config_path):
 
 def find_bugs(counter):
 
-    chrome_webdriver = getTargetBrowserDriver()
+    target_browser = TargetBrowser()
 
     while counter.should_continue():
 
@@ -31,21 +31,25 @@ def find_bugs(counter):
         modified_style_log = generate_style_log(body)
 
         run_subject = RunSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
-        (no_differences, differences, test_filepath) = test_combination(chrome_webdriver, run_subject, keep_file=True)
+        (no_differences, differences, test_filepath) = test_combination(target_browser.getDriver(), run_subject, keep_file=True)
 
         if no_differences:
             counter.incSuccess()
 
         else:
             # Stage 2 - Minifying Bug
-            print("Found bug. Minifying...")
-            (minified_run_subject, minified_differences) = minify(chrome_webdriver, run_subject)
+            if differences == PAGE_CRASH:
+                print("Found a page that crashes. Minifying...")
+            else:
+                print("Found bug. Minifying...")
+
+            (minified_run_subject, minified_differences) = minify(target_browser, run_subject)
 
             # False Positive Detection
             if minified_differences is None:
                 print("False positive (could not reproduce)")
                 counter.incNoRepro()
-            elif len(minified_run_subject.modified_styles.map) == 0:
+            elif minified_differences != PAGE_CRASH and len(minified_run_subject.modified_styles.map) == 0:
                 print("False positive (no modified styles)")
                 counter.incNoMod()
 
