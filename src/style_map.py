@@ -40,12 +40,13 @@ class StyleMap():
             elementStyles = list(styles.items())
             elementStyles.sort() # Sort alphabetical order by style name (to enforce the same order every time)
 
-            ret_string += f'var {elementId} = document.getElementById("{elementId}");\n'
-            ret_string += 'if (' + elementId + ') {\n'
+            if elementStyles:
+                ret_string += f'var {elementId} = document.getElementById("{elementId}");\n'
+                ret_string += 'if (' + elementId + ') {\n'
 
-            for (style_name, style_value) in elementStyles:
-                ret_string += f'  {elementId}.style["{style_name}"] = "{style_value}";\n'
-            
-            ret_string += '}\n'
+                for (style_name, style_value) in elementStyles:
+                    ret_string += f'  {elementId}.style["{style_name}"] = "{style_value}";\n'
+                
+                ret_string += '}\n'
 
         return ret_string
