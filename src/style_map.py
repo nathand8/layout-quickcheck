@@ -8,6 +8,14 @@ class StyleMap():
     def removeById(self, id):
         del self.map[id]
     
+    def getElementIds(self):
+        return set(self.map.keys())
+    
+    def renameId(self, old_id, new_id):
+        if old_id in self.map:
+            self.map[new_id] = self.map[old_id]
+            del self.map[old_id]
+    
     def toJS(self):
         """
         Create a string that will make style changes in javascript

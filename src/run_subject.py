@@ -36,3 +36,11 @@ class RunSubject:
         self.html_tree.removeElementById(id)
         self.base_styles.removeById(id)
         self.modified_styles.removeById(id)
+    
+    def getElementIds(self):
+        return self.html_tree.getElementIds() | self.base_styles.getElementIds() | self.modified_styles.getElementIds()
+    
+    def renameId(self, old_id, new_id):
+        self.html_tree.renameId(old_id, new_id)
+        self.base_styles.renameId(old_id, new_id)
+        self.modified_styles.renameId(old_id, new_id)

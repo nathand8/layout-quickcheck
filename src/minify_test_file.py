@@ -1,3 +1,4 @@
+from run_subject import RunSubject
 from webdrivers.target_browser import TargetBrowser
 from layout_tester import test_combination
 from css_generators.util.length import matches_length_pattern
@@ -159,6 +160,22 @@ def Enhance_BackgroundColorPerElement(run_subject):
         yield giveMinSize
 
 
+def Enhance_ShortenIds(run_subject: RunSubject):
+
+    shortened_ids = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
+
+    # Get a set of all the ids in html and css
+    original_ids = run_subject.getElementIds()
+
+    def renameIds(proposed_run_subject):
+        for original_id, short_id in zip(original_ids, shortened_ids):
+            proposed_run_subject.renameId(original_id, short_id)
+        return proposed_run_subject
+    
+    yield renameIds
+
+
+
 def minify(target_browser: TargetBrowser, run_subject):
 
     def run_manipulations(iteration, run_subject, manipulations_generator):
@@ -178,6 +195,7 @@ def minify(target_browser: TargetBrowser, run_subject):
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_SimplifyLengthStyles(run_subject))
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_MinHeightWidthPerElement(run_subject))
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_BackgroundColorPerElement(run_subject))
+    (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_ShortenIds(run_subject))
     
     # Create final representations of minified files
     _, minified_differences, _ = test_combination(target_browser.getDriver(), run_subject)
