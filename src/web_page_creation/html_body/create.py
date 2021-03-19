@@ -1,7 +1,13 @@
 from functools import reduce
 import json
 from run_subject import RunSubject
+from web_page_creation.util import formatWithIndent
 
+current_template = """
+<{tag} style="{style}" id="{element_id}">
+  {children_string}
+</{tag}>
+"""
 
 def create(run_subject: RunSubject):
 
@@ -24,12 +30,7 @@ def create(run_subject: RunSubject):
             )
             element_id = element["id"]
             children_string = reduce_children(element["children"])
-            current_template = """
-              <{tag} style="{style}" id="{element_id}">
-                {children_string}
-              </{tag}>
-            """
-            return body_string + current_template.format(
+            return body_string + formatWithIndent(current_template,
                 tag=tag,
                 style=style,
                 element_id=element_id,

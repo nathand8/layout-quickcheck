@@ -34,7 +34,7 @@ class StyleMap():
             }
             
         """
-        ret_string = "\n"
+        ret_string = ""
         for (elementId, styles) in self.map.items():
 
             elementStyles = list(styles.items())
@@ -46,6 +46,6 @@ class StyleMap():
             for (style_name, style_value) in elementStyles:
                 ret_string += f'  {elementId}.style["{style_name}"] = "{style_value}";\n'
             
-            ret_string += '}\n\n'
+            ret_string += '}\n'
 
         return ret_string
