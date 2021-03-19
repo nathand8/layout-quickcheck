@@ -6,6 +6,7 @@ This is a growing list of the bugs that have been reported in Chromium:
 - blink_grid_0001 - https://bugs.chromium.org/p/chromium/issues/detail?id=1189755 
 - blink_grid_0002 - https://bugs.chromium.org/p/chromium/issues/detail?id=1189762
 - blink_grid_0003 - https://bugs.chromium.org/p/chromium/issues/detail?id=1190220 - page crash
+
 Hundreds more bugs have not been reported. As of writing, sifting through bugs and preparing bug reports is the most time-intensive part of this process.
 
 # Setup
