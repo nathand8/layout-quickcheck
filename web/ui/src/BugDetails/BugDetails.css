@@ -1,0 +1,10 @@
+.variant_status {
+    font-size: 20px;
+    margin-right: 5px;
+}
+.variant_status .fail {
+    color: red;
+}
+.variant_status .pass {
+    color: green;
+}

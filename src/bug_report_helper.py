@@ -47,6 +47,7 @@ def save_bug_report(
     styles_used_string = ",".join(styles_used)
     bug_type = "Page Crash" if differences == PAGE_CRASH else "Under Invalidation"
     json_data = {
+        "datetime": datetime.now().isoformat(),
         "bug_type": bug_type,
         "styles_used": styles_used,
         "styles_used_string": styles_used_string,
