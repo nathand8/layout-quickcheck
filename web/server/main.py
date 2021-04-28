@@ -20,7 +20,7 @@ def allBugs():
     for json_filepath in json_filepaths:
         with open(json_filepath, 'r') as f:
             reports.append(json.loads(f.read()))
-        if len(reports) >= 10: # Quit Early (for testing only)
+        if len(reports) >= 100: # Quit Early (for testing only)
             return json.dumps(reports)
     return json.dumps(reports)
 
