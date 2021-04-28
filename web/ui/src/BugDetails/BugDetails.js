@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { FaCheck, FaBug } from "react-icons/fa";
 
 import "./BugDetails.css";
 
@@ -11,7 +11,7 @@ export default function BugDetails(props) {
       <h4>Variants</h4>
       {props.data.variants["Test Variant Details"].map((variant, index) => (
         <div key={index}>
-          <span className="variant_status">{(variant.bug_detected && <FaTimesCircle className="fail" />) || <FaCheckCircle className="pass" />}</span> <label>{variant.description}</label>
+          <span className="variant_status">{(variant.bug_detected && <FaBug className="fail" />) || <FaCheck className="pass" />}</span> <label>{variant.description}</label>
         </div>
       ))}
     </div>
