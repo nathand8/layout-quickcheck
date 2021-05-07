@@ -11,7 +11,7 @@ npm install
 
 ### Install Backend Requirements
 
-From repo root:
+From `web/server`
 ```bash
 pip3 install -r requirements.txt
 ```
