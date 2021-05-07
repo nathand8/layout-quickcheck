@@ -104,7 +104,6 @@ Configuration is done through environment variables.
 | `SAFARI_DRIVER_PATH`    | Location of the Safari driver. | N/A | `/usr/bin/safaridriver` |
 | `BUG_REPORT_FILE_DIR` | Location to store bug reports. | `cwd/bugreportfiles` | `/path/to/bug/reports` |
 | `LAYOUT_FILE_DIR`    | Location to store generated layout files. | `cwd/layoutfiles` | `/path/to/layout/dir` |
-| `RELATIVE_LAYOUT_URL` | Path to test files from root of server. | `layoutfiles` | `relative/path` |
 
 
 # FAQ
