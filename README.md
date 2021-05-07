@@ -102,8 +102,6 @@ Configuration is done through environment variables.
 | `CHROME_DRIVER_PATH`    | Location of the Chrome driver. | N/A | `/usr/local/bin/chromedriver` |
 | `FIREFOX_DRIVER_PATH`    | Location of the Firefox driver. | N/A | `/usr/local/bin/geckodriver` |
 | `SAFARI_DRIVER_PATH`    | Location of the Safari driver. | N/A | `/usr/bin/safaridriver` |
-| `BUG_REPORT_FILE_DIR` | Location to store bug reports. | `cwd/bugreportfiles` | `/path/to/bug/reports` |
-| `LAYOUT_FILE_DIR`    | Location to store generated layout files. | `cwd/layoutfiles` | `/path/to/layout/dir` |
 
 
 # FAQ

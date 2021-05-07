@@ -1,11 +1,15 @@
 
 {
-    "style-weights": {
+    "paths": {
+        "bug-reports-directory": "./bug_reports",
+        "tmp-files-directory": "./tmp_generated_files"
+    },
 
+    "target-browser-variant": "vanilla_chrome",
+
+    "style-weights": {
         "content-visibility": 0,
         "writing-mode": 0,
-
         "display": 100
-
     }
 }

@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from config import Config
 
 timestamp_format = "%Y-%m-%d-%H-%M-%S-%f"
 
@@ -10,10 +11,11 @@ class FileConfig:
 
 
     def __init__(self):
+        config = Config()
         cwd = os.getcwd()
         cwd = cwd.replace("\\", "/")
-        self.bug_report_file_dir = os.environ.get("BUG_REPORT_FILE_DIR", f"{cwd}/bugreportfiles")
-        self.layout_file_dir = os.environ.get("LAYOUT_FILE_DIR", f"{cwd}/layoutfiles")
+        self.bug_report_file_dir = config.getBugReportDirectory()
+        self.layout_file_dir = config.getTmpFilesDirectory()
 
         if not os.path.exists(self.layout_file_dir):
             os.makedirs(self.layout_file_dir)

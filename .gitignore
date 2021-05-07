@@ -3,7 +3,9 @@
 **/__pycache__
 .env
 bugreportfiles
+bug_reports
 layoutfiles
+tmp_generated_files
 *.log
 node_modules
 jsdist
