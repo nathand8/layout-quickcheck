@@ -6,7 +6,7 @@ from css_generators.style_generator import StyleGenerator
 from css_generators.util.length import generate as generate_length
 from css_generators.util.keyword import create_generator as create_keyword_generator
 from css_generators.util.color import generate as generate_color
-from css_generators.style_generator_config import StyleGeneratorConfig
+from config import Config
 from css_generators.custom_generators import generators_for as custom_generators_for
 
 SUPPORTED_STYLE_TYPES = ["Length", "Keyword"]
@@ -36,7 +36,7 @@ def is_supported_type(typedom_type, current_style):
 
 def generate_styles():
     styles = {}
-    style_config = StyleGeneratorConfig()
+    style_config = Config()
     style_value_generator = StyleGenerator()
     for current_style in style_data["data"]:
         style_probability = style_config.getStyleProbability(current_style["name"])

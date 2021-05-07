@@ -1,5 +1,5 @@
 import unittest
-from src.css_generators.style_generator_config import StyleGeneratorConfig
+from src.config import Config
 
 class TestStringMethods(unittest.TestCase):
 
@@ -14,7 +14,7 @@ class TestStringMethods(unittest.TestCase):
                 # "border-right": unset
             }
         }
-        sgc = StyleGeneratorConfig(config)
+        sgc = Config(config)
         self.assertAlmostEqual(0.00, sgc.getStyleProbability("margin-top"))
         self.assertAlmostEqual(0.00, sgc.getStyleProbability("margin-bottom"))
         self.assertAlmostEqual(1.00, sgc.getStyleProbability("margin-left"))
@@ -32,7 +32,7 @@ class TestStringMethods(unittest.TestCase):
                 "max-width:<custom_generator>": 120,
             }
         }
-        sgc = StyleGeneratorConfig(config)
+        sgc = Config(config)
         self.assertEqual(0, sgc.getStyleValueWeights("max-width", value_type="percent"))
         self.assertEqual(20, sgc.getStyleValueWeights("max-width", value_type="length"))
         self.assertEqual(75, sgc.getStyleValueWeights("max-width", keyword="auto"))

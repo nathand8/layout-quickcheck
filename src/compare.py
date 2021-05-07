@@ -3,7 +3,7 @@
 import json
 import os, sys, traceback, argparse
 from webdrivers.target_browser import TargetBrowser
-from css_generators.style_generator_config import StyleGeneratorConfig
+from config import Config
 from layout_tester import PAGE_CRASH, test_combination
 from style_log_generator import generate_layout_tree, generate_style_log
 from html_file_generator import remove_file
@@ -92,7 +92,7 @@ if __name__ == "__main__":
 
     # Initialize Config
     config = parse_config(args.config_file)
-    StyleGeneratorConfig(config)
+    Config(config)
 
     counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit, crash_limit=args.crash_limit)
 

@@ -1,12 +1,12 @@
 import random
 from css_generators.util.length import generate as generate_length
-from css_generators.style_generator_config import StyleGeneratorConfig
+from config import Config
 from css_generators import custom_generators
 
 class StyleGenerator():
 
     def __init__(self):
-        self.config = StyleGeneratorConfig()
+        self.config = Config()
 
     def _lengthGenerator(self, style_name):
         generator = generate_length

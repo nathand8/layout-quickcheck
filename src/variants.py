@@ -1,7 +1,7 @@
+from config import Config
 from webdrivers import chrome, firefox, safari
 
 variants = []
-target_variant_generator = None
 
 
 def variant(name=None, force_slow=False, js_change_detection=False):
@@ -27,26 +27,13 @@ def getVariants():
     return variants
 
 
-def target():
-    """Decorator - used to specify the webdriver focus on testing"""
-    if target_variant_generator:
-        raise RuntimeError("Only one @target() browser driver is allowed")
-
-    def decorator_generator(func):
-        global target_variant_generator
-        target_variant_generator = func
-        return func
-    
-    return decorator_generator
-
-
 def getTargetBrowserDriver():
-    global target_variant_generator
-    if not target_variant_generator:
-        return variants[0]["driver"]()
-    else:
-        return target_variant_generator()
-
+    config = Config()
+    target_variant = config.getTargetBrowserVariant()
+    for variant in variants:
+        if variant["name"] == target_variant:
+            return variant["driver"]()
+    return variants[0]["driver"]()
 
 
 # =============================
@@ -78,7 +65,6 @@ def chrome_js_change_detection():
     "Chrome - Difference detection using JavaScript"
     return chrome.getWebDriver()
 
-@target()
 @variant()
 def chrome_blink_layout_grid():
     "Chrome --enable-blink-features=LayoutNGGrid"

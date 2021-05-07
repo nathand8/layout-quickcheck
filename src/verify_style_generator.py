@@ -1,7 +1,7 @@
 import argparse
 from css_generators.style_data import style_data
 from css_generators.style_generator import StyleGenerator
-from css_generators.style_generator_config import StyleGeneratorConfig
+from config import Config
 from compare import parse_config
 from css_generators.util.color import generate
 
@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     # Initialize Config
     config = parse_config(args.config_file)
-    StyleGeneratorConfig(config)
+    Config(config)
 
     def generate_style(style_name):
         style_value_generator = StyleGenerator()

@@ -7,7 +7,7 @@ def _weightToProbability(weight):
 def _bound(low, high, value):
     return max(low, min(high, value))
 
-class StyleGeneratorConfig:
+class Config:
     """ Singleton Class """
     __instance = None
 
@@ -17,11 +17,12 @@ class StyleGeneratorConfig:
         If called without config, return the existing singleton instance
         """
         if config != None:
-            cls.__instance = super(StyleGeneratorConfig, cls).__new__(cls)
+            cls.__instance = super(Config, cls).__new__(cls)
             # Class Initialization Code
             cls.__instance.style_weights = config.get("style-weights", {})
+            cls.__instance.target_browser_variant = config.get("target-browser-variant", None)
         elif cls.__instance == None:
-            raise RuntimeError("StyleGenerateConfig must be initialized before use")
+            raise RuntimeError("Config must be initialized before use")
 
         return cls.__instance
     
@@ -35,4 +36,7 @@ class StyleGeneratorConfig:
         style_and_type = style_name + ":" + key_suffix
         weight = self.style_weights.get(style_and_type, DEFAULT_STYLE_VALUE_WEIGHT)
         return _bound(0, 100000, weight)
+    
+    def getTargetBrowserVariant(self):
+        return self.target_browser_variant
         

@@ -1,4 +1,6 @@
 {
+    "target-browser-variant": "chrome_blink_layout_grid",
+
     "style-weights": {
 
         "content-visibility": 0,

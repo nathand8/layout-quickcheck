@@ -4,13 +4,13 @@ import os, sys
 sys.path.insert(0, "./src")
 
 from css_generators.style_generator import StyleGenerator
-from css_generators.style_generator_config import StyleGeneratorConfig
+from config import Config
 from css_generators.custom_generators import custom_generators
 
 class TestCustomDecorators(unittest.TestCase):
 
     def test__length_generator(self):
-        StyleGeneratorConfig({"style-weights": {"margin-top:<length>": 20}})
+        Config({"style-weights": {"margin-top:<length>": 20}})
         sg = StyleGenerator()
         g, w = sg._lengthGenerator("margin-top")
         self.assertFalse(g().isalpha())
@@ -21,7 +21,7 @@ class TestCustomDecorators(unittest.TestCase):
         self.assertEqual(10, w)
 
     def test__percentage_generator(self):
-        StyleGeneratorConfig({"style-weights": {"width:<percentage>": 20}})
+        Config({"style-weights": {"width:<percentage>": 20}})
         sg = StyleGenerator()
         g, w = sg._percentageGenerator("width")
         self.assertTrue(g().endswith("%"))
@@ -31,7 +31,7 @@ class TestCustomDecorators(unittest.TestCase):
         self.assertEqual(10, w)
 
     def test__keyword_generators(self):
-        StyleGeneratorConfig({"style-weights": {"display:inline": 20}})
+        Config({"style-weights": {"display:inline": 20}})
         sg = StyleGenerator()
         l = sg._keywordGenerators("display", ["inline", "block", "grid", "table"])
         self.assertEqual(len(l), 4)
@@ -42,7 +42,7 @@ class TestCustomDecorators(unittest.TestCase):
                 self.assertEqual(10, w)
 
     def test__custom_generators(self):
-        StyleGeneratorConfig({"style-weights": {"width:<custom_percentage_generator>": 20}})
+        Config({"style-weights": {"width:<custom_percentage_generator>": 20}})
         sg = StyleGenerator()
         def custom_percentage_generator(): return "10%"
         def custom_length_generator(): return "50px"
@@ -56,7 +56,7 @@ class TestCustomDecorators(unittest.TestCase):
                 self.assertEqual(10, w)
     
     def test_getWeightedGenerators(self):
-        StyleGeneratorConfig({"style-weights": {
+        Config({"style-weights": {
                 "max-width:always": 30,
                 "max-width:<length>": 50,
                 "max-width:<percentage>": 70,
