@@ -78,7 +78,7 @@ def find_bugs(counter):
         remove_file(test_filepath)
 
 
-DEFAULT_CONFIG_FILE = "./config/default.config.json"
+DEFAULT_CONFIG_FILE = "./config/preset-default.config.json"
 
 if __name__ == "__main__":
 

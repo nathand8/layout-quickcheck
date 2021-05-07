@@ -1,6 +1,7 @@
 import os
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from config import Config
 import atexit
 import types
 
@@ -22,7 +23,8 @@ def finish(webdriver):
 
 def getWebDriver(window_width=1000, window_height=1000, headless=True):
 
-    driver_path = os.environ.get("FIREFOX_DRIVER_PATH", None)
+    config = Config()
+    driver_path = config.getFirefoxDriverPath()
     if not driver_path:
         raise RuntimeError("Firefox Driver not found")
 

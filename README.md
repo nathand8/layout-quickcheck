@@ -31,15 +31,6 @@ xattr -d com.apple.quarantine /usr/local/bin/geckodriver
 # Safari Driver ships by default at /usr/bin/safaridriver
 ```
 
-### Declare Paths to Browser Drivers
-
-```bash
-export CHROME_DRIVER_PATH="/usr/local/bin/chromedriver"
-export FIREFOX_DRIVER_PATH="/usr/local/bin/geckodriver"    # Optional
-export SAFARI_DRIVER_PATH="/usr/bin/safaridriver"          # Optional
-```
-
-
 # Run
 
 ```bash
@@ -93,19 +84,16 @@ optional arguments:
                         path to config file to use
 ```
 
-### Environment Variables
+### Config
 
-Configuration is done through environment variables.
+Configuration is done through a `config.json` file. Several preset examples are available in the `./config` folder.
 
-| Environment Variable | Use | Default | Example |
-|----------------------|-----|---------| ------- |
-| `CHROME_DRIVER_PATH`    | Location of the Chrome driver. | N/A | `/usr/local/bin/chromedriver` |
-| `FIREFOX_DRIVER_PATH`    | Location of the Firefox driver. | N/A | `/usr/local/bin/geckodriver` |
-| `SAFARI_DRIVER_PATH`    | Location of the Safari driver. | N/A | `/usr/bin/safaridriver` |
+```bash
+python3 src/compare.py -c ./config/my-config.json
+```
 
 
 # FAQ
-
 
 #### Running on Safari
 If you get this error

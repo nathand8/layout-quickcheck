@@ -5,7 +5,7 @@ from config import Config
 from compare import parse_config
 from css_generators.util.color import generate
 
-DEFAULT_CONFIG_FILE = "./config/default.config.json"
+DEFAULT_CONFIG_FILE = "./config/preset-default.config.json"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="Generate examples of style values")

@@ -11,3 +11,7 @@ node_modules
 jsdist
 *.pyc
 *.out
+
+# Ignore most config files, except for the presets
+config/*
+!config/preset-*

@@ -1,6 +1,7 @@
 import os
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+from config import Config
 import atexit
 import types
 
@@ -21,7 +22,8 @@ def finish(webdriver):
 
 def getWebDriver(window_width=1000, window_height=1000, headless=True, chrome_args=[]):
 
-    driver_path = os.environ.get("CHROME_DRIVER_PATH", None)
+    config = Config()
+    driver_path = config.getChromeDriverPath()
     if not driver_path:
         raise RuntimeError("Chrome Driver not found")
 

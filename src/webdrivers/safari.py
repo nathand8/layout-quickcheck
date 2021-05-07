@@ -1,5 +1,6 @@
 import os
 from selenium.webdriver.safari.webdriver import WebDriver
+from config import Config
 import atexit
 import types
 
@@ -20,7 +21,8 @@ def finish(webdriver):
 
 def getWebDriver(window_width=1000, window_height=1000):
 
-    driver_path = os.environ.get("SAFARI_DRIVER_PATH", None)
+    config = Config()
+    driver_path = config.getSafariDriverPath()
     if not driver_path:
         raise RuntimeError("Safari Driver not found")
 
