@@ -3,7 +3,7 @@ from flask_cors import CORS
 import os
 import json
 
-BUG_REPORT_DIR = '../../bugreportfiles'
+BUG_REPORT_DIR = '../../bug_reports'
 JSON_FILENAME = 'data.json'
 
 app = Flask(__name__)
