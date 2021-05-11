@@ -91,6 +91,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Initialize Config
+    print(f"Using config file {args.config_file}")
     config = parse_config(args.config_file)
     Config(config)
 

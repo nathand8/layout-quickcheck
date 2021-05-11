@@ -24,6 +24,7 @@ class Config:
             # Class Initialization Code
             cls.__instance.style_weights = config.get("style-weights", {})
             cls.__instance.target_browser_variant = config.get("target-browser-variant", None)
+            print(f"Target Browser Variant from config: {cls.__instance.target_browser_variant}")
             paths = config.get("paths", {})
             cls.__instance.path_bug_reports_dir = paths.get("bug-reports-directory", "./bug_reports")
             cls.__instance.path_tmp_files_dir = paths.get("tmp-files-directory", "./tmp_generated_files")
