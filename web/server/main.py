@@ -15,8 +15,6 @@ CORS(app) # This allows CORS from all domains on all routes for testing
 # https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
 @app.route('/api/bug_file/<path:path>')
 def bugFile(path):
-    print(request)
-    print(request.base_url)
     return send_from_directory(BUG_REPORT_DIR, path)
 
 @app.route('/api/bugs')
@@ -30,7 +28,10 @@ def allBugs():
         with open(json_filepath, 'r') as f:
             bug = json.loads(f.read())
             server = request.base_url.split("/api")[0]
-            bug['demo_url'] = f"{server}/api/bug_file/{dir}/{DEMO_FILENAME}"
+            bug['demo_urls'] = {
+                "dirty": f"{server}/api/bug_file/{dir}/{DEMO_FILENAME}?state=dirty",
+                "reloaded": f"{server}/api/bug_file/{dir}/{DEMO_FILENAME}?state=reloaded",
+            }
             reports.append(bug)
         if len(reports) >= 100: # Quit Early (for testing only)
             return json.dumps(reports)

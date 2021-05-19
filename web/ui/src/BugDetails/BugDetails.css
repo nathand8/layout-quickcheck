@@ -8,3 +8,21 @@
 .variant_status .pass {
     color: green;
 }
+.demo-button {
+    padding-left: 15px;
+    cursor: pointer;
+    vertical-align: bottom;
+    font-size: 25px;
+}
+
+.demo {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-column-gap: 10px;
+    margin-bottom: 15px;
+}
+
+.demo .demo-box iframe {
+    width: 100%;
+    min-height: 200px;
+}
