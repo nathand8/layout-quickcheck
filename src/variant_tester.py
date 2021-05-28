@@ -1,12 +1,12 @@
 from html_file_generator import remove_file
 from layout_tester import run_test_using_js_diff_detect, test_combination
 from run_subject import RunSubject
-from variants import getVariants
+from variants import getVariants, getTargetVariant
 from web_page_creation.run_subject_converter import saveTestSubjectAsWebPage
 import traceback
 
 
-def format_variant_result(webdriver, description, diff_method="Python", forced_slow=False):
+def format_variant_result(webdriver, description, is_original_variant, diff_method="Python", forced_slow=False):
 
     browser_name = webdriver.capabilities['browserName']
     browser_version = "unknown"
@@ -20,6 +20,7 @@ def format_variant_result(webdriver, description, diff_method="Python", forced_s
         "browser": browser_name,
         "browser_version": browser_version,
         "window_size": window_size,
+        "is_original_variant": is_original_variant,
         "diff_method": diff_method,
         "forced_slow": forced_slow,
     }
@@ -41,7 +42,8 @@ def test_variants(run_subject: RunSubject):
     for variant in getVariants():
         try:
             webdriver = variant["driver"]()
-            result = format_variant_result(webdriver, variant["name"], forced_slow=["force_slow"])
+            is_original_variant = variant is getTargetVariant()
+            result = format_variant_result(webdriver, variant["name"], is_original_variant, forced_slow=["force_slow"])
             if variant["js_change_detection"]:
                 test_filepath, test_web_page = saveTestSubjectAsWebPage(run_subject)
                 bug_gone, *_ = run_test_using_js_diff_detect(test_web_page, webdriver, slow=variant["force_slow"])

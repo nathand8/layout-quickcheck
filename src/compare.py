@@ -2,6 +2,7 @@
 
 import json
 import os, sys, traceback, argparse
+from variants import getTargetVariant
 from webdrivers.target_browser import TargetBrowser
 from config import Config
 from layout_tester import PAGE_CRASH, test_combination
@@ -94,6 +95,10 @@ if __name__ == "__main__":
     print(f"Using config file {args.config_file}")
     config = parse_config(args.config_file)
     Config(config)
+
+    # Logging - Target Variant
+    target_variant = getTargetVariant()
+    print(f"Using target variant \"{target_variant['name']}\"")
 
     counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit, crash_limit=args.crash_limit)
 

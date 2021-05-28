@@ -24,7 +24,6 @@ class Config:
             # Class Initialization Code
             cls.__instance.style_weights = config.get("style-weights", {})
             cls.__instance.target_browser_variant = config.get("target-browser-variant", None)
-            print(f"Target Browser Variant from config: {cls.__instance.target_browser_variant}")
             paths = config.get("paths", {})
             cls.__instance.path_bug_reports_dir = paths.get("bug-reports-directory", "./bug_reports")
             cls.__instance.path_tmp_files_dir = paths.get("tmp-files-directory", "./tmp_generated_files")
@@ -70,9 +69,9 @@ class Config:
     def detectDriverPath(driver, config_name):
         status, driver_path = subprocess.getstatusoutput(f"which {driver}")
         if status == 0:
-            print(f"No {config_name} path in config. Using {driver_path}")
+            print(f"Warning: No {config_name} path in config. Using {driver_path}")
             return driver_path
         else:
-            print(f"No {config_name} Found. You may need to install {driver} or put the path in the config.")
+            print(f"Warning: No {config_name} Found. You may need to install {driver} or put the path in the config.")
             return None
     

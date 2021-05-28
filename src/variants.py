@@ -13,6 +13,8 @@ def variant(name=None, force_slow=False, js_change_detection=False):
             n = name
         v = {
             "name": n,
+            "__doc__": func.__doc__,
+            "__name__": func.__name__,
             "driver": func,
             "force_slow": force_slow,
             "js_change_detection": js_change_detection
@@ -26,14 +28,16 @@ def variant(name=None, force_slow=False, js_change_detection=False):
 def getVariants():
     return variants
 
+def getTargetVariant():
+    config = Config()
+    target_v = config.getTargetBrowserVariant()
+    for v in variants:
+        if target_v in [v["name"], v["__name__"], v["__doc__"]]:
+            return v
+    return variants[0] # Default variant is whichever is first
 
 def getTargetBrowserDriver():
-    config = Config()
-    target_variant = config.getTargetBrowserVariant()
-    for variant in variants:
-        if variant["name"] == target_variant:
-            return variant["driver"]()
-    return variants[0]["driver"]()
+    return getTargetVariant()["driver"]()
 
 
 # =============================
