@@ -2,6 +2,9 @@
     font-size: 20px;
     margin-right: 5px;
 }
+.is_original_variant {
+    font-weight: bold;
+}
 .variant_status .fail {
     color: red;
 }
@@ -25,4 +28,8 @@
 .demo .demo-box iframe {
     width: 100%;
     min-height: 200px;
+}
+
+.capitalize {
+    text-transform: capitalize;
 }
