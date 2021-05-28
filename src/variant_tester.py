@@ -4,6 +4,7 @@ from run_subject import RunSubject
 from variants import getVariants, getTargetVariant
 from web_page_creation.run_subject_converter import saveTestSubjectAsWebPage
 import traceback
+import platform
 
 
 def format_variant_result(webdriver, description, is_original_variant, diff_method="Python", forced_slow=False):
@@ -19,10 +20,12 @@ def format_variant_result(webdriver, description, is_original_variant, diff_meth
         "description": description,
         "browser": browser_name,
         "browser_version": browser_version,
-        "window_size": window_size,
         "is_original_variant": is_original_variant,
+        "window_size": window_size,
         "diff_method": diff_method,
         "forced_slow": forced_slow,
+        "os_name": platform.system(),
+        "os_details": platform.platform()
     }
 
 
