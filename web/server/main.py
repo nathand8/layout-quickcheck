@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 from flask.helpers import send_from_directory
 from flask_cors import CORS
 import os
@@ -19,23 +19,52 @@ def bugFile(path):
 
 @app.route('/api/bugs')
 def allBugs():
-    # Open the folder with all the bugs
-    # Get one bug report per folder
-    # Send back data.json
+    """
+    Open the folder with all the bugs
+    Get one bug report per sub-folder
+    Send back data.json
+    """
     reports = []
-    for dir in os.listdir(BUG_REPORT_DIR):
-        json_filepath = os.path.join(BUG_REPORT_DIR, dir, JSON_FILENAME) 
-        with open(json_filepath, 'r') as f:
-            bug = json.loads(f.read())
-            server = request.base_url.split("/api")[0]
-            bug['demo_urls'] = {
-                "dirty": f"{server}/api/bug_file/{dir}/{DEMO_FILENAME}?state=dirty",
-                "reloaded": f"{server}/api/bug_file/{dir}/{DEMO_FILENAME}?state=reloaded",
-            }
+    bug_dirs = os.listdir(BUG_REPORT_DIR)
+    bug_dirs.sort(reverse=True) # Sort by date
+    for dir in bug_dirs:
+        bug = bugJson(dir)
+        if bug:
             reports.append(bug)
         if len(reports) >= 100: # Quit Early (for testing only)
             return json.dumps(reports)
     return json.dumps(reports)
+
+@app.route('/api/bug/<path:path>')
+def oneBug(path):
+    """
+    Get a single bug JSON
+    """
+    bug = bugJson(path)
+    if bug:
+        return json.dumps(bug)
+    else:
+        abort(404)
+
+def bugJson(bug_dir):
+    """
+    Get the json from a bug report and prepare it for the UI
+    """
+    json_filepath = os.path.join(BUG_REPORT_DIR, bug_dir, JSON_FILENAME) 
+
+    if not os.path.exists(json_filepath):
+        return None
+
+    with open(json_filepath, 'r') as f:
+        bug = json.loads(f.read())
+        server = request.base_url.split("/api")[0]
+
+        # Add urls to demo pages
+        bug['demo_urls'] = {
+            "dirty": f"{server}/api/bug_file/{bug_dir}/{DEMO_FILENAME}?state=dirty",
+            "reloaded": f"{server}/api/bug_file/{bug_dir}/{DEMO_FILENAME}?state=reloaded",
+        }
+        return bug
 
 if __name__ == '__main__':
     app.run()
