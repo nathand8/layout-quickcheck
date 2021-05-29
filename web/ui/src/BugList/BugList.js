@@ -70,6 +70,8 @@ export default function BugList(props) {
   return (
     <div className="BugList">
 
+      <h2>Bug List</h2>
+
       <InputGroup className="search-container">
         <InputGroup.Prepend>
           <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Clear Search</Tooltip>}>

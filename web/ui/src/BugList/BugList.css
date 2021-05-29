@@ -8,3 +8,8 @@
     font-size: 20px;
     margin-right:10px;
 }
+
+.BugList h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
