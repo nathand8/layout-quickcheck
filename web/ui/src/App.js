@@ -25,7 +25,6 @@ export default function BasicExample() {
       <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/">Layout QuickCheck</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Nav className="mr-auto">
           <Nav.Link href="/">BugList</Nav.Link>
         </Nav>
@@ -45,7 +44,7 @@ export default function BasicExample() {
             <Route exact path="/">
               <BugList />
             </Route>
-            <Route path="/bug">
+            <Route path="/bug/:bug_id">
               <SingleBug />
             </Route>
           </Switch>
