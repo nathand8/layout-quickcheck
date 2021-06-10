@@ -64,6 +64,7 @@ def bugJson(bug_dir):
             "dirty": f"{server}/api/bug_file/{bug_dir}/{DEMO_FILENAME}?state=dirty",
             "reloaded": f"{server}/api/bug_file/{bug_dir}/{DEMO_FILENAME}?state=reloaded",
         }
+        bug['id'] = bug_dir
         return bug
 
 if __name__ == '__main__':
