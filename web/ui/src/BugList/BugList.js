@@ -38,7 +38,7 @@ export function applySearch(searchStr, bugs) {
 
 export default function BugList(props) {
 
-  const bugsAPI = "http://localhost:5000/api/bugs";
+  const bugsAPI = "/api/bugs";
 
   const [searchStr, setSearchStr] = useState("");
   const [bugs, setBugs] = useState([]);

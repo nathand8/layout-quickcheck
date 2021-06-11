@@ -1,16 +1,25 @@
 from flask import Flask, request, abort
 from flask.helpers import send_from_directory
-from flask_cors import CORS
 import os
 import json
 
 BUG_REPORT_DIR = '../../bug_reports'
+STATIC_FILES_DIR = '../ui/build'
 JSON_FILENAME = 'data.json'
 DEMO_FILENAME = 'min_bug_with_debug.html'
 MINIMIZED_FILENAME = 'minimized_bug.html'
 
-app = Flask(__name__)
-CORS(app) # This allows CORS from all domains on all routes for testing
+app = Flask(__name__, static_folder=os.path.join(STATIC_FILES_DIR, "static"))
+
+# Serve up index.html for any file that doesn't match other paths
+# This allows for front-end routing
+@app.route('/')
+@app.route('/<path:p>')
+def indexFile(p = "index.html"):
+    if os.path.exists(os.path.join(STATIC_FILES_DIR, p)): 
+        return send_from_directory(STATIC_FILES_DIR, p)
+    else:
+        return send_from_directory(STATIC_FILES_DIR, "index.html")
 
 # Serve the bug files from the server
 # https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask
