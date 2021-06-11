@@ -45,3 +45,8 @@
     margin-right: 10px;
     margin-bottom: 10px;
 }
+
+.modal-dialog.bug-report-modal {
+    width: 90vw;
+    max-width: 1200px;
+}

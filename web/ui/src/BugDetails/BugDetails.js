@@ -36,12 +36,14 @@ export default function BugDetails(props) {
         <div className="demo-box">
           <h6>Freshly Reloaded</h6>
           <iframe title="demo_fresh" src={props.data.demo_urls.reloaded}></iframe><br />
-          <a target="_blank" href={props.data.demo_urls.reloaded} rel="noreferrer">Open Separately</a>
+          <Button className="share-link" variant="outline-secondary" target="_blank" href={props.data.demo_urls.reloaded} rel="noreferrer">Open in New Tab</Button>
+          <Button className="share-link" variant="outline-secondary" href={props.data.download_urls.full} download>Download</Button>
         </div>
         <div className="demo-box">
           <h6>Dirty Changes</h6>
           <iframe title="demo_changes" src={props.data.demo_urls.dirty}></iframe><br />
-          <a target="_blank" href={props.data.demo_urls.dirty} rel="noreferrer">Open Separately</a>
+          <Button className="share-link" variant="outline-secondary" target="_blank" href={props.data.demo_urls.dirty} rel="noreferrer">Open in New Tab</Button>
+          <Button className="share-link" variant="outline-secondary" href={props.data.download_urls.full} download>Download</Button>
         </div>
       </div>      
   }
@@ -93,7 +95,7 @@ export default function BugDetails(props) {
       </div>
 
       <div>
-        <Modal show={showChromeBugReportModal} onHide={closeChromeBugReport}>
+        <Modal dialogClassName="bug-report-modal" show={showChromeBugReportModal} onHide={closeChromeBugReport}>
           <Modal.Header closeButton>
             <Modal.Title>Chrome Bug Report</Modal.Title>
           </Modal.Header>
