@@ -7,6 +7,7 @@ import json
 BUG_REPORT_DIR = '../../bug_reports'
 JSON_FILENAME = 'data.json'
 DEMO_FILENAME = 'min_bug_with_debug.html'
+MINIMIZED_FILENAME = 'minimized_bug.html'
 
 app = Flask(__name__)
 CORS(app) # This allows CORS from all domains on all routes for testing
@@ -16,6 +17,11 @@ CORS(app) # This allows CORS from all domains on all routes for testing
 @app.route('/api/bug_file/<path:path>')
 def bugFile(path):
     return send_from_directory(BUG_REPORT_DIR, path)
+
+# Download the bug files
+@app.route('/api/download/bug_file/<path:path>')
+def bugFileDownload(path):
+    return send_from_directory(BUG_REPORT_DIR, path, as_attachment=True)
 
 @app.route('/api/bugs')
 def allBugs():
@@ -63,6 +69,10 @@ def bugJson(bug_dir):
         bug['demo_urls'] = {
             "dirty": f"{server}/api/bug_file/{bug_dir}/{DEMO_FILENAME}?state=dirty",
             "reloaded": f"{server}/api/bug_file/{bug_dir}/{DEMO_FILENAME}?state=reloaded",
+        }
+        bug['download_urls'] = {
+            "full": f"{server}/api/download/bug_file/{bug_dir}/{DEMO_FILENAME}",
+            "minimized": f"{server}/api/download/bug_file/{bug_dir}/{MINIMIZED_FILENAME}",
         }
         bug['id'] = bug_dir
         return bug
