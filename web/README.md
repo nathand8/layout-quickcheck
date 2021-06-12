@@ -11,13 +11,19 @@ npm install
 npm run build
 ```
 
-### Run the Backend Server
+### Run the Server
 
 From `web/server`
 ```bash
 pip3 install -r requirements.txt
 python main.py
 ```
+
+(Optional) The server can be run on a different port with the `-p` flag.
+```bash
+python main.py -p 8080
+```
+
 ### Go
 
 Go to `http://localhost:5000/` to see it running.
