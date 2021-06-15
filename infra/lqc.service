@@ -1,0 +1,12 @@
+[Unit]
+Description=Run the Layout-QuickCheck GUI server
+
+[Service]
+WorkingDirectory=/data/pavpan/nightlies/layout-quickcheck/master/web/server/
+ExecStartPre=/usr/bin/make -C ../../ build
+ExecStart=/usr/bin/python3 main.py --port 8001 --public
+User=p92
+Group=p92
+
+[Install]
+WantedBy=multi-user.target
