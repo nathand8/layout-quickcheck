@@ -91,6 +91,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="Run the UI server")
     parser.add_argument("-p", "--port", help="Run the server on a different port", type=int, default=5000)
+    parser.add_argument("--public", help="Run the server on a different port", action="store_true")
     args = parser.parse_args()
 
-    app.run(port=args.port)
+    app.run(port=args.port, host=("0.0.0.0" if args.public else "localhost"))
