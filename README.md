@@ -1,16 +1,17 @@
 # Browser Layout Testing - QuickCheck
-This is a tool that uses randomized testing to find under-invalidation bugs in web browsers.
 
-## Chromium Bugs Reported
-This is a growing list of the bugs that have been reported in Chromium:
-- https://bugs.chromium.org/p/chromium/issues/detail?id=1137427
-- https://bugs.chromium.org/p/chromium/issues/detail?id=1166887
-- blink_grid_0001 - https://bugs.chromium.org/p/chromium/issues/detail?id=1189755 
-- blink_grid_0002 - https://bugs.chromium.org/p/chromium/issues/detail?id=1189762
-- blink_grid_0003 - https://bugs.chromium.org/p/chromium/issues/detail?id=1190220 - page crash
-- [bug-report-2021-06-14-10-42-57-823124](https://bugs.chromium.org/p/chromium/issues/detail?id=1219641) - under invalidation
+![LQC logo](logo.png)
 
-Hundreds more bugs have not been reported. As of writing, sifting through bugs and preparing bug reports is the most time-intensive part of this process.
+This is a tool that uses randomized testing to find under-invalidation
+bugs in web browsers. It's already found a lot of bugs in Chrome: 
+[1137427](https://bugs.chromium.org/p/chromium/issues/detail?id=1137427)
+[1166887](https://bugs.chromium.org/p/chromium/issues/detail?id=1166887)
+[1189755](https://bugs.chromium.org/p/chromium/issues/detail?id=1189755) (fixed)
+[1189762](https://bugs.chromium.org/p/chromium/issues/detail?id=1189762)
+[1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220) (fixed)
+[1219641](https://bugs.chromium.org/p/chromium/issues/detail?id=1219641).
+As of writing, sifting through bugs and preparing bug reports is the
+most time-intensive part of this process.
 
 # Setup
 
