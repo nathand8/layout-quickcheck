@@ -4,11 +4,12 @@
 
 This is a tool that uses randomized testing to find under-invalidation
 bugs in web browsers. It's already found a lot of bugs in Chrome: 
-[1137427](https://bugs.chromium.org/p/chromium/issues/detail?id=1137427)
-[1166887](https://bugs.chromium.org/p/chromium/issues/detail?id=1166887)
-[1189755](https://bugs.chromium.org/p/chromium/issues/detail?id=1189755) (fixed)
-[1189762](https://bugs.chromium.org/p/chromium/issues/detail?id=1189762)
-[1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220) (fixed)
+[1137427](https://bugs.chromium.org/p/chromium/issues/detail?id=1137427),
+[1166887](https://bugs.chromium.org/p/chromium/issues/detail?id=1166887),
+[1189755](https://bugs.chromium.org/p/chromium/issues/detail?id=1189755) (fixed),
+[1189762](https://bugs.chromium.org/p/chromium/issues/detail?id=1189762),
+[1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220) (fixed),
+and
 [1219641](https://bugs.chromium.org/p/chromium/issues/detail?id=1219641).
 As of writing, sifting through bugs and preparing bug reports is the
 most time-intensive part of this process.
