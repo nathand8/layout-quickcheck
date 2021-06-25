@@ -11,6 +11,7 @@ import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip'
 import BugDetails from '../BugDetails/BugDetails';
+import { applySearch } from '../Search/Search';
 import { FaBug, FaChrome, FaExclamationTriangle, FaFirefox, FaTimes } from 'react-icons/fa';
 
 export function displayStyleList(styles) {
@@ -18,22 +19,6 @@ export function displayStyleList(styles) {
   styles = _.clone(styles)
   _.remove(styles, (n) => ignore.has(n))
   return _.join(styles, ', ');
-}
-
-export function applySearch(searchStr, bugs) {
-  let groups = searchStr.split(/[ ,]+/); // Split by whitespace
-  let filters = groups
-    .filter(group => group.length > 0)
-    .map((group) => {
-      if (group.startsWith("type:")) {
-        return (bug) => (bug.bug_type.toLowerCase().includes(group.replace("type:", "").toLowerCase()));
-      } else if (group.startsWith("seen:")) {
-        return (bug) => (bug.variants["Test Variant Details"].filter(variant => variant.bug_detected).map(variant => variant.description).join(', ').toLowerCase().includes(group.replace("seen:", "").toLowerCase()))
-      } else {
-        return (bug) => (bug.styles_used_string.includes(group));
-      }
-    })
-  return bugs.filter(bug => filters.every(filter => filter(bug)));
 }
 
 export default function BugList(props) {
