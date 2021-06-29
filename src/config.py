@@ -28,6 +28,7 @@ class Config:
             cls.__instance.path_bug_reports_dir = paths.get("bug-reports-directory", "./bug_reports")
             cls.__instance.path_tmp_files_dir = paths.get("tmp-files-directory", "./tmp_generated_files")
             cls.__instance.path_chrome_driver = paths.get("chrome-webdriver", None) or Config.detectDriverPath("chromedriver", "chrome-webdriver")
+            cls.__instance.path_chrome_binary = paths.get("chrome", None)
             cls.__instance.path_firefox_driver = paths.get("firefox-webdriver", None) or Config.detectDriverPath("geckodriver", "firefox-webdriver")
             cls.__instance.path_safari_driver = paths.get("safari-webdriver", None) or Config.detectDriverPath("safaridriver", "safari-webdriver")
 
@@ -58,6 +59,9 @@ class Config:
 
     def getChromeDriverPath(self):
         return self.path_chrome_driver
+
+    def getChromeBinaryPath(self):
+        return self.path_chrome_binary
 
     def getFirefoxDriverPath(self):
         return self.path_firefox_driver
