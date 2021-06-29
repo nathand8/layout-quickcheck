@@ -33,6 +33,8 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True, chrome_ar
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
+    if config.getChromeBinaryPath():
+        chrome_options.binary_location = config.getChromeBinaryPath()
     
     for arg in chrome_args:
         chrome_options.add_argument(arg)
