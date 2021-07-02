@@ -40,6 +40,12 @@ export default function BugList(props) {
       .catch(error => console.error(error));
   }, []); // Only run once when component loads
 
+  // Get the initial search string
+  useEffect(() => {
+    let params = new URLSearchParams(window.location.search);
+    setSearchStr(params.get("search") || "");
+  }, []); // Only run once when component loads
+
   useEffect(() => {
     if (bugs) {
       if (searchStr) {
@@ -51,6 +57,13 @@ export default function BugList(props) {
       setFilteredBugs([]);
     }
   }, [searchStr, bugs])
+
+  // Update the url with each new search string
+  useEffect(() => {
+    setTimeout(() => {
+      window.history.replaceState(null, "", window.location.pathname + "?search=" + searchStr);
+    })
+  }, [searchStr])
 
   return (
     <div className="BugList">
@@ -78,6 +91,9 @@ export default function BugList(props) {
         </OverlayTrigger>
         <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Firefox Bugs</Tooltip>}>
           <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " seen:Firefox")}>seen:Firefox</Button>
+        </OverlayTrigger>
+        <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Not a bug in Vanilla Chrome</Tooltip>}>
+          <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " !seen:Chrome-Vanilla")}>!seen:Chrome-Vanilla</Button>
         </OverlayTrigger>
         <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Browser Version 91</Tooltip>}>
           <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " version:91")}>version:91</Button>
