@@ -10,6 +10,7 @@ import platform
 def format_variant_result(webdriver, description, is_original_variant, diff_method="Python", forced_slow=False):
 
     browser_name = webdriver.capabilities['browserName']
+    browser_name = browser_name.capitalize()
     browser_version = "unknown"
     if "browserVersion" in webdriver.capabilities:
         browser_version = webdriver.capabilities['browserVersion']
