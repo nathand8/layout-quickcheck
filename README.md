@@ -10,8 +10,9 @@ bugs in web browsers. It's already found a lot of bugs in Chrome:
 [1189762](https://bugs.chromium.org/p/chromium/issues/detail?id=1189762),
 [1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220) (fixed),
 [1219641](https://bugs.chromium.org/p/chromium/issues/detail?id=1219641),
+[1224721](https://bugs.chromium.org/p/chromium/issues/detail?id=1224721),
 and
-[1224721](https://bugs.chromium.org/p/chromium/issues/detail?id=1224721).
+[1229681](https://bugs.chromium.org/p/chromium/issues/detail?id=1229681).
 As of writing, sifting through bugs and preparing bug reports is the
 most time-intensive part of this process.
 
