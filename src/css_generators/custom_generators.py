@@ -26,10 +26,24 @@ def _percent():
     """ Percentage """
     return str(random.randint(-200, 200)) + "%"
 
+def _p_percent():
+    """ Positive Percentage """
+    return str(random.randint(0, 100)) + "%"
+
 def _p_length_fr():
     """ Positive Length in fractional units. Eg 12fr """
     return str(random.randint(0, 100)) + "fr"
 
+def _rand_pick(generators_list):
+    """ Pick a random generator from the list and invoke it """
+    generator = random.choice(generators_list)
+    return generator()
+
+def _p_deg_angle():
+    """ Positive degree angle betwee 0 and 360 
+        eg. 25deg, 180deg
+    """
+    return f"{random.randint(0, 360)}deg"
 
 # =============================
 # Custom Generators
@@ -63,3 +77,26 @@ def small_number():
 @generator("grid-row-end")
 def span_small_positive_number():
     return "span " + str(random.randint(0, 10))
+
+@generator("transform")
+def transform_translate():
+    value_types = [_p_length_px, _p_percent]
+    return f"translate({_rand_pick(value_types)}, {_rand_pick(value_types)})"
+
+@generator("transform")
+def transform_matrix():
+    coords = [str(random.randint(0, 10)) for x in range(6)]
+    return f"matrix({','.join(coords)})"
+
+@generator("transform")
+def transform_scale():
+    gen = lambda : random.gammavariate(1.2, 2)
+    return f"scale({gen()}, {gen()})"
+
+@generator("transform")
+def transform_skew():
+    return f"skew({_p_deg_angle()}, {_p_deg_angle()})"
+
+@generator("transform")
+def transform_rotate():
+    return f"rotate({_p_deg_angle()})"
