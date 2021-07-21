@@ -3,16 +3,20 @@
 ![LQC logo](logo.png)
 
 This is a tool that uses randomized testing to find under-invalidation
-bugs in web browsers. It's already found a lot of bugs in Chrome: 
+bugs in web browsers. It's already found a lot of bugs in Chrome (
 [1137427](https://bugs.chromium.org/p/chromium/issues/detail?id=1137427),
 [1166887](https://bugs.chromium.org/p/chromium/issues/detail?id=1166887),
-[1189755](https://bugs.chromium.org/p/chromium/issues/detail?id=1189755) (fixed),
+[1189755](https://bugs.chromium.org/p/chromium/issues/detail?id=1189755) [fixed],
 [1189762](https://bugs.chromium.org/p/chromium/issues/detail?id=1189762),
-[1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220) (fixed),
+[1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220) [fixed],
 [1219641](https://bugs.chromium.org/p/chromium/issues/detail?id=1219641),
 [1224721](https://bugs.chromium.org/p/chromium/issues/detail?id=1224721),
 and
-[1229681](https://bugs.chromium.org/p/chromium/issues/detail?id=1229681).
+[1229681](https://bugs.chromium.org/p/chromium/issues/detail?id=1229681)
+)
+and Firefox (
+[1721719](https://bugzilla.mozilla.org/show_bug.cgi?id=1721719)
+).
 As of writing, sifting through bugs and preparing bug reports is the
 most time-intensive part of this process.
 
