@@ -88,6 +88,33 @@ def Minify_RemoveEachStyleForEachElement(run_subject):
             yield removeStyle
 
 
+def Minify_MoveStyleChangesToFirstLoad(run_subject):
+    """ For each of the modified styles, try moving that style to the base styles.
+        This should leave only the absolutely essential styles being modified.
+    """
+
+    # Generate a function for each item in modified_styles
+    for elementId, styles in run_subject.modified_styles.map.items():
+        for style_name, style_value in styles.items():
+            
+            def moveStyleUpstream(proposed_run_subject):
+
+                # Add style to base styles
+                if elementId not in proposed_run_subject.base_styles.map.keys():
+                    proposed_run_subject.base_styles.map[elementId] = {}
+                proposed_run_subject.base_styles.map[elementId][style_name] = style_value
+
+                # Remove style from modified styles
+                del proposed_run_subject.modified_styles.map[elementId][style_name]
+                if len(proposed_run_subject.modified_styles.map[elementId]) == 0:
+                    del proposed_run_subject.modified_styles.map[elementId] 
+
+                return proposed_run_subject
+            
+            yield moveStyleUpstream
+
+
+
 # Try simplifying css lengths (e.g "-1496vh" or "+1240vmin") to "-20px" or "20px"
 def Minify_SimplifyLengthStyles(run_subject):
 
@@ -192,6 +219,7 @@ def minify(target_browser: TargetBrowser, run_subject):
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_RemoveEachElement(run_subject))
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_RemoveAllStylesForEachElement(run_subject))
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_RemoveEachStyleForEachElement(run_subject))
+    (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_MoveStyleChangesToFirstLoad(run_subject))
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_SimplifyLengthStyles(run_subject))
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_MinHeightWidthPerElement(run_subject))
     (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_BackgroundColorPerElement(run_subject))
