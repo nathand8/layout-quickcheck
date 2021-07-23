@@ -1,0 +1,33 @@
+
+{
+    "paths": {
+        "bug-reports-directory": "./bug_reports",
+        "tmp-files-directory": "./tmp_generated_files",
+        "chrome-webdriver": null,
+        "firefox-webdriver": null,
+        "safari-webdriver": null
+    },
+
+    "target-browser-variant": "firefox_dynamic_reflow_roots",
+
+    "style-weights": {
+        "content-visibility": 0,
+        "writing-mode": 0,
+        "display": 100,
+
+        "display:flow-root": 250,
+        "transform": 75,
+        "width": 100,
+        "height": 100,
+
+        "padding": 0,
+        "padding-left": 0,
+        "padding-right": 0,
+        "padding-block-start": 0,
+        "padding-block-end": 0,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
+
+
+    }
+}
