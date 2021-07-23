@@ -12,6 +12,6 @@ python3 src/compare.py -t 10000 -c ./config/nightly-firefox.json
 FFX_COUNT=$(find bug_reports -maxdepth 1 -type d -newermt "$START" | wc -l)
 
 if command -v nightly-results &>/dev/null; then
-    nightly-results $(google-chrome --version) "$CHROME_COUNT"
-    nightly-results $(firefox --version) "$FFX_COUNT"
+    nightly-results "$(google-chrome --version)" "$CHROME_COUNT"
+    nightly-results "$(firefox --version)" "$FFX_COUNT"
 fi
