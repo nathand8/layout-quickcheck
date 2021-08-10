@@ -1,6 +1,6 @@
-# Browser Layout Testing - QuickCheck
+![LQC logo](logo.png | width=100)
 
-![LQC logo](logo.png)
+# Browser Layout Testing - QuickCheck
 
 This is a tool that uses randomized testing to find under-invalidation
 bugs in web browsers. It's already found a lot of bugs in Chrome
