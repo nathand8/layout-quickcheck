@@ -1,6 +1,6 @@
-# Browser Layout Testing - QuickCheck
+![LQC logo](logo_100px_width.png)
 
-![LQC logo](logo.png)
+# Browser Layout Testing - QuickCheck
 
 This is a tool that uses randomized testing to find under-invalidation
 bugs in web browsers. It's already found a lot of bugs in Chrome
@@ -46,6 +46,11 @@ xattr -d com.apple.quarantine /usr/local/bin/geckodriver
 ```bash
 python3 src/compare.py
 ```
+
+# Architecture Diagram
+
+![Architecture Diagram](architecture_diagram.png)
+
 
 # Output
 
