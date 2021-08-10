@@ -14,7 +14,10 @@ bugs in web browsers. It's already found a lot of bugs in Chrome
 and
 [1229681](https://bugs.chromium.org/p/chromium/issues/detail?id=1229681))
 and Firefox
-([1721719](https://bugzilla.mozilla.org/show_bug.cgi?id=1721719)).
+([1721719](https://bugzilla.mozilla.org/show_bug.cgi?id=1721719),
+[1724991](https://bugzilla.mozilla.org/show_bug.cgi?id=1724991),
+and
+[1724982](https://bugzilla.mozilla.org/show_bug.cgi?id=1724982)).
 As of writing, sifting through bugs and preparing bug reports is the
 most time-intensive part of this process.
 
