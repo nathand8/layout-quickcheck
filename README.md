@@ -16,8 +16,9 @@ and
 and Firefox
 ([1721719](https://bugzilla.mozilla.org/show_bug.cgi?id=1721719),
 [1724991](https://bugzilla.mozilla.org/show_bug.cgi?id=1724991),
-and
-[1724982](https://bugzilla.mozilla.org/show_bug.cgi?id=1724982)).
+[1724982](https://bugzilla.mozilla.org/show_bug.cgi?id=1724982),
+linked to metabug
+[1724999](https://bugzilla.mozilla.org/show_bug.cgi?id=1724999)).
 As of writing, sifting through bugs and preparing bug reports is the
 most time-intensive part of this process.
 
