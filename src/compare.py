@@ -6,7 +6,7 @@ from variants import getTargetVariant
 from webdrivers.target_browser import TargetBrowser
 from config import Config
 from layout_tester import PAGE_CRASH, test_combination
-from style_log_generator import generate_layout_tree, generate_style_log
+from style_log_generator import generate_run_subject
 from html_file_generator import remove_file
 from minify_test_file import minify
 from bug_report_helper import save_bug_report
@@ -27,11 +27,7 @@ def find_bugs(counter):
     while counter.should_continue():
 
         # Stage 1 - Generate & Test
-        body = generate_layout_tree()
-        base_style_log = generate_style_log(body)
-        modified_style_log = generate_style_log(body)
-
-        run_subject = RunSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
+        run_subject = generate_run_subject()
         (no_differences, differences, test_filepath) = test_combination(target_browser.getDriver(), run_subject, keep_file=True)
 
         if no_differences:
