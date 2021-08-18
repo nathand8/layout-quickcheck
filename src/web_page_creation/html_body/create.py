@@ -1,7 +1,7 @@
 from functools import reduce
 import json
-from run_subject import RunSubject
-from web_page_creation.util import formatWithIndent
+from lqc.run_subject import RunSubject
+from lqc.web_page_creation.util import formatWithIndent
 
 current_template = """
 <{tag} style="{style}" id="{element_id}">

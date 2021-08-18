@@ -1,5 +1,5 @@
-from run_subject import RunSubject
-from web_page_creation.util import formatWithIndent
+from lqc.run_subject import RunSubject
+from lqc.web_page_creation.util import formatWithIndent
 
 def create(run_subject: RunSubject):
 

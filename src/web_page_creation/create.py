@@ -1,10 +1,10 @@
 from enum import Enum, unique
-from run_subject import RunSubject
-from web_page_creation.javascript_with_debugging_tools.create import create as js_with_debugging
-from web_page_creation.javascript_minimal.create import create as js_minimal
-from web_page_creation.javascript_grizzly.create import create as js_grizzly
-from web_page_creation.html_body.create import create as html_body
-from web_page_creation.util import formatWithIndent
+from lqc.run_subject import RunSubject
+from lqc.web_page_creation.javascript_with_debugging_tools.create import create as js_with_debugging
+from lqc.web_page_creation.javascript_minimal.create import create as js_minimal
+from lqc.web_page_creation.javascript_grizzly.create import create as js_grizzly
+from lqc.web_page_creation.html_body.create import create as html_body
+from lqc.web_page_creation.util import formatWithIndent
 
 html_template = """
 <!DOCTYPE html>

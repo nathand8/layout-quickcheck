@@ -1,6 +1,5 @@
-import json
-from run_subject import RunSubject
-from web_page_creation.util import indent
+from lqc.run_subject import RunSubject
+from lqc.web_page_creation.util import indent
 
 def create(run_subject: RunSubject):
     modified_style_string = run_subject.modified_styles.toJS()

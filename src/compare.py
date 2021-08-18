@@ -1,24 +1,18 @@
 #!/usr/bin/env python3
 
-import json
-import os, sys, traceback, argparse
-from variants import getTargetVariant
-from webdrivers.target_browser import TargetBrowser
-from config import Config
-from layout_tester import PAGE_CRASH, test_combination
-from style_log_generator import generate_run_subject
-from html_file_generator import remove_file
-from minify_test_file import minify
-from bug_report_helper import save_bug_report
-from variant_tester import test_variants
-from run_subject import RunSubject
-from element_tree import ElementTree
-from style_map import StyleMap
-from counter import Counter
+import sys, traceback, argparse
+# import variants
+from .variants import getTargetVariant
+from .webdrivers.target_browser import TargetBrowser
+from .config import Config, parse_config
+from .layout_tester import PAGE_CRASH, test_combination
+from .style_log_generator import generate_run_subject
+from .html_file_generator import remove_file
+from .minify_test_file import minify
+from .bug_report_helper import save_bug_report
+from .variant_tester import test_variants
+from .counter import Counter
 
-def parse_config(config_path):
-    with open(config_path, 'r') as f:
-        return json.loads(f.read())
 
 def find_bugs(counter):
 

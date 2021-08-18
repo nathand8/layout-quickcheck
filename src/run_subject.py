@@ -1,6 +1,6 @@
 from copy import deepcopy
-from style_map import StyleMap
-from element_tree import ElementTree
+from .style_map import StyleMap
+from .element_tree import ElementTree
 
 class RunSubject:
     html_tree: ElementTree

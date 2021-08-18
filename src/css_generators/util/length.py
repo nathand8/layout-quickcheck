@@ -1,5 +1,5 @@
 from random import choice
-from css_generators.util.number import generate as generate_number
+from lqc.css_generators.util.number import generate as generate_number
 import re
 
 suffixes = [

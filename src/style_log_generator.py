@@ -1,16 +1,16 @@
 import uuid
 import lorem
 from random import random, choice
-from run_subject import RunSubject
-from element_tree import ElementTree
-from style_map import StyleMap
-from css_generators.style_data import style_data
-from css_generators.style_generator import StyleGenerator
-from css_generators.util.length import generate as generate_length
-from css_generators.util.keyword import create_generator as create_keyword_generator
-from css_generators.util.color import generate as generate_color
-from config import Config
-from css_generators.custom_generators import generators_for as custom_generators_for
+from .run_subject import RunSubject
+from .element_tree import ElementTree
+from .style_map import StyleMap
+from .css_generators.style_data import style_data
+from .css_generators.style_generator import StyleGenerator
+from .css_generators.util.length import generate as generate_length
+from .css_generators.util.keyword import create_generator as create_keyword_generator
+from .css_generators.util.color import generate as generate_color
+from .config import Config
+from .css_generators.custom_generators import generators_for as custom_generators_for
 
 SUPPORTED_STYLE_TYPES = ["Length", "Keyword"]
 

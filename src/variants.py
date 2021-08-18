@@ -1,5 +1,5 @@
-from config import Config
-from webdrivers import chrome, firefox, safari
+from .config import Config
+from .webdrivers import chrome, firefox, safari
 
 variants = []
 
