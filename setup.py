@@ -3,28 +3,21 @@
 import setuptools
 
 setuptools.setup(
-    name='layoutquickcheck-adapter',
+    name='layout-quickcheck',
     package_dir={
-        "lqc": "src"
+        "": "src"
     },
-    # packages=setuptools.find_packages("lqc"),
-    packages=[
-        "lqc", 
-        "lqc.grizzly", 
-        "lqc.web_page_creation", 
-        "lqc.web_page_creation.javascript_with_debugging_tools",
-        "lqc.web_page_creation.javascript_minimal",
-        "lqc.web_page_creation.javascript_grizzly",
-        "lqc.web_page_creation.html_body",
-        "lqc.web_page_creation.ui_tools",
-        "lqc.css_generators",
-        "lqc.css_generators.util",
-        ],
-    version='0.0.1',
+    packages=setuptools.find_packages(where="src"),
+    # packages=[
+    #     "lqc", 
+    #     "lqc_runner",
+    #     "grizzly"
+    #     ],
+    version='1.0.0',
     install_requires=[
         'grizzly-framework',
     ],
     entry_points={
-       "grizzly_adapters": ["lqc = lqc.grizzly.lqc_adapter:LayoutQuickCheckAdapter"]
+       "grizzly_adapters": ["lqc = lqc_grizzly.lqc_adapter:LayoutQuickCheckAdapter"]
     },
 )
