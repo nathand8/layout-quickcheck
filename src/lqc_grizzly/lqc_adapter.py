@@ -9,6 +9,7 @@ from lqc.generate.style_log_generator import generate_run_subject
 from lqc.generate.web_page.create import html_string, JsVersion
 
 from grizzly.adapter import Adapter
+from lqc.minify.minify_test_file import MinifyStepFactory
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith", "Nathan Davis"]
@@ -35,7 +36,7 @@ class LayoutQuickCheckAdapter(Adapter):
         # track most recent version of test (for reduction)
         self.fuzz["best"] = None
         # current operation mode
-        self.fuzz["mode"] = Mode.FUZZ
+        self.enterFuzzMode()
         self.enable_harness()
         # adds '/found' to server so the test case/browser can send 'signals'
         # back to the framework
@@ -51,100 +52,81 @@ class LayoutQuickCheckAdapter(Adapter):
         self.fuzz["found"] = True
         return b""
 
-    def generate(self, testcase, _server_map):
+    def enterFuzzMode(self):
+        """Fuzz mode generates random tests"""
+        self.fuzz["mode"] = Mode.FUZZ
         self.fuzz["found"] = False
-        if self.fuzz["mode"] == Mode.REDUCE:
+        self.fuzz["best"] = None
+    
+    def enterReduceMode(self):
+        """Reduce mode minifies a single test where a bug is present"""
+        self.fuzz["best"] = None
+        self.fuzz["mode"] = Mode.REDUCE
+        self.fuzz["minifyStepsFactory"] = MinifyStepFactory()
+
+    def enterReportMode(self):
+        """Report mode crashes the browser to report the bug"""
+        self.fuzz["mode"] = Mode.REPORT
+
+    def generate(self, testcase, _server_map):
+
+        if self.fuzz["mode"] == Mode.FUZZ:
+            # generate a test
+            self.fuzz["run_subject"] = generate_run_subject()
+            jslib = "function finish_test() { setTimeout(window.close, 10) }\n"
+            # html_string will generate a complete web page with html and inline js
+            self.fuzz["test"] = html_string(self.fuzz["run_subject"], js_version=JsVersion.GRIZZLY)
+
+        elif self.fuzz["mode"] == Mode.REDUCE:
+
+            # Run one minify step from MinifyStepFactory
+            self.fuzz["proposed_run_subject"] = self.fuzz["minifyStepsFactory"].next_minimization_step(self.fuzz["run_subject"])
             # are we done reduction?
-            if randint(0, 10) == 5:
-                # let's say we are done
-                self.fuzz["mode"] = Mode.REPORT
+            if self.fuzz["proposed_run_subject"] == None:
+                self.enterReportMode()
+                # html_string will generate a complete web page with html and inline js
+                self.fuzz["test"] = html_string(self.fuzz["run_subject"], js_version=JsVersion.GRIZZLY)
             else:
-                # generate next reduced version to test
-                pass
-
-        if self.fuzz["mode"] == Mode.REPORT:
-            # here we should force crash the browser so grizzly detects a result
-            # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
-            # jslib = "function finish_test() { FuzzingFunctions.moz_crash(sig) }\n"
-            # but for now...
+                # html_string will generate a complete web page with html and inline js
+                self.fuzz["test"] = html_string(self.fuzz["proposed_run_subject"], js_version=JsVersion.GRIZZLY)
             jslib = "function finish_test() { setTimeout(window.close, 10) }\n"
-        else:
-            jslib = "function finish_test() { setTimeout(window.close, 10) }\n"
-        # add a non required file
-        testcase.add_from_data(jslib, "helpers.js", required=False)
-
-        # generate a test
-        if self.fuzz["mode"] == Mode.REDUCE:
-            self.fuzz["test"] = external_reduce(self.fuzz["test"])
-
-
-        # stepsFactory = MinifyStepFactory()
-        # while True:
-        #     proposed_run_subject = stepsFactory.next_minimization_step(run_subject)
-        #     if proposed_run_subject == None:
-        #         break
-            
-        #     bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
-        #     if not bug_gone:
-        #         run_subject = proposed_run_subject
 
         elif self.fuzz["mode"] == Mode.REPORT:
-            # report "best"
+            # here we should force crash the browser so grizzly detects a result
+            # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
+            jslib = "function finish_test() { FuzzingFunctions.moz_crash(sig) }\n"
             self.fuzz["test"] = self.fuzz["best"]
-        else:
-            run_subject = generate_run_subject()
-            self.fuzz["run_subject"] = run_subject
-            # html_string will generate a complete web page with html and inline js
-            self.fuzz["test"] = html_string(run_subject, js_version=JsVersion.GRIZZLY)
+
+        # Reset the "found" flag
+        self.fuzz["found"] = False
+
+        # add a non required file
+        testcase.add_from_data(jslib, "helpers.js", required=False)
 
         # add to testcase as entry point
         testcase.add_from_data(self.fuzz["test"], testcase.landing_page)
 
     def on_served(self, _test, _served):
+
+        if self.fuzz["mode"] == Mode.FUZZ:
+            if self.fuzz["found"]:
+                # enable reduction mode
+                self.enterReduceMode()
+                # update "best" with latest test
+                self.fuzz["best"] = self.fuzz["test"]
+            
         # check if a result was detected and switch generation modes
-        if self.fuzz["mode"] == Mode.REPORT:
+        elif self.fuzz["mode"] == Mode.REDUCE:
+            if self.fuzz["found"]:
+                self.fuzz["run_subject"] = self.fuzz["proposed_run_subject"]
+                self.fuzz["best"] = self.fuzz["test"]
+
+        elif self.fuzz["mode"] == Mode.REPORT:
             assert self.fuzz["best"]
-            # return to fuzzing mode
-            self.fuzz["mode"] = Mode.FUZZ
-            self.fuzz["best"] = None
-        elif self.fuzz["found"]:
-            # enable reduction mode
-            if self.fuzz["mode"] == Mode.FUZZ:
-                self.fuzz["mode"] = Mode.REDUCE
-            # update "best" with latest test
-            self.fuzz["best"] = self.fuzz["test"]
+            if not self.fuzz["found"]:
+                # return to fuzzing mode
+                self.enterFuzzMode()
 
     def on_timeout(self, _test, _served):
         # browser likely hung, reset everything
-        self.fuzz["best"] = None
-        self.fuzz["mode"] = Mode.FUZZ
-
-
-TEST_TEMPLATE = Template(
-    """<!DOCTYPE html>
-<html>
-<head>
-<script src="helpers.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  if ($randint === 0) {
-    // pretend we found a result
-    await fetch("/found")
-  }
-  finish_test()
-})
-</script>
-</head>
-<body><h1>RUNNING</h1></body>
-</html>
-"""
-)
-
-
-def external_generate():
-    test_data = TEST_TEMPLATE.safe_substitute(randint=randint(0, 20))
-    return test_data
-
-
-def external_reduce(testcase):
-    return testcase.replace("RUNNING", "REDUCING")
+        self.enterFuzzMode()
