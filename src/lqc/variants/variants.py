@@ -4,7 +4,7 @@ from lqc.selenium_harness.webdrivers import chrome, firefox, safari
 variants = []
 
 
-def variant(name=None, force_slow=False, js_change_detection=False):
+def variant(name=None, force_slow=False):
     """Decorator - used to specify variants of webdrivers"""
 
     def decorator_generator(func):
@@ -16,8 +16,7 @@ def variant(name=None, force_slow=False, js_change_detection=False):
             "__doc__": func.__doc__,
             "__name__": func.__name__,
             "driver": func,
-            "force_slow": force_slow,
-            "js_change_detection": js_change_detection
+            "force_slow": force_slow
         }
         variants.append(v)
         return func
@@ -63,11 +62,6 @@ def chrome_smaller_window():
 def chrome_larger_window():
     "Chrome - Larger Window"
     return chrome.getWebDriver(window_width=2400, window_height=2400)
-
-@variant(js_change_detection=True, force_slow=True)
-def chrome_js_change_detection():
-    "Chrome - Difference detection using JavaScript"
-    return chrome.getWebDriver()
 
 @variant()
 def chrome_blink_layout_grid():
