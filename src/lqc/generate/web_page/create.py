@@ -12,6 +12,8 @@ html_template = """
 
   <head>
     <title>Layout QuickCheck</title>
+    <!-- helpers.js is used by grizzly -->
+    <script src="helpers.js"></script>
     <script>
       {js_string}
     </script>
