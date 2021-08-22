@@ -6,8 +6,8 @@ python3 verify.py /usl/to/test.html
 
 import sys
 
-from lqc_runner.selenium_harness import webdrivers
-from lqc_runner.selenium_harness.layout_tester import run_test_on_page, run_test_using_js_diff_detect
+from lqc_selenium.selenium_harness import webdrivers
+from lqc_selenium.selenium_harness.layout_tester import run_test_on_page, run_test_using_js_diff_detect
 
 
 if __name__ == "__main__":

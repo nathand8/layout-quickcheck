@@ -1,4 +1,4 @@
-from lqc_runner.variants.variants import getTargetBrowserDriver
+from lqc_selenium.variants.variants import getTargetBrowserDriver
 from selenium.common.exceptions import InvalidSessionIdException
 
 class TargetBrowser():

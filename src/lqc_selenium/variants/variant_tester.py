@@ -1,8 +1,8 @@
 import traceback
 import platform
 from lqc.model.run_subject import RunSubject
-from lqc_runner.selenium_harness.layout_tester import test_combination
-from lqc_runner.variants.variants import getTargetVariant, getVariants
+from lqc_selenium.selenium_harness.layout_tester import test_combination
+from lqc_selenium.variants.variants import getTargetVariant, getVariants
 
 
 def format_variant_result(webdriver, description, is_original_variant, diff_method="Python", forced_slow=False):
