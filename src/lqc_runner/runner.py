@@ -4,14 +4,31 @@ import sys, traceback, argparse
 from lqc.config.config import Config, parse_config
 from lqc.generate.html_file_generator import remove_file
 from lqc.generate.style_log_generator import generate_run_subject
-from lqc.minify.minify_test_file import minify
-from lqc.report.bug_report_helper import save_bug_report
-from lqc.selenium_harness.layout_tester import PAGE_CRASH, test_combination
-from lqc.selenium_harness.webdrivers.target_browser import TargetBrowser
+from lqc.minify.minify_test_file import MinifyStepFactory
+from lqc.model.constants import BugType
+from lqc_runner.report.bug_report_helper import save_bug_report
 from lqc.util.counter import Counter
-from lqc.variants.variant_tester import test_variants
-from lqc.variants.variants import getTargetVariant
+from lqc_runner.variants.variant_tester import test_variants
+from lqc_runner.variants.variants import getTargetVariant
+from lqc_runner.selenium_harness.layout_tester import test_combination
+from lqc_runner.selenium_harness.webdrivers.target_browser import TargetBrowser
 
+
+def minify(target_browser, run_subject):
+
+    stepsFactory = MinifyStepFactory()
+    while True:
+        proposed_run_subject = stepsFactory.next_minimization_step(run_subject)
+        if proposed_run_subject == None:
+            break
+        
+        bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
+        if not bug_gone:
+            run_subject = proposed_run_subject
+
+    # Create final representations of minified files
+    _, minified_differences, _ = test_combination(target_browser.getDriver(), run_subject)
+    return (run_subject, minified_differences)
 
 
 def find_bugs(counter):
@@ -29,7 +46,7 @@ def find_bugs(counter):
 
         else:
             # Stage 2 - Minifying Bug
-            if differences == PAGE_CRASH:
+            if differences == BugType.PAGE_CRASH:
                 print("Found a page that crashes. Minifying...")
             else:
                 print("Found bug. Minifying...")
@@ -40,7 +57,7 @@ def find_bugs(counter):
             if minified_differences is None:
                 print("False positive (could not reproduce)")
                 counter.incNoRepro()
-            elif minified_differences != PAGE_CRASH and len(minified_run_subject.modified_styles.map) == 0:
+            elif minified_differences != BugType.PAGE_CRASH and len(minified_run_subject.modified_styles.map) == 0:
                 print("False positive (no modified styles)")
                 counter.incNoMod()
 
