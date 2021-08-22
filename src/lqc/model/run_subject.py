@@ -45,3 +45,6 @@ class RunSubject:
         self.html_tree.renameId(old_id, new_id)
         self.base_styles.renameId(old_id, new_id)
         self.modified_styles.renameId(old_id, new_id)
+    
+    def all_style_names(self):
+        return self.base_styles.all_style_names().union(self.modified_styles.all_style_names())
