@@ -17,6 +17,5 @@ src/lqc/tests/test_style_generator.py
 src/lqc/tests/test_style_log_generator.py
 src/lqc/util/__init__.py
 src/lqc/util/counter.py
-src/lqc/util/layout_comparer.py
 src/lqc_grizzly/__init__.py
 src/lqc_grizzly/lqc_adapter.py
