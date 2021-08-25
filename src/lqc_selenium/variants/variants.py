@@ -1,5 +1,5 @@
 from lqc.config.config import Config
-from lqc_runner.selenium_harness.webdrivers import chrome, firefox, safari
+from lqc_selenium.webdrivers import chrome, firefox, safari
 
 variants = []
 

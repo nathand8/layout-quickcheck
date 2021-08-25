@@ -6,12 +6,12 @@ from lqc.generate.html_file_generator import remove_file
 from lqc.generate.style_log_generator import generate_run_subject
 from lqc.minify.minify_test_file import MinifyStepFactory
 from lqc.model.constants import BugType
-from lqc_runner.report.bug_report_helper import save_bug_report
+from lqc_selenium.report.bug_report_helper import save_bug_report
 from lqc.util.counter import Counter
-from lqc_runner.variants.variant_tester import test_variants
-from lqc_runner.variants.variants import getTargetVariant
-from lqc_runner.selenium_harness.layout_tester import test_combination
-from lqc_runner.selenium_harness.webdrivers.target_browser import TargetBrowser
+from lqc_selenium.variants.variant_tester import test_variants
+from lqc_selenium.variants.variants import getTargetVariant
+from lqc_selenium.selenium_harness.layout_tester import test_combination
+from lqc_selenium.webdrivers.target_browser import TargetBrowser
 
 
 def minify(target_browser, run_subject):

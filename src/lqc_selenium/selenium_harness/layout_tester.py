@@ -2,7 +2,6 @@ from lqc.generate.html_file_generator import remove_file
 from lqc.generate.web_page.run_subject_converter import saveTestSubjectAsWebPage
 from lqc.model.constants import BugType
 from lqc.model.run_subject import RunSubject
-from lqc.util.layout_comparer import compare_layout
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
