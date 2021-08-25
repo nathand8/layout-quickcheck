@@ -2,8 +2,6 @@ import random
 
 from lqc.generate.css.util.length import matches_length_pattern
 from lqc.model.run_subject import RunSubject
-from lqc.selenium_harness.layout_tester import test_combination
-
 
 def elements(tree):
     for element in tree:
@@ -186,21 +184,6 @@ def Enhance_ShortenIds(run_subject: RunSubject):
 
 
 
-def minify(target_browser, run_subject):
-
-    stepsFactory = MinifyStepFactory()
-    while True:
-        proposed_run_subject = stepsFactory.next_minimization_step(run_subject)
-        if proposed_run_subject == None:
-            break
-        
-        bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
-        if not bug_gone:
-            run_subject = proposed_run_subject
-
-    # Create final representations of minified files
-    _, minified_differences, _ = test_combination(target_browser.getDriver(), run_subject)
-    return (run_subject, minified_differences)
 
 
 class MinifyStepFactory():

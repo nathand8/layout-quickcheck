@@ -1,5 +1,6 @@
 from lqc.generate.html_file_generator import remove_file
 from lqc.generate.web_page.run_subject_converter import saveTestSubjectAsWebPage
+from lqc.model.constants import BugType
 from lqc.model.run_subject import RunSubject
 from lqc.util.layout_comparer import compare_layout
 from selenium.common.exceptions import TimeoutException, WebDriverException
@@ -8,7 +9,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-PAGE_CRASH = "Page Crashed"
 
 # Returns (differencesIsNone, differencesList, fileName)
 # @param keep_file - keep the intermediate file, the caller is responsible for cleanup
@@ -44,5 +44,5 @@ def run_test_using_js_diff_detect(test_url, webdriver, slow=False):
         print("Failed to load test page due to timeout")
         return None
     except WebDriverException:
-        return PAGE_CRASH
+        return BugType.PAGE_CRASH
 

@@ -1,10 +1,8 @@
 import traceback
 import platform
-from lqc.generate.html_file_generator import remove_file
-from lqc.generate.web_page.run_subject_converter import saveTestSubjectAsWebPage
 from lqc.model.run_subject import RunSubject
-from lqc.selenium_harness.layout_tester import run_test_using_js_diff_detect, test_combination
-from lqc.variants.variants import getTargetVariant, getVariants
+from lqc_runner.selenium_harness.layout_tester import test_combination
+from lqc_runner.variants.variants import getTargetVariant, getVariants
 
 
 def format_variant_result(webdriver, description, is_original_variant, diff_method="Python", forced_slow=False):
