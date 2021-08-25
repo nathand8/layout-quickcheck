@@ -1,5 +1,11 @@
 .search-container {
+    margin-bottom: 10px;
+}
+.preset-searches {
     margin-bottom: 50px;
+}
+.preset-searches button {
+    margin-right: 10px;
 }
 .clickable {
     cursor: pointer;

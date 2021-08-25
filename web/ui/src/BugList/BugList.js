@@ -62,20 +62,23 @@ export default function BugList(props) {
           <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Clear Search</Tooltip>}>
             <Button variant="outline-secondary" onClick={e => setSearchStr("")}><FaTimes /></Button>
           </OverlayTrigger>
-          <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Page Crash Bugs</Tooltip>}>
-            <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " type:Crash")}><FaExclamationTriangle /></Button>
-          </OverlayTrigger>
-          <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Underinvalidation Bugs</Tooltip>}>
-            <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " type:Invalidation")}><FaBug /></Button>
-          </OverlayTrigger>
-          <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Chrome Bugs</Tooltip>}>
-            <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " seen:Chrome")}><FaChrome /></Button>
-          </OverlayTrigger>
-          <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Firefox Bugs</Tooltip>}>
-            <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " seen:Firefox")}><FaFirefox /></Button>
-          </OverlayTrigger>
         </InputGroup.Prepend>
         <FormControl aria-describedby="basic-addon1" value={searchStr} onChange={event => setSearchStr(event.target.value)}/>
+      </InputGroup>
+
+      <InputGroup className="preset-searches">
+        <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Page Crash Bugs</Tooltip>}>
+          <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " type:Crash")}>type:Crash</Button>
+        </OverlayTrigger>
+        <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Underinvalidation Bugs</Tooltip>}>
+          <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " type:Invalidation")}>type:Invalidation</Button>
+        </OverlayTrigger>
+        <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Chrome LayoutNGGrid Bugs</Tooltip>}>
+          <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " seen:LayoutNGGrid")}>seen:LayoutNGGrid</Button>
+        </OverlayTrigger>
+        <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Firefox Bugs</Tooltip>}>
+          <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " seen:Firefox")}>seen:Firefox</Button>
+        </OverlayTrigger>
       </InputGroup>
 
       {isLoading && <p>Loading Bugs...</p>}
