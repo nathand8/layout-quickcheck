@@ -85,6 +85,13 @@ def firefox_vanilla():
     return firefox.getWebDriver()
 
 @variant()
+def firefox_dynamic_reflow_roots():
+    "Firefox - layout.dynamic-reflow-roots.enabled"
+    return firefox.getWebDriver(options_args={
+            "layout.dynamic-reflow-roots.enabled": True,
+        })
+
+@variant()
 def safari_vanilla():
     "Safari - Vanilla"
     return safari.getWebDriver()

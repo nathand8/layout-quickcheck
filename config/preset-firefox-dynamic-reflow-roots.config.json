@@ -1,0 +1,23 @@
+
+{
+    "paths": {
+        "bug-reports-directory": "./bug_reports",
+        "tmp-files-directory": "./tmp_generated_files",
+        "chrome-webdriver": null,
+        "firefox-webdriver": null,
+        "safari-webdriver": null
+    },
+
+    "target-browser-variant": "firefox_dynamic_reflow_roots",
+
+    "style-weights": {
+        "content-visibility": 0,
+        "writing-mode": 0,
+        "display": 100,
+
+        "display:flow-root": 100,
+        "transform": 50,
+        "width": 50,
+        "height": 50
+    }
+}

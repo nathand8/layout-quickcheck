@@ -21,7 +21,7 @@ def finish(webdriver):
         pass
 
 
-def getWebDriver(window_width=1000, window_height=1000, headless=True):
+def getWebDriver(window_width=1000, window_height=1000, headless=True, options_args={}):
 
     config = Config()
     driver_path = config.getFirefoxDriverPath()
@@ -32,6 +32,9 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True):
 
     if headless:
         firefox_options.add_argument("--headless")
+
+    for property, value in options_args.items():
+        firefox_options.set_preference(property, value)
 
     firefox_webdriver = WebDriver(executable_path=driver_path, options=firefox_options)
 
