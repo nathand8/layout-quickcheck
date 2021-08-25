@@ -143,7 +143,9 @@ function getQueryVariable(variable)
   } else if (state == "reloaded") {
     setTimeout(function() {
       makeStyleChanges();
-      reload();
-    }, delay)
+      setTimeout(function() {
+        reload();
+      }, 100);
+    }, delay);
   }
 })();
