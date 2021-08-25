@@ -15,3 +15,6 @@ jsdist
 # Ignore most config files, except for the presets
 config/*
 !config/preset-*
+
+# Default directory for grizzly results
+results/*
