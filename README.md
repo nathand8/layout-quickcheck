@@ -1,4 +1,4 @@
-![LQC logo](logo.png | width=100)
+![LQC logo](logo_100px_width.png)
 
 # Browser Layout Testing - QuickCheck
 
