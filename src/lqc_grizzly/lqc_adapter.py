@@ -10,6 +10,7 @@ from lqc.generate.web_page.create import html_string, JsVersion
 
 from grizzly.adapter import Adapter
 from lqc.minify.minify_test_file import MinifyStepFactory
+from lqc.model.run_subject import RunSubject
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith", "Nathan Davis"]
@@ -24,6 +25,10 @@ class Mode(Enum):
     # no more reductions can be performed indicate we are complete
     REPORT = 2
 
+def getSignature(run_subject: RunSubject):
+    styles_used = list(run_subject.all_style_names())
+    styles_used.sort()
+    return ",".join(styles_used)
 
 class LayoutQuickCheckAdapter(Adapter):
     """LayoutQuickCheckAdapter"""
@@ -94,7 +99,8 @@ class LayoutQuickCheckAdapter(Adapter):
         elif self.fuzz["mode"] == Mode.REPORT:
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
-            jslib = "function finish_test() { FuzzingFunctions.moz_crash(sig) }\n"
+            sig = getSignature(self.fuzz["run_subject"])
+            jslib = "function finish_test() { FuzzingFunctions.moz_crash('" + sig + "') }\n"
             self.fuzz["test"] = self.fuzz["best"]
 
         # Reset the "found" flag

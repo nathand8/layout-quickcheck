@@ -9,17 +9,6 @@ from lqc.model.run_subject import RunSubject
 from lqc.selenium_harness.layout_tester import PAGE_CRASH
 
 
-INCLUDE_VALUE_IN_NAME = ["display"]
-
-
-def all_style_names(*style_dicts):
-    for d in style_dicts:
-        for _element_id, styles in d.items():
-            for style_name, style_value in styles.items():
-                if style_name in INCLUDE_VALUE_IN_NAME:
-                    yield f"{style_name}:{style_value}"
-                else:
-                    yield style_name
 
 
 def save_bug_report(
@@ -43,11 +32,11 @@ def save_bug_report(
     save_as_web_page(run_subject, min_bug_with_debug)
 
     # Custom bug helper file - JSON file
-    styles_used = list(set(all_style_names(run_subject.base_styles.map, run_subject.modified_styles.map)))
+    styles_used = list(run_subject.all_style_names())
     styles_used.sort()
     styles_used_string = ",".join(styles_used)
-    base_styles = list(set(all_style_names(run_subject.base_styles.map)))
-    modified_styles = list(set(all_style_names(run_subject.modified_styles.map)))
+    base_styles = list(run_subject.base_styles.all_style_names())
+    modified_styles = list(run_subject.modified_styles.all_style_names())
     bug_type = "Page Crash" if differences == PAGE_CRASH else "Under Invalidation"
     json_data = {
         "datetime": datetime.now().isoformat(),
