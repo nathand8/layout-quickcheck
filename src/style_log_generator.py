@@ -1,6 +1,9 @@
 import uuid
 import lorem
 from random import random, choice
+from run_subject import RunSubject
+from element_tree import ElementTree
+from style_map import StyleMap
 from css_generators.style_data import style_data
 from css_generators.style_generator import StyleGenerator
 from css_generators.util.length import generate as generate_length
@@ -104,3 +107,11 @@ def generate_style_log(tree):
 
 def generate_layout_tree():
     return generate_children("body")
+
+
+def generate_run_subject():
+    body = generate_layout_tree()
+    base_style_log = generate_style_log(body)
+    modified_style_log = generate_style_log(body)
+
+    return RunSubject(ElementTree(body), StyleMap(base_style_log), StyleMap(modified_style_log))
