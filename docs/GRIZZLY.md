@@ -12,6 +12,12 @@ pip3 install -e .
 python3 -m grizzly Path/to/firefox lqc
 ```
 
-# More
+# Config
 
-See more about configurations [here](docs/CONFIGURATION.md).
+The config file is currently hard coded in the adapter
+
+```python
+config = parse_config("./config/preset-firefox.config.json")
+```
+
+See more about config files [here](docs/CONFIGURATION.md).
