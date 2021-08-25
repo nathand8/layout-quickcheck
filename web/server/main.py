@@ -2,6 +2,7 @@ from flask import Flask, request, abort
 from flask.helpers import send_from_directory
 import os
 import json
+import argparse
 
 BUG_REPORT_DIR = '../../bug_reports'
 STATIC_FILES_DIR = '../ui/build'
@@ -41,7 +42,7 @@ def allBugs():
     """
     reports = []
     bug_dirs = os.listdir(BUG_REPORT_DIR)
-    bug_dirs.sort(reverse=True) # Sort by date
+    bug_dirs.sort(reverse=True) # Sort by date with most recent at the top
     for dir in bug_dirs:
         bug = bugJson(dir)
         if bug:
@@ -87,4 +88,9 @@ def bugJson(bug_dir):
         return bug
 
 if __name__ == '__main__':
-    app.run()
+
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="Run the UI server")
+    parser.add_argument("-p", "--port", help="Run the server on a different port", type=int, default=5000)
+    args = parser.parse_args()
+
+    app.run(port=args.port)
