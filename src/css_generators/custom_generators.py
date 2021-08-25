@@ -83,20 +83,20 @@ def transform_translate():
     value_types = [_p_length_px, _p_percent]
     return f"translate({_rand_pick(value_types)}, {_rand_pick(value_types)})"
 
-@generator("transform")
+# @generator("transform")
 def transform_matrix():
     coords = [str(random.randint(0, 10)) for x in range(6)]
     return f"matrix({','.join(coords)})"
 
-@generator("transform")
+# @generator("transform")
 def transform_scale():
     gen = lambda : random.gammavariate(1.2, 2)
     return f"scale({gen()}, {gen()})"
 
-@generator("transform")
+# @generator("transform")
 def transform_skew():
     return f"skew({_p_deg_angle()}, {_p_deg_angle()})"
 
-@generator("transform")
+# @generator("transform")
 def transform_rotate():
     return f"rotate({_p_deg_angle()})"
