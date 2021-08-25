@@ -47,23 +47,12 @@ class LayoutQuickCheckAdapter(Adapter):
         config = parse_config("./config/preset-firefox.config.json")
         Config(config)
 
-        print("""
-
-LQC Grizzly Adapter Setup Complete
-
-        """)
-
     def _found(self):
         # callback attached to '/found'
         self.fuzz["found"] = True
         return b""
 
     def generate(self, testcase, _server_map):
-        print("""
-
-LQC Grizzly Adapter - Called Generate
-
-        """)
         self.fuzz["found"] = False
         if self.fuzz["mode"] == Mode.REDUCE:
             # are we done reduction?
