@@ -2,10 +2,11 @@
     margin-bottom: 10px;
 }
 .preset-searches {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 .preset-searches button {
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 .clickable {
     cursor: pointer;
