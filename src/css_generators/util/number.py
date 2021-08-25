@@ -1,5 +1,5 @@
 from random import choice
-from css_generators.util.integer import generate as generate_integer
+from lqc.css_generators.util.integer import generate as generate_integer
 
 number_generators = [generate_integer]
 

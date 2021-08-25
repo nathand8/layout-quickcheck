@@ -1,8 +1,13 @@
 import subprocess
+import json
 
 
 DEFAULT_STYLE_WEIGHT = 10
 DEFAULT_STYLE_VALUE_WEIGHT = 10
+
+def parse_config(config_path):
+    with open(config_path, 'r') as f:
+        return json.loads(f.read())
 
 def _weightToProbability(weight):
     return weight/100

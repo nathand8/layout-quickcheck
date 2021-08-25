@@ -1,7 +1,7 @@
 import random
-from css_generators.util.length import generate as generate_length
-from config import Config
-from css_generators import custom_generators
+from lqc.css_generators.util.length import generate as generate_length
+from lqc.config import Config
+from lqc.css_generators import custom_generators
 
 class StyleGenerator():
 

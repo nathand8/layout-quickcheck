@@ -3,10 +3,10 @@
 
 from enum import Enum, unique
 from random import randint
-from src.compare import parse_config
-from src.web_page_creation.create import JsVersion, html_string
-from src.config import Config
-from style_log_generator import generate_run_subject
+from lqc.config import parse_config
+from lqc.web_page_creation.create import JsVersion, html_string
+from lqc.config import Config
+from lqc.style_log_generator import generate_run_subject
 from string import Template
 
 from grizzly.adapter import Adapter
@@ -47,12 +47,23 @@ class LayoutQuickCheckAdapter(Adapter):
         config = parse_config("./config/preset-firefox.config.json")
         Config(config)
 
+        print("""
+
+LQC Grizzly Adapter Setup Complete
+
+        """)
+
     def _found(self):
         # callback attached to '/found'
         self.fuzz["found"] = True
         return b""
 
     def generate(self, testcase, _server_map):
+        print("""
+
+LQC Grizzly Adapter - Called Generate
+
+        """)
         self.fuzz["found"] = False
         if self.fuzz["mode"] == Mode.REDUCE:
             # are we done reduction?
@@ -77,6 +88,18 @@ class LayoutQuickCheckAdapter(Adapter):
         # generate a test
         if self.fuzz["mode"] == Mode.REDUCE:
             self.fuzz["test"] = external_reduce(self.fuzz["test"])
+
+
+        # stepsFactory = MinifyStepFactory()
+        # while True:
+        #     proposed_run_subject = stepsFactory.next_minimization_step(run_subject)
+        #     if proposed_run_subject == None:
+        #         break
+            
+        #     bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
+        #     if not bug_gone:
+        #         run_subject = proposed_run_subject
+
         elif self.fuzz["mode"] == Mode.REPORT:
             # report "best"
             self.fuzz["test"] = self.fuzz["best"]

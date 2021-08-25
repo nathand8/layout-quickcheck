@@ -1,8 +1,6 @@
-from run_subject import RunSubject
-from webdrivers.target_browser import TargetBrowser
-from layout_tester import test_combination
-from css_generators.util.length import matches_length_pattern
-from copy import deepcopy
+from .run_subject import RunSubject
+from .layout_tester import test_combination
+from .css_generators.util.length import matches_length_pattern
 import random
 
 
@@ -11,22 +9,6 @@ def elements(tree):
         if element["tag"] != "<text>":
             yield element
             yield from elements(element["children"])
-
-
-def styles(s):
-    for style_name, style_value in s.items():
-        yield style_name, style_value
-
-
-def remove_element(tree, element_id):
-    for element in tree:
-        element["children"] = remove_element(element["children"], element_id)
-    return list(
-        filter(
-            lambda element: element["tag"] == "<text>" or element["id"] != element_id,
-            tree,
-        )
-    )
 
 
 def Minify_RemoveEachElement(run_subject):
@@ -203,28 +185,51 @@ def Enhance_ShortenIds(run_subject: RunSubject):
 
 
 
-def minify(target_browser: TargetBrowser, run_subject):
+def minify(target_browser, run_subject):
 
-    def run_manipulations(iteration, run_subject, manipulations_generator):
-        for manipulation in manipulations_generator:
-            proposed_run_subject = manipulation(run_subject.deepcopy())
-            
-            bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
-            iteration += 1
-            if not bug_gone:
-                run_subject = proposed_run_subject
-        return (iteration, run_subject)
+    stepsFactory = MinifyStepFactory()
+    while True:
+        proposed_run_subject = stepsFactory.next_minimization_step(run_subject)
+        if proposed_run_subject == None:
+            break
+        
+        bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
+        if not bug_gone:
+            run_subject = proposed_run_subject
 
-    iteration = 1
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_RemoveEachElement(run_subject))
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_RemoveAllStylesForEachElement(run_subject))
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_RemoveEachStyleForEachElement(run_subject))
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_MoveStyleChangesToFirstLoad(run_subject))
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Minify_SimplifyLengthStyles(run_subject))
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_MinHeightWidthPerElement(run_subject))
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_BackgroundColorPerElement(run_subject))
-    (iteration, run_subject) = run_manipulations(iteration, run_subject, Enhance_ShortenIds(run_subject))
-    
     # Create final representations of minified files
     _, minified_differences, _ = test_combination(target_browser.getDriver(), run_subject)
     return (run_subject, minified_differences)
+
+
+class MinifyStepFactory():
+
+    STEPS = [
+        Minify_RemoveEachElement,
+        Minify_RemoveAllStylesForEachElement,
+        Minify_RemoveEachStyleForEachElement,
+        Minify_MoveStyleChangesToFirstLoad,
+        Minify_SimplifyLengthStyles,
+        Enhance_MinHeightWidthPerElement,
+        Enhance_BackgroundColorPerElement,
+        Enhance_ShortenIds,
+    ]
+
+    def __init__(self):
+        self.queue = []
+        self.current_step = -1
+
+    def next_minimization_step(self, run_subject):
+        if not self.queue:
+            self.current_step += 1
+            if self.current_step >= len(self.STEPS) - 1:
+                return None
+
+            self.queue = list(self.STEPS[self.current_step](run_subject))
+
+        manipulation = self.queue.pop(0)
+        return manipulation(run_subject.deepcopy())
+
+
+
+
