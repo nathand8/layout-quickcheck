@@ -47,6 +47,11 @@ xattr -d com.apple.quarantine /usr/local/bin/geckodriver
 python3 src/compare.py
 ```
 
+# Architecture Diagram
+
+![Architecture Diagram](architecture_diagram.png)
+
+
 # Output
 
 ### Bug Reports
