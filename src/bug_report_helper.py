@@ -45,12 +45,16 @@ def save_bug_report(
     styles_used = list(set(all_style_names(run_subject.base_styles.map, run_subject.modified_styles.map)))
     styles_used.sort()
     styles_used_string = ",".join(styles_used)
+    base_styles = list(set(all_style_names(run_subject.base_styles.map)))
+    modified_styles = list(set(all_style_names(run_subject.modified_styles.map)))
     bug_type = "Page Crash" if differences == PAGE_CRASH else "Under Invalidation"
     json_data = {
         "datetime": datetime.now().isoformat(),
         "bug_type": bug_type,
         "styles_used": styles_used,
         "styles_used_string": styles_used_string,
+        "base_styles": base_styles,
+        "modified_styles": modified_styles,
         "variants": variants,
         "differences": differences,
         "run_subject": run_subject,
