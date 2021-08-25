@@ -62,6 +62,7 @@ class LayoutQuickCheckAdapter(Adapter):
         self.fuzz["mode"] = Mode.FUZZ
         self.fuzz["found"] = False
         self.fuzz["best"] = None
+        self.fuzz["reported"] = False
     
     def enterReduceMode(self):
         """Reduce mode minifies a single test where a bug is present"""
@@ -100,8 +101,9 @@ class LayoutQuickCheckAdapter(Adapter):
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
             sig = getSignature(self.fuzz["run_subject"])
-            jslib = "function finish_test() { FuzzingFunctions.moz_crash('" + sig + "') }\n"
+            jslib = "function finish_test() { FuzzingFunctions.crash('" + sig + "') }\n"
             self.fuzz["test"] = self.fuzz["best"]
+            self.fuzz["reported"] = True
 
         # Reset the "found" flag
         self.fuzz["found"] = False
@@ -130,6 +132,9 @@ class LayoutQuickCheckAdapter(Adapter):
         elif self.fuzz["mode"] == Mode.REPORT:
             assert self.fuzz["best"]
             if not self.fuzz["found"]:
+                # bug mysteriously disappeared... return to fuzzing mode
+                self.enterFuzzMode()
+            if self.fuzz["reported"]:
                 # return to fuzzing mode
                 self.enterFuzzMode()
 
