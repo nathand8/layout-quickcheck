@@ -66,7 +66,8 @@ Feel free to contact for more details on Layout QuickCheck or to offer suggestio
         </div>
 
         <div className="links-section">
-          <Button variant="outline-primary" onClick={copyText}>{isCopied ? "Copied!" : "Copy Text"}</Button>
+          <Button className="links-spacing" variant="outline-primary" onClick={copyText}>{isCopied ? "Copied!" : "Copy Text"}</Button>
+          <Button className="links-spacing" variant="outline-primary" href={props.data.download_urls.minimized} download>Download Minimized Bug</Button>
         </div>
       </div>
   );
