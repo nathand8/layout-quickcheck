@@ -7,7 +7,7 @@ export default function SingleBug() {
 
   let {bug_id} = useParams();
 
-  const bugAPI = `http://localhost:5000/api/bug/${bug_id}`;
+  const bugAPI = `/api/bug/${bug_id}`;
 
   const [bug, setBug] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
