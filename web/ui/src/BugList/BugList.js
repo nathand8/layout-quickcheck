@@ -79,6 +79,9 @@ export default function BugList(props) {
         <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Firefox Bugs</Tooltip>}>
           <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " seen:Firefox")}>seen:Firefox</Button>
         </OverlayTrigger>
+        <OverlayTrigger delay={{show: 500, hide: 50}} placement="bottom" overlay={<Tooltip>Browser Version 91</Tooltip>}>
+          <Button variant="outline-secondary" onClick={e => setSearchStr(searchStr + " version:91")}>version:91</Button>
+        </OverlayTrigger>
       </InputGroup>
 
       {isLoading && <p>Loading Bugs...</p>}
