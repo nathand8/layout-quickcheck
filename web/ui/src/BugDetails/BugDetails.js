@@ -34,13 +34,13 @@ export default function BugDetails(props) {
     demoSection = 
       <div className="demo">
         <div className="demo-box">
-          <h6>Freshly Reloaded</h6>
+          <h6>Changes + Reload</h6>
           <iframe title="demo_fresh" src={props.data.demo_urls.reloaded}></iframe><br />
           <Button className="share-link" variant="outline-secondary" target="_blank" href={props.data.demo_urls.reloaded} rel="noreferrer">Open in New Tab</Button>
           <Button className="share-link" variant="outline-secondary" href={props.data.download_urls.full} download>Download</Button>
         </div>
         <div className="demo-box">
-          <h6>Dirty Changes</h6>
+          <h6>Changes without Reload</h6>
           <iframe title="demo_changes" src={props.data.demo_urls.dirty}></iframe><br />
           <Button className="share-link" variant="outline-secondary" target="_blank" href={props.data.demo_urls.dirty} rel="noreferrer">Open in New Tab</Button>
           <Button className="share-link" variant="outline-secondary" href={props.data.download_urls.full} download>Download</Button>
