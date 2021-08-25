@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 import './SingleBug.css';
 import BugDetails from '../BugDetails/BugDetails';
 
 export default function SingleBug() {
 
-  const bugAPI = "http://localhost:5000/api/bug/bug-report-2021-05-19-15-44-50-582456";
+  let {bug_id} = useParams();
+
+  const bugAPI = `http://localhost:5000/api/bug/${bug_id}`;
 
   const [bug, setBug] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

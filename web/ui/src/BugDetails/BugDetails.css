@@ -1,3 +1,9 @@
+.bug-section {
+    margin-top: 20px;
+}
+.demo-section {
+    margin-top: 10px;
+}
 .variant_status {
     font-size: 20px;
     margin-right: 5px;
@@ -32,4 +38,10 @@
 
 .capitalize {
     text-transform: capitalize;
+}
+
+.share-link {
+    display: inline;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
