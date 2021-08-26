@@ -134,6 +134,10 @@ class LayoutQuickCheckAdapter(Adapter):
             if not self.fuzz["found"]:
                 # bug mysteriously disappeared... return to fuzzing mode
                 self.enterFuzzMode()
+            if len(self.fuzz["run_subject"].modified_styles.map) == 0:
+                # Minify step removed all modified styles, 
+                print("Minify step removed all modified styles. False Positive, ignoring.")
+                self.enterFuzzMode()
             if self.fuzz["reported"]:
                 # return to fuzzing mode
                 self.enterFuzzMode()
