@@ -16,19 +16,29 @@ __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith", "Nathan Davis"]
 
 JS_BASE_DRIVER = """
-window.addEventListener("load", () => {
-  let dimensionsDiffer = recreateTheProblem();
 
-  if (dimensionsDiffer && dimensionsDiffer.length > 0) {
-    // we found a result
-    fetch("/found")
-      .finally(() => {
-        finish_test();
-      })
+window.addEventListener("load", () => {
+
+  // Function "recreateTheProblem()" only exists in JS version with debugging tools
+  if (typeof("recreateTheProblem") == "function") {
+    let dimensionsDiffer = recreateTheProblem();
+
+    if (dimensionsDiffer && dimensionsDiffer.length > 0) {
+        // we found a result
+        fetch("/found")
+        .finally(() => {
+            finish_test();
+        })
+    } else {
+        finish_test()
+    }
+
+  // When "recreateTheProblem" doesn't exist, we are just reporting the bug
   } else {
-    finish_test()
+    finish_test();
   }
 })
+
 """
 
 
@@ -122,7 +132,6 @@ class LayoutQuickCheckAdapter(Adapter):
             sig = getSignature(self.fuzz["run_subject"])
             self.fuzz["test"] = html_string(self.fuzz["run_subject"], JsVersion.MINIMAL)
             jslib = self._jsDriver("FuzzingFunctions.crash('" + sig + "')")
-            self.fuzz["test"] = self.fuzz["best"]
             self.fuzz["reported"] = True
 
         # Reset the "found" flag
