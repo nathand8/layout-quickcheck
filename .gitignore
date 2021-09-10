@@ -18,3 +18,6 @@ config/*
 
 # Default directory for grizzly results
 results/*
+
+# Ignore folder with firefox build
+firefox/*
