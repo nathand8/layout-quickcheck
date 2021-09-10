@@ -15,6 +15,22 @@ from lqc.model.run_subject import RunSubject
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith", "Nathan Davis"]
 
+JS_BASE_DRIVER = """
+window.addEventListener("load", () => {
+  let dimensionsDiffer = recreateTheProblem();
+
+  if (dimensionsDiffer && dimensionsDiffer.length > 0) {
+    // we found a result
+    fetch("/found")
+      .finally(() => {
+        finish_test();
+      })
+  } else {
+    finish_test()
+  }
+})
+"""
+
 
 @unique
 class Mode(Enum):
@@ -56,6 +72,9 @@ class LayoutQuickCheckAdapter(Adapter):
         # callback attached to '/found'
         self.fuzz["found"] = True
         return b""
+    
+    def _jsDriver(self, finish_test_js):
+        return "function finish_test() {" + finish_test_js + "}\n" + JS_BASE_DRIVER
 
     def enterFuzzMode(self):
         """Fuzz mode generates random tests"""
@@ -79,9 +98,9 @@ class LayoutQuickCheckAdapter(Adapter):
         if self.fuzz["mode"] == Mode.FUZZ:
             # generate a test
             self.fuzz["run_subject"] = generate_run_subject()
-            jslib = "function finish_test() { setTimeout(window.close, 10) }\n"
+            jslib = self._jsDriver("setTimeout(window.close, 10)")
             # html_string will generate a complete web page with html and inline js
-            self.fuzz["test"] = html_string(self.fuzz["run_subject"], js_version=JsVersion.GRIZZLY)
+            self.fuzz["test"] = html_string(self.fuzz["run_subject"])
 
         elif self.fuzz["mode"] == Mode.REDUCE:
 
@@ -91,17 +110,18 @@ class LayoutQuickCheckAdapter(Adapter):
             if self.fuzz["proposed_run_subject"] == None:
                 self.enterReportMode()
                 # html_string will generate a complete web page with html and inline js
-                self.fuzz["test"] = html_string(self.fuzz["run_subject"], js_version=JsVersion.GRIZZLY)
+                self.fuzz["test"] = html_string(self.fuzz["run_subject"])
             else:
                 # html_string will generate a complete web page with html and inline js
-                self.fuzz["test"] = html_string(self.fuzz["proposed_run_subject"], js_version=JsVersion.GRIZZLY)
-            jslib = "function finish_test() { setTimeout(window.close, 10) }\n"
+                self.fuzz["test"] = html_string(self.fuzz["proposed_run_subject"])
+            jslib = self._jsDriver("setTimeout(window.close, 10)")
 
         elif self.fuzz["mode"] == Mode.REPORT:
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
             sig = getSignature(self.fuzz["run_subject"])
-            jslib = "function finish_test() { FuzzingFunctions.crash('" + sig + "') }\n"
+            self.fuzz["test"] = html_string(self.fuzz["run_subject"], JsVersion.MINIMAL)
+            jslib = self._jsDriver("FuzzingFunctions.crash('" + sig + "')")
             self.fuzz["test"] = self.fuzz["best"]
             self.fuzz["reported"] = True
 
