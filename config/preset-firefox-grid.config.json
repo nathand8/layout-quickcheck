@@ -1,0 +1,35 @@
+{
+    "paths": {
+        "bug-reports-directory": "./bug_reports",
+        "tmp-files-directory": "./tmp_generated_files",
+        "chrome-webdriver": null,
+        "firefox-webdriver": null,
+        "safari-webdriver": null
+    },
+
+    "target-browser-variant": "firefox",
+
+    "style-weights": {
+
+        "content-visibility": 0,
+
+        "display": 100,
+        "display:grid": 95,
+        "display:inline-grid": 95,
+
+        "grid-template-columns": 40,
+        "grid-template-rows": 40,
+
+        "column-gap": 40,
+        "row-gap": 40,
+
+        "grid-column-start": 40,
+        "grid-column-end": 40,
+        "grid-row-start": 40,
+        "grid-row-end": 40,
+
+        "grid-auto-flow": 40,
+        "grid-auto-rows": 40,
+        "grid-auto-columns": 40
+    }
+}
