@@ -15,6 +15,7 @@ setuptools.setup(
     #     ],
     version='1.2.0',
     install_requires=[
+        'lorem',
         'grizzly-framework',
     ],
     entry_points={

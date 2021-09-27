@@ -35,7 +35,7 @@ class LayoutQuickCheckAdapter(Adapter):
 
     NAME = "LayoutQuickCheck-Adapter"
 
-    def setup(self, _input, server_map):
+    def setup(self, input_path, server_map):
         # indicates if a result was found
         self.fuzz["found"] = False
         # track most recent version of test (for reduction)
@@ -49,7 +49,7 @@ class LayoutQuickCheckAdapter(Adapter):
 
         # Load the LayoutQuickCheck Config
         # TODO: Do we need to load different config files?
-        config = parse_config("./config/preset-firefox.config.json")
+        config = parse_config(input_path)
         Config(config)
 
     def _found(self):
