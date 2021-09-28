@@ -25,7 +25,6 @@ window.addEventListener("load", () => {
 
     if (dimensionsDiffer && dimensionsDiffer.length > 0) {
 
-
         // report the bug to the test runner
         fetch("/found")
         .finally(() => {
@@ -36,9 +35,9 @@ window.addEventListener("load", () => {
         finish_test()
     }
 
-  // When "recreateTheProblem" doesn't exist, we are just reporting the bug
+  // If "recreateTheProblem" doesn't exist, something went wrong
   } else {
-    finish_test();
+      console.error("Missing crucial function 'recreateTheProblem'. This should be provided by LQC");
   }
 })
 
