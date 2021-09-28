@@ -24,11 +24,25 @@ window.addEventListener("load", () => {
     let dimensionsDiffer = recreateTheProblem();
 
     if (dimensionsDiffer && dimensionsDiffer.length > 0) {
-        // we found a result
+
+        // Add details for easier triaging
+        logOutput = "\\nLQC Results:"
+        for (el of dimensionsDiffer) {
+            logOutput += "\\nConflicting dimensions for element " + el.element;
+            logOutput += "\\n    Dimensions after reload: " + JSON.stringify(post_reload_dims);
+            logOutput += "\\n    Dimensions after modify: " + JSON.stringify(post_modify_dims);
+        }
+        logOutput += "\\nEND of LQC Results"
+        try {
+            window.dump(logOutput);
+        } catch { }
+
+        // report the bug to the test runner
         fetch("/found")
         .finally(() => {
             finish_test();
         })
+
     } else {
         finish_test()
     }
