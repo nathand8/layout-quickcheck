@@ -60,7 +60,7 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
       console.log("Conflicting dimensions for element", el);
       console.log("    Dimensions after reload: ", JSON.stringify(post_reload_dims));
       console.log("    Dimensions after modify: ", JSON.stringify(post_modify_dims));
-      conflicting_el_ids.push({
+      conflicting_el_dims.push({
         element:el,
         post_modify_dims: post_modify_dims,
         post_reload_dims: post_reload_dims
