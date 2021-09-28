@@ -25,22 +25,11 @@ window.addEventListener("load", () => {
 
     if (dimensionsDiffer && dimensionsDiffer.length > 0) {
 
-        // Add details for easier triaging
-        logOutput = "\\nLQC Results:"
-        for (el of dimensionsDiffer) {
-            logOutput += "\\nConflicting dimensions for element " + el.element;
-            logOutput += "\\n    Dimensions after reload: " + JSON.stringify(post_reload_dims);
-            logOutput += "\\n    Dimensions after modify: " + JSON.stringify(post_modify_dims);
-        }
-        logOutput += "\\nEND of LQC Results"
-        try {
-            window.dump(logOutput);
-        } catch { }
 
         // report the bug to the test runner
         fetch("/found")
         .finally(() => {
-            finish_test();
+            finish_test(dimensionsDiffer);
         })
 
     } else {
@@ -53,6 +42,23 @@ window.addEventListener("load", () => {
   }
 })
 
+"""
+
+JS_REPORT_BUG = """
+function log_bug_details(dimensionsDiffer) {
+
+    // Add details for easier triaging
+    logOutput = "\\nLQC Results:"
+    for (el of dimensionsDiffer) {
+        logOutput += "\\nConflicting dimensions for element " + el.element;
+        logOutput += "\\n    Dimensions after reload: " + JSON.stringify(post_reload_dims);
+        logOutput += "\\n    Dimensions after modify: " + JSON.stringify(post_modify_dims);
+    }
+    logOutput += "\\nEND of LQC Results\\n"
+    try {
+        window.dump(logOutput);
+    } catch { }
+}
 """
 
 
@@ -97,8 +103,11 @@ class LayoutQuickCheckAdapter(Adapter):
         self.fuzz["found"] = True
         return b""
     
-    def _jsDriver(self, finish_test_js):
-        return "function finish_test() {" + finish_test_js + "}\n" + JS_BASE_DRIVER
+    def _jsDriver(self, finish_test_js, include_logging=False):
+        if include_logging:
+            return JS_REPORT_BUG + " function finish_test(dimensionsDiffer) { log_bug_details(dimensionsDiffer); " + finish_test_js + "}\n" + JS_BASE_DRIVER
+        else:
+            return "function finish_test() {" + finish_test_js + "}\n" + JS_BASE_DRIVER
 
     def enterFuzzMode(self):
         """Fuzz mode generates random tests"""
@@ -144,8 +153,8 @@ class LayoutQuickCheckAdapter(Adapter):
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
             sig = getSignature(self.fuzz["run_subject"])
-            self.fuzz["test"] = html_string(self.fuzz["run_subject"], JsVersion.MINIMAL)
-            jslib = self._jsDriver("FuzzingFunctions.crash('" + sig + "')")
+            self.fuzz["test"] = html_string(self.fuzz["run_subject"])
+            jslib = self._jsDriver("FuzzingFunctions.crash('" + sig + "')", include_logging=True)
             self.fuzz["reported"] = True
 
         # Reset the "found" flag
