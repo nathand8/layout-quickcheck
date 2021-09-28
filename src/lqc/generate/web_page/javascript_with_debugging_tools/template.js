@@ -28,7 +28,7 @@ function outputElementDimensions() {
 // Looks for dimensions that are NOT equal
 function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
 
-  conflicting_el_ids = []
+  conflicting_el_dims = []
 
   // Check that the two dictionaries have the same elements
   r_elem_dims = dimensionsAfterReload
@@ -55,14 +55,26 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
     }
 
     if (conflicting_attrs.length > 0) {
+      post_modify_dims = Object.fromEntries(conflicting_attrs.map( attr => [attr, m_el_dims[attr]] ));
+      post_reload_dims = Object.fromEntries(conflicting_attrs.map( attr => [attr, r_el_dims[attr]] ));
       console.log("Conflicting dimensions for element", el);
-      console.log("    Dimensions after reload: ", conflicting_attrs.map(attr => attr + ": " + String(r_el_dims[attr])).join(', '));
-      console.log("    Dimensions after modify: ", conflicting_attrs.map(attr => attr + ": " + String(m_el_dims[attr])).join(', '));
-      conflicting_el_ids.push(el)
+      console.log("    Dimensions after reload: ", JSON.stringify(post_reload_dims));
+      console.log("    Dimensions after modify: ", JSON.stringify(post_modify_dims));
+      conflicting_el_dims.push({
+        element:el,
+        post_modify_dims: post_modify_dims,
+        post_reload_dims: post_reload_dims
+      })
     }
   })
 
-  return conflicting_el_ids
+  // Return structure
+  // [{
+  //   element: one<div>,
+  //   post_modify_dims: {x: 100, left: 10}
+  //   post_reload_dims: {x: 120, left: 15}
+  // }, ...]
+  return conflicting_el_dims
 }
 
 // Get all element dimensions on the page
