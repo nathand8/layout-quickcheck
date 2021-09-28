@@ -19,8 +19,8 @@ JS_BASE_DRIVER = """
 
 window.addEventListener("load", () => {
 
-  // Function "recreateTheProblem()" only exists in JS version with debugging tools
-  if (typeof("recreateTheProblem") == "function") {
+  // Function recreateTheProblem() only exists in JS version with debugging tools
+  if (typeof(recreateTheProblem) == "function") {
     let dimensionsDiffer = recreateTheProblem();
 
     if (dimensionsDiffer && dimensionsDiffer.length > 0) {
@@ -132,11 +132,6 @@ class LayoutQuickCheckAdapter(Adapter):
             sig = getSignature(self.fuzz["run_subject"])
             self.fuzz["test"] = html_string(self.fuzz["run_subject"], JsVersion.MINIMAL)
             jslib = self._jsDriver("FuzzingFunctions.crash('" + sig + "')")
-            tmp_filename = "tmp_" + str(randint(1, 1000)) + ".html"
-            with open(tmp_filename) as fh:
-                fh.write("<script>" + jslib + "</script>")
-                fh.write(self.fuzz["test"])
-                print("Found a bug! But not reporting it? ... File: ", fh.name)
             self.fuzz["reported"] = True
 
         # Reset the "found" flag
