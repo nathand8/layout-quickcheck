@@ -19,8 +19,8 @@ JS_BASE_DRIVER = """
 
 window.addEventListener("load", () => {
 
-  // Function "recreateTheProblem()" only exists in JS version with debugging tools
-  if (typeof("recreateTheProblem") == "function") {
+  // Function recreateTheProblem() only exists in JS version with debugging tools
+  if (typeof(recreateTheProblem) == "function") {
     let dimensionsDiffer = recreateTheProblem();
 
     if (dimensionsDiffer && dimensionsDiffer.length > 0) {
