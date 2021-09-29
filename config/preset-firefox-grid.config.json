@@ -17,6 +17,13 @@
         "display:grid": 95,
         "display:inline-grid": 95,
 
+        "padding-left": 0,
+        "padding-right": 0,
+        "padding-top": 0,
+        "padding-bottom": 0,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0,
+
         "grid-template-columns": 40,
         "grid-template-rows": 40,
 
