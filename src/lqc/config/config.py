@@ -35,6 +35,7 @@ class Config:
             cls.__instance.path_chrome_driver = paths.get("chrome-webdriver", None) or Config.detectDriverPath("chromedriver", "chrome-webdriver")
             cls.__instance.path_chrome_binary = paths.get("chrome", None)
             cls.__instance.path_firefox_driver = paths.get("firefox-webdriver", None) or Config.detectDriverPath("geckodriver", "firefox-webdriver")
+            cls.__instance.path_firefox_binary = paths.get("firefox", None)
             cls.__instance.path_safari_driver = paths.get("safari-webdriver", None) or Config.detectDriverPath("safaridriver", "safari-webdriver")
 
         elif cls.__instance == None:
@@ -70,6 +71,9 @@ class Config:
 
     def getFirefoxDriverPath(self):
         return self.path_firefox_driver
+
+    def getFirefoxBinaryPath(self):
+        return self.path_firefox_binary
 
     def getSafariDriverPath(self):
         return self.path_safari_driver

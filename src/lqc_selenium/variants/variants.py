@@ -79,6 +79,20 @@ def firefox_vanilla():
     return firefox.getWebDriver()
 
 @variant()
+def firefox_with_grid_item_baxis_measurement():
+    "Firefox:layout.css.grid-item-baxis-measurement.enabled=true"
+    return firefox.getWebDriver(options_args={
+        "layout.css.grid-item-baxis-measurement.enabled": True
+    })
+
+@variant()
+def firefox_without_grid_item_baxis_measurement():
+    "Firefox:layout.css.grid-item-baxis-measurement.enabled=false"
+    return firefox.getWebDriver(options_args={
+        "layout.css.grid-item-baxis-measurement.enabled": False
+    })
+
+@variant()
 def firefox_dynamic_reflow_roots():
     "Firefox - layout.dynamic-reflow-roots.enabled"
     return firefox.getWebDriver(options_args={
