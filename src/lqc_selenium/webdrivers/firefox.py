@@ -31,6 +31,8 @@ def getWebDriver(window_width=1000, window_height=1000, headless=True, options_a
 
     if headless:
         firefox_options.add_argument("--headless")
+    if config.getFirefoxBinaryPath():
+        firefox_options.binary_location = config.getFirefoxBinaryPath()
 
     for property, value in options_args.items():
         firefox_options.set_preference(property, value)
