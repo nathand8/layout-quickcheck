@@ -8,58 +8,16 @@ from lqc.config.config import Config, parse_config
 from lqc.generate.style_log_generator import generate_run_subject
 from lqc.generate.web_page.create import html_string, JsVersion
 
-from grizzly.adapter import Adapter
+from grizzly.adapter import Adapter, TestFile
 from lqc.minify.minify_test_file import MinifyStepFactory
 from lqc.model.run_subject import RunSubject
 
 __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith", "Nathan Davis"]
 
-JS_BASE_DRIVER = """
-
-window.addEventListener("load", () => {
-
-  // Function recreateTheProblem() only exists in JS version with debugging tools
-  if (typeof(recreateTheProblem) == "function") {
-    let dimensionsDiffer = recreateTheProblem();
-
-    if (dimensionsDiffer && dimensionsDiffer.length > 0) {
-
-        // report the bug to the test runner
-        fetch("/found")
-        .finally(() => {
-            finish_test(dimensionsDiffer);
-        })
-
-    } else {
-        finish_test()
-    }
-
-  // If "recreateTheProblem" doesn't exist, something went wrong
-  } else {
-      console.error("Missing crucial function 'recreateTheProblem'. This should be provided by LQC");
-  }
-})
-
+JS_BOOTSTRAP = """
+  window.addEventListener("load", test_bug_and_report);
 """
-
-JS_REPORT_BUG = """
-function log_bug_details(dimensionsDiffer) {
-
-    // Add details for easier triaging
-    logOutput = "\\nLQC Results:"
-    for (el of dimensionsDiffer) {
-        logOutput += "\\nConflicting dimensions for element " + el.element;
-        logOutput += "\\n    Dimensions after reload: " + JSON.stringify(post_reload_dims);
-        logOutput += "\\n    Dimensions after modify: " + JSON.stringify(post_modify_dims);
-    }
-    logOutput += "\\nEND of LQC Results\\n"
-    try {
-        window.dump(logOutput);
-    } catch { }
-}
-"""
-
 
 @unique
 class Mode(Enum):
@@ -104,9 +62,9 @@ class LayoutQuickCheckAdapter(Adapter):
     
     def _jsDriver(self, finish_test_js, include_logging=False):
         if include_logging:
-            return JS_REPORT_BUG + " function finish_test(dimensionsDiffer) { log_bug_details(dimensionsDiffer); " + finish_test_js + "}\n" + JS_BASE_DRIVER
+            return "function finish_test(dimensionsDiffer) { log_bug_details(dimensionsDiffer); " + finish_test_js + "}\n" + JS_BOOTSTRAP
         else:
-            return "function finish_test() {" + finish_test_js + "}\n" + JS_BASE_DRIVER
+            return "function finish_test() {" + finish_test_js + "}\n" + JS_BOOTSTRAP
 
     def enterFuzzMode(self):
         """Fuzz mode generates random tests"""
@@ -160,7 +118,10 @@ class LayoutQuickCheckAdapter(Adapter):
         self.fuzz["found"] = False
 
         # add a non required file
-        testcase.add_from_data(jslib, "helpers.js", required=False)
+        testcase.add_from_data(jslib, "bootstrap.js", required=False)
+
+        # add the helper.js file
+        testcase.add_file(TestFile.from_file("grizzly_test_helpers.js", "helpers.js"))
 
         # add to testcase as entry point
         testcase.add_from_data(self.fuzz["test"], testcase.landing_page)
