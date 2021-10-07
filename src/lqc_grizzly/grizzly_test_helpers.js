@@ -25,13 +25,13 @@ function test_bug_and_report() {
 function log_bug_details(dimensionsDiffer) {
 
   // Add details for easier triaging
-  logOutput = "\\nLQC Results:"
+  logOutput = "\nLQC Results:"
   for (el of dimensionsDiffer) {
-    logOutput += "\\nConflicting dimensions for element " + el.element;
-    logOutput += "\\n    Dimensions after reload: " + JSON.stringify(post_reload_dims);
-    logOutput += "\\n    Dimensions after modify: " + JSON.stringify(post_modify_dims);
+    logOutput += "\nConflicting dimensions for element " + el.element;
+    logOutput += "\n    Dimensions after reload: " + JSON.stringify(post_reload_dims);
+    logOutput += "\n    Dimensions after modify: " + JSON.stringify(post_modify_dims);
   }
-  logOutput += "\\nEND of LQC Results\\n"
+  logOutput += "\nEND of LQC Results\n"
   try {
     window.dump(logOutput);
   } catch { }
