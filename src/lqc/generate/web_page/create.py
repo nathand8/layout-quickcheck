@@ -12,8 +12,9 @@ html_template = """
 
   <head>
     <title>Layout QuickCheck</title>
-    <!-- helpers.js is used by grizzly -->
+    <!-- helpers.js and bootstrap.js can be used by testing frameworks (ie grizzly) -->
     <script src="helpers.js"></script>
+    <script src="bootstrap.js"></script>
     <script>
       {js_string}
     </script>
