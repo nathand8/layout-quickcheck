@@ -1,14 +1,13 @@
 # Initial structure pulled from
 # https://github.com/MozillaSecurity/grizzly/blob/feedback-example/grizzly/adapter/feedback_example/__init__.py
 
+import pathlib
 from enum import Enum, unique
-from random import randint
-from string import Template
 from lqc.config.config import Config, parse_config
 from lqc.generate.style_log_generator import generate_run_subject
 from lqc.generate.web_page.create import html_string, JsVersion
 
-from grizzly.adapter import Adapter, TestFile
+from grizzly.adapter import Adapter
 from lqc.minify.minify_test_file import MinifyStepFactory
 from lqc.model.run_subject import RunSubject
 
@@ -16,7 +15,7 @@ __author__ = "Tyson Smith"
 __credits__ = ["Tyson Smith", "Nathan Davis"]
 
 JS_BOOTSTRAP = """
-  window.addEventListener("load", test_bug_and_report);
+window.addEventListener("load", test_bug_and_report);
 """
 
 @unique
@@ -121,7 +120,8 @@ class LayoutQuickCheckAdapter(Adapter):
         testcase.add_from_data(jslib, "bootstrap.js", required=False)
 
         # add the helper.js file
-        testcase.add_file(TestFile.from_file("grizzly_test_helpers.js", "helpers.js"))
+        helpersJSPath = pathlib.Path(__file__).parent.joinpath('grizzly_test_helpers.js').resolve()
+        testcase.add_from_file(helpersJSPath, file_name="helpers.js")
 
         # add to testcase as entry point
         testcase.add_from_data(self.fuzz["test"], testcase.landing_page)
