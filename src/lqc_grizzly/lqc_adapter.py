@@ -28,6 +28,7 @@ class Mode(Enum):
     REPORT = 2
 
 def getSignature(run_subject: RunSubject):
+    """Creates a list of all the styles used in a run_subject"""
     styles_used = list(run_subject.all_style_names())
     styles_used.sort()
     return ",".join(styles_used)
@@ -59,11 +60,14 @@ class LayoutQuickCheckAdapter(Adapter):
         self.fuzz["found"] = True
         return b""
     
-    def _jsDriver(self, finish_test_js, include_logging=False):
-        if include_logging:
-            return "function finish_test(dimensionsDiffer) { log_bug_details(dimensionsDiffer); " + finish_test_js + "}\n" + JS_BOOTSTRAP
+    def _jsDriver(self, reporting_bug=False):
+        if reporting_bug:
+            return """function finish_test(dimensionsDiffer) {
+                log_bug_details(dimensionsDiffer); 
+                FuzzingFunctions.crash(result_summary(dimensionsDiffer));
+            }\n""" + JS_BOOTSTRAP
         else:
-            return "function finish_test() {" + finish_test_js + "}\n" + JS_BOOTSTRAP
+            return "function finish_test() { setTimeout(window.close, 10) }\n" + JS_BOOTSTRAP
 
     def enterFuzzMode(self):
         """Fuzz mode generates random tests"""
@@ -87,7 +91,7 @@ class LayoutQuickCheckAdapter(Adapter):
         if self.fuzz["mode"] == Mode.FUZZ:
             # generate a test
             self.fuzz["run_subject"] = generate_run_subject()
-            jslib = self._jsDriver("setTimeout(window.close, 10)")
+            jslib = self._jsDriver()
             # html_string will generate a complete web page with html and inline js
             self.fuzz["test"] = html_string(self.fuzz["run_subject"])
 
@@ -103,14 +107,14 @@ class LayoutQuickCheckAdapter(Adapter):
             else:
                 # html_string will generate a complete web page with html and inline js
                 self.fuzz["test"] = html_string(self.fuzz["proposed_run_subject"])
-            jslib = self._jsDriver("setTimeout(window.close, 10)")
+            jslib = self._jsDriver()
 
         elif self.fuzz["mode"] == Mode.REPORT:
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
-            sig = getSignature(self.fuzz["run_subject"])
+            # sig = getSignature(self.fuzz["run_subject"])
             self.fuzz["test"] = html_string(self.fuzz["run_subject"])
-            jslib = self._jsDriver("FuzzingFunctions.crash('" + sig + "')", include_logging=True)
+            jslib = self._jsDriver(reporting_bug=True)
             self.fuzz["reported"] = True
 
         # Reset the "found" flag
