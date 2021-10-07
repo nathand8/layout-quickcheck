@@ -36,3 +36,54 @@ function log_bug_details(dimensionsDiffer) {
     window.dump(logOutput);
   } catch { }
 }
+
+function bucketSize(n) {
+  // The size bucketing is
+  //   "small": difference < 10px
+  //   "large": 10px <= difference < 100px
+  //   "extreme": 100px <= difference
+  if (n < 10) {
+      return "small"
+  } else if (n < 100) {
+      return "large"
+  } else {
+      return "extreme"
+  }
+}
+
+function result_summary(dimensionsDiffer) {
+  // Outputs the differing dimensions in buckets according to bucketSize() function
+  //
+  // For example:
+  //   dimensionsDiffer = [
+  //     {
+  //       element: "UnknownID<body>",
+  //       post_modify_dims: {bottom: 100, height: 105},
+  //       post_reload_dims: {bottom: 102, height: 107},
+  //     },
+  //     {
+  //       element: "two<div>",
+  //       post_modify_dims: {y: 32},
+  //       post_reload_dims: {y: 92},
+  //     }
+  //   ]
+  // Would output
+  //   "tag-body,bottom-small,height-small;tag-div,y-large"
+
+  tagRegexPattern = /<(.*)>/;
+
+  tagSummaries = []
+  for (ob of dimensionsDiffer) {
+    tag = "tag-" + tagRegexPattern.exec(ob.element)[1]
+
+    obSummary = [tag]
+    for (attr in ob.post_modify_dims) {
+      diff = Math.abs(ob.post_modify_dims[attr] - ob.post_reload_dims[attr]);
+      obSummary.push(attr + "-" + bucketSize(diff));
+    }
+    tagSummaries.push(obSummary.join(","));
+  }
+
+  return tagSummaries.join(";")
+
+}
