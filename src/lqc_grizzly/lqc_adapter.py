@@ -2,6 +2,7 @@
 # https://github.com/MozillaSecurity/grizzly/blob/feedback-example/grizzly/adapter/feedback_example/__init__.py
 
 import pathlib
+import json
 from enum import Enum, unique
 from lqc.config.config import Config, parse_config
 from lqc.generate.style_log_generator import generate_run_subject
@@ -26,6 +27,19 @@ class Mode(Enum):
     REDUCE = 1
     # no more reductions can be performed indicate we are complete
     REPORT = 2
+
+def getStyleLists(run_subject: RunSubject):
+    """ Used for logging lists of styles used """
+
+    base_styles = list(run_subject.base_styles.all_style_names())
+    base_styles.sort()
+    modified_styles = list(run_subject.modified_styles.all_style_names())
+    modified_styles.sort()
+
+    return {
+        'base_styles': base_styles,
+        'modified_styles': modified_styles
+    }
 
 def getSignature(run_subject: RunSubject):
     """Creates a list of all the styles used in a run_subject"""
@@ -60,10 +74,12 @@ class LayoutQuickCheckAdapter(Adapter):
         self.fuzz["found"] = True
         return b""
     
-    def _jsDriver(self, reporting_bug=False):
+    def _jsDriver(self, run_subject: RunSubject, reporting_bug=False):
         if reporting_bug:
             return """function finish_test(dimensionsDiffer) {
+                window.dump('\\nLQC Signature: ' + result_summary(dimensionsDiffer) + '\\n');
                 log_bug_details(dimensionsDiffer); 
+                window.dump('CSS Styles Used: """ + json.dumps(getStyleLists(run_subject), indent=4).replace("\n", "\\n") + """\\n\\n');
                 FuzzingFunctions.crash(result_summary(dimensionsDiffer));
             }\n""" + JS_BOOTSTRAP
         else:
@@ -91,7 +107,7 @@ class LayoutQuickCheckAdapter(Adapter):
         if self.fuzz["mode"] == Mode.FUZZ:
             # generate a test
             self.fuzz["run_subject"] = generate_run_subject()
-            jslib = self._jsDriver()
+            jslib = self._jsDriver(self.fuzz["run_subject"])
             # html_string will generate a complete web page with html and inline js
             self.fuzz["test"] = html_string(self.fuzz["run_subject"])
 
@@ -107,14 +123,14 @@ class LayoutQuickCheckAdapter(Adapter):
             else:
                 # html_string will generate a complete web page with html and inline js
                 self.fuzz["test"] = html_string(self.fuzz["proposed_run_subject"])
-            jslib = self._jsDriver()
+            jslib = self._jsDriver(self.fuzz["run_subject"])
 
         elif self.fuzz["mode"] == Mode.REPORT:
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
             # sig = getSignature(self.fuzz["run_subject"])
             self.fuzz["test"] = html_string(self.fuzz["run_subject"])
-            jslib = self._jsDriver(reporting_bug=True)
+            jslib = self._jsDriver(self.fuzz["run_subject"], reporting_bug=True)
             self.fuzz["reported"] = True
 
         # Reset the "found" flag
