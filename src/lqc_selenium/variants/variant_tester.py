@@ -45,12 +45,12 @@ def test_variants(run_subject: RunSubject):
         try:
             webdriver = variant.webdriver()
             is_original_variant = variant is getTargetVariant()
-            result = format_variant_result(webdriver, variant.name, is_original_variant, forced_slow=["force_slow"])
+            result = format_variant_result(webdriver, str(variant), is_original_variant, forced_slow=["force_slow"])
             bug_gone, *_ = test_combination(webdriver, run_subject, slow=variant.force_slow)
             result["bug_detected"] = not bug_gone
             variant_results.append(result)
         except:
-            print_crash_output(variant["name"])
+            print_crash_output(str(variant))
         finally:
             try: webdriver.finish()
             except: pass

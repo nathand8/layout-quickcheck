@@ -51,8 +51,23 @@ def getTargetVariant():
 def getTargetBrowserDriver():
     return getTargetVariant().webdriver()
 
-class ChromeVariant:
+class Variant:
+    def __init__(self, name=None, slow=False):
+        self.force_slow = slow
+        self.name = name
+
+    def __str__(self):
+        return self.name or repr(self)
+
+    def __repr__(self):
+        return "Variant()"
+
+    def webdriver(self):
+        raise NotImplemented("Variant().webdriver() should be overridden")
+
+class ChromeVariant(Variant):
     def __init__(self, name=None, slow=False, width=None, height=None, args=None):
+        super().__init__(name, slow)
         self.kwargs = {}
         if width:
             self.kwargs["window_width"] = width
@@ -62,27 +77,35 @@ class ChromeVariant:
             self.kwargs["chrome_args"] = args
 
         self.force_slow = slow
-        self.name = name or "Chrome(slow={}, width={}, height={}, args={})".format(slow, width, height, args)
+
+    def __repr__(self):
+        return "Chrome(slow={}, width={}, height={}, args={})".format(slow, width, height, args)
 
     def webdriver(self):
         return chrome.getWebDriver(**self.kwargs)
 
-class FirefoxVariant:
+class FirefoxVariant(Variant):
     def __init__(self, name=None, slow=False, options=None):
+        super().__init__(name, slow)
+
         self.kwargs = {}
         if options:
             self.kwargs["options_args"] = options
-        self.force_slow = slow
-        self.name = name or "Firefox(slow={}, options={})".format(slow, options)
+
+    def __repr__(self):
+        return "Firefox(slow={}, options={})".format(slow, options)
 
     def webdriver(self):
         return firefox.getWebDriver(**self.kwargs)
 
-class SafariVariant:
+class SafariVariant(Variant):
     def __init__(self, name=None, slow=False):
-        self.force_slow = slow
-        self.name = name or "Safari(slow={})".format(slow)
+        super().__init__(name, slow)
+
         self.kwargs = {}
+
+    def __repr__(self):
+        return "Safari(slow={})".format(slow)
 
     def webdriver(self):
         return safari.getWebDriver(**self.kwargs)
