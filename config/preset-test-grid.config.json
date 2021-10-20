@@ -1,13 +1,23 @@
 {
     "paths": {
         "bug-reports-directory": "./bug_reports",
-        "tmp-files-directory": "./tmp_generated_files",
-        "chrome-webdriver": null,
-        "firefox-webdriver": null,
-        "safari-webdriver": null
+        "tmp-files-directory": "./tmp_generated_files"
     },
 
-    "target-browser-variant": "chrome_blink_layout_grid",
+    "variants": [
+        {"type": "chrome",
+         "target": true,
+         "args": ["--enable-blink-features=LayoutNGGrid"]},
+        {"type": "chrome",
+         "width": 500, "height": 500,
+         "args": ["--enable-blink-features=LayoutNGGrid"]},
+        {"type": "chrome",
+         "width": 2400, "height": 2400,
+         "args": ["--enable-blink-features=LayoutNGGrid"]},
+        {"type": "chrome"},
+        {"type": "chrome",
+         "args": ["--enable-blink-features=LayoutNGTable"]}
+    ],
 
     "style-weights": {
 

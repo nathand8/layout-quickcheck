@@ -2,13 +2,16 @@
 {
     "paths": {
         "bug-reports-directory": "./bug_reports",
-        "tmp-files-directory": "./tmp_generated_files",
-        "chrome-webdriver": null,
-        "firefox-webdriver": null,
-        "safari-webdriver": null
+        "tmp-files-directory": "./tmp_generated_files"
     },
 
-    "target-browser-variant": "firefox_dynamic_reflow_roots",
+    "variants": [
+        {"type": "firefox",
+         "target": true,
+         "options": {"layout.css.grid-item-baxis-measurement.enabled": true}},
+        {"type": "firefox",
+         "options": {"layout.css.grid-item-baxis-measurement.enabled": false}}
+    ],
 
     "style-weights": {
         "content-visibility": 0,
