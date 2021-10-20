@@ -2,13 +2,13 @@
 {
     "paths": {
         "bug-reports-directory": "./bug_reports",
-        "tmp-files-directory": "./tmp_generated_files",
-        "chrome-webdriver": null,
-        "firefox-webdriver": null,
-        "safari-webdriver": null
+        "tmp-files-directory": "./tmp_generated_files"
     },
 
-    "target-browser-variant": "firefox_dynamic_reflow_roots",
+    "variants": [
+        {"type": "firefox", "options": {"layout.dynamic-reflow-roots.enabled": true}},
+        {"type": "firefox"}
+    ],
 
     "style-weights": {
         "content-visibility": 0,

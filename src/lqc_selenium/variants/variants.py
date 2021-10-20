@@ -1,105 +1,88 @@
 from lqc.config.config import Config
 from lqc_selenium.webdrivers import chrome, firefox, safari
 
-variants = []
-
-
-def variant(name=None, force_slow=False):
-    """Decorator - used to specify variants of webdrivers"""
-
-    def decorator_generator(func):
-        n = func.__doc__ or func.__name__
-        if name is not None:
-            n = name
-        v = {
-            "name": n,
-            "__doc__": func.__doc__,
-            "__name__": func.__name__,
-            "driver": func,
-            "force_slow": force_slow
-        }
-        variants.append(v)
-        return func
-    
-    return decorator_generator
-
+cached_variants = None
+target_variant = None
 
 def getVariants():
-    return variants
+    global cached_variants, target_variant
+    if cached_variants is not None:
+        return cached_variants
+
+    conf = Config()
+    variants = conf.getVariants()
+    out = []
+    for variant in variants:
+        cls = {
+            "chrome": ChromeVariant,
+            "firefox": FirefoxVariant,
+            "safari": SafariVariant,
+        }.get(variant.get("type"))
+        if not cls:
+            print(f"Warning: Unknown variant type {variant!r}")
+        kwargs = variant.copy()
+        if "type" in kwargs: del kwargs["type"]
+        if "target" in kwargs: del kwargs["target"]
+        try:
+            v = cls(**kwargs)
+        except RuntimeError as e:
+            print(f"Error in variant {variant!r}:\n  {cls.__name}: {e}")
+        else:
+            out.append(v)
+            if "target" in kwargs and kwargs["target"]:
+                if target_variant:
+                    print(f"Warning: two variants marked as target variant (ignoring second)")
+                else:
+                    target_variant = v
+
+    if not target_variant and out:
+        target_variant = out[0]
+    cached_variants = out
+    return cached_variants
 
 def getTargetVariant():
-    conf = Config()
-    target_v = conf.getTargetBrowserVariant()
-    for v in variants:
-        if target_v in [v["name"], v["__name__"], v["__doc__"]]:
-            return v
-    return variants[0] # Default variant is whichever is first
+    global target_variant
+    getVariants()
+    if target_variant:
+        return target_variant
+    else:
+        raise RuntimeError("No variants described in config file!")
 
 def getTargetBrowserDriver():
-    return getTargetVariant()["driver"]()
+    return getTargetVariant().webdriver()
 
+class ChromeVariant:
+    def __init__(self, name=None, slow=False, width=None, height=None, args=None):
+        self.kwargs = {}
+        if width:
+            self.kwargs["window_width"] = width
+        if height:
+            self.kwargs["window_height"] = width
+        if args:
+            self.kwargs["chrome_args"] = args
 
-# =============================
-# Webdriver Variants
-# =============================
+        self.force_slow = slow
+        self.name = name or "Chrome(slow={}, width={}, height={}, args={})".format(slow, width, height, args)
 
-@variant()
-def vanilla_chrome():
-    "Chrome - Vanilla"
-    return chrome.getWebDriver()
+    def webdriver(self):
+        return chrome.getWebDriver(**self.kwargs)
 
-@variant(force_slow=True)
-def chrome_force_slow():
-    "Chrome - Forced Waits"
-    return chrome.getWebDriver()
+class FirefoxVariant:
+    def __init__(self, name=None, slow=False, options=None):
+        self.kwargs = {}
+        if options:
+            self.kwargs["options_args"] = options
+        self.force_slow = slow
+        self.name = name or "Firefox(slow={}, options={})".format(slow, options)
 
-@variant()
-def chrome_smaller_window():
-    "Chrome - Smaller Window"
-    return chrome.getWebDriver(window_width=500, window_height=500)
+    def webdriver(self):
+        return firefox.getWebDriver(**self.kwargs)
 
-@variant()
-def chrome_larger_window():
-    "Chrome - Larger Window"
-    return chrome.getWebDriver(window_width=2400, window_height=2400)
+class SafariVariant:
+    def __init__(self, name=None, slow=False):
+        self.force_slow = slow
+        self.name = name or "Safari(slow={})".format(slow)
+        self.kwargs = {}
 
-@variant()
-def chrome_blink_layout_grid():
-    "Chrome --enable-blink-features=LayoutNGGrid"
-    return chrome.getWebDriver(chrome_args=["--enable-blink-features=LayoutNGGrid"])
-
-@variant()
-def chrome_blink_layout_table():
-    "Chrome --enable-blink-features=LayoutNGTable"
-    return chrome.getWebDriver(chrome_args=["--enable-blink-features=LayoutNGTable"])
-
-@variant()
-def firefox_vanilla():
-    "Firefox - Vanilla"
-    return firefox.getWebDriver()
-
-@variant()
-def firefox_with_grid_item_baxis_measurement():
-    "Firefox:layout.css.grid-item-baxis-measurement.enabled=true"
-    return firefox.getWebDriver(options_args={
-        "layout.css.grid-item-baxis-measurement.enabled": True
-    })
-
-@variant()
-def firefox_without_grid_item_baxis_measurement():
-    "Firefox:layout.css.grid-item-baxis-measurement.enabled=false"
-    return firefox.getWebDriver(options_args={
-        "layout.css.grid-item-baxis-measurement.enabled": False
-    })
-
-@variant()
-def firefox_dynamic_reflow_roots():
-    "Firefox - layout.dynamic-reflow-roots.enabled"
-    return firefox.getWebDriver(options_args={
-            "layout.dynamic-reflow-roots.enabled": True,
-        })
-
-@variant()
-def safari_vanilla():
-    "Safari - Vanilla"
-    return safari.getWebDriver()
+    def webdriver(self):
+        return safari.getWebDriver(**self.kwargs)

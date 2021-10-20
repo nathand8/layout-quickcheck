@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
     # Logging - Target Variant
     target_variant = getTargetVariant()
-    print(f"Using target variant \"{target_variant['name']}\"")
+    print(f"Using target variant \"{target_variant.name}\"")
 
     counter = Counter(bug_limit=args.bug_limit, test_limit=args.test_limit, crash_limit=args.crash_limit)
 
