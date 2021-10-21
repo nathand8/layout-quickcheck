@@ -9,9 +9,8 @@ from lqc.model.constants import BugType
 from lqc_selenium.report.bug_report_helper import save_bug_report
 from lqc.util.counter import Counter
 from lqc_selenium.variants.variant_tester import test_variants
-from lqc_selenium.variants.variants import getTargetVariant
+from lqc_selenium.variants.variants import TargetBrowser, getTargetVariant
 from lqc_selenium.selenium_harness.layout_tester import test_combination
-from lqc_selenium.webdrivers.target_browser import TargetBrowser
 
 
 def minify(target_browser, run_subject):
