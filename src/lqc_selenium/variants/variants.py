@@ -1,5 +1,12 @@
+import atexit
+import types
 from lqc.config.config import Config
-from lqc_selenium.webdrivers import chrome, firefox, safari
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.chrome.webdriver import WebDriver as ChromeWebDriver
+from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.safari.webdriver import WebDriver as SafariWebDriver
+from selenium.common.exceptions import InvalidSessionIdException
 
 cached_variants = None
 target_variant = None
@@ -12,7 +19,9 @@ def getVariants():
     conf = Config()
     variants = conf.getVariants()
     out = []
+    is_target = False
     for variant in variants:
+        is_target = False
         cls = {
             "chrome": ChromeVariant,
             "firefox": FirefoxVariant,
@@ -22,14 +31,16 @@ def getVariants():
             print(f"Warning: Unknown variant type {variant!r}")
         kwargs = variant.copy()
         if "type" in kwargs: del kwargs["type"]
-        if "target" in kwargs: del kwargs["target"]
+        if "target" in kwargs: 
+            is_target = kwargs["target"]
+            del kwargs["target"]
         try:
             v = cls(**kwargs)
         except RuntimeError as e:
             print(f"Error in variant {variant!r}:\n  {cls.__name}: {e}")
         else:
             out.append(v)
-            if "target" in kwargs and kwargs["target"]:
+            if is_target:
                 if target_variant:
                     print(f"Warning: two variants marked as target variant (ignoring second)")
                 else:
@@ -51,6 +62,21 @@ def getTargetVariant():
 def getTargetBrowserDriver():
     return getTargetVariant().webdriver()
 
+def finish(webdriver):
+    "Helper method to ensure all webdrivers are closed at finish"
+    try:
+        webdriver.close()
+    except:
+        pass
+    try:
+        webdriver.quit()
+    except:
+        pass
+    try:
+        atexit.unregister(webdriver.finish)
+    except:
+        pass
+
 class Variant:
     def __init__(self, name=None, slow=False):
         self.force_slow = slow
@@ -66,46 +92,117 @@ class Variant:
         raise NotImplemented("Variant().webdriver() should be overridden")
 
 class ChromeVariant(Variant):
-    def __init__(self, name=None, slow=False, width=None, height=None, args=None):
+    def __init__(self, name=None, slow=False, width=1000, height=1000, args=None, headless=True):
         super().__init__(name, slow)
         self.width = width
         self.height = height
         self.args = args
+        self.headless = headless
 
     def __repr__(self):
-        return "Chrome(slow={}, width={}, height={}, args={})".format(self.force_slow, self.width, self.height, self.args)
+        return "Chrome(headless={}, slow={}, width={}, height={}, args={})".format(self.headless, self.force_slow, self.width, self.height, self.args)
 
     def webdriver(self):
-        kwargs = {}
-        if width:
-            kwargs["window_width"] = self.width
-        if height:
-            kwargs["window_height"] = self.height
-        if args:
-            kwargs["chrome_args"] = self.args
-        return chrome.getWebDriver(**kwargs)
+        config = Config()
+        driver_path = config.getChromeDriverPath()
+        if not driver_path:
+            raise RuntimeError("Chrome Driver not found")
+
+        chrome_options = ChromeOptions()
+
+        if self.headless:
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
+        if config.getChromeBinaryPath():
+            chrome_options.binary_location = config.getChromeBinaryPath()
+        
+        for arg in self.args:
+            chrome_options.add_argument(arg)
+
+        chrome_webdriver = ChromeWebDriver(executable_path=driver_path, options=chrome_options)
+        
+        chrome_webdriver.set_window_size(self.width, self.height)
+
+        chrome_webdriver.finish = types.MethodType(finish, chrome_webdriver)
+        atexit.register(chrome_webdriver.finish)
+
+        return chrome_webdriver
 
 class FirefoxVariant(Variant):
-    def __init__(self, name=None, slow=False, options=None):
+    def __init__(self, name=None, slow=False, width=1000, height=1000, options=None, headless=True):
         super().__init__(name, slow)
         self.options = options
+        self.width = width
+        self.height = height
+        self.headless = headless
 
     def __repr__(self):
-        return "Firefox(slow={}, options={})".format(self.force_slow, self.options)
+        return "Firefox(headless={}, slow={}, width={}, height={}, options={})".format(self.headless, self.force_slow, self.width, self.height, self.options)
 
     def webdriver(self):
-        kwargs = {}
-        if self.options:
-            kwargs["options_args"] = self.options
-        return firefox.getWebDriver(**kwargs)
+        config = Config()
+        driver_path = config.getFirefoxDriverPath()
+        if not driver_path:
+            raise RuntimeError("Firefox Driver not found")
+
+        firefox_options = FirefoxOptions()
+
+        if self.headless:
+            firefox_options.add_argument("--headless")
+        if config.getFirefoxBinaryPath():
+            firefox_options.binary_location = config.getFirefoxBinaryPath()
+
+        for property, value in self.options.items():
+            firefox_options.set_preference(property, value)
+
+        firefox_webdriver = FirefoxWebDriver(executable_path=driver_path, options=firefox_options)
+
+        firefox_webdriver.set_window_size(self.width, self.height)
+
+        firefox_webdriver.finish = types.MethodType(finish, firefox_webdriver)
+        atexit.register(firefox_webdriver.finish)
+
+        return firefox_webdriver
 
 class SafariVariant(Variant):
-    def __init__(self, name=None, slow=False):
+    def __init__(self, name=None, width=1000, height=1000, slow=False):
         super().__init__(name, slow)
+        self.width = width
+        self.height = height
 
     def __repr__(self):
-        return "Safari(slow={})".format(self.force_slow)
+        return "Safari(slow={}, width={}, height={})".format(self.force_slow, self.width, self.height)
 
     def webdriver(self):
-        kwargs = {}
-        return safari.getWebDriver(**kwargs)
+        config = Config()
+        driver_path = config.getSafariDriverPath()
+        if not driver_path:
+            raise RuntimeError("Safari Driver not found")
+
+        safari_webdriver = SafariWebDriver(executable_path=driver_path)
+        
+        safari_webdriver.set_window_size(self.width, self.height)
+
+        safari_webdriver.finish = types.MethodType(finish, safari_webdriver)
+        atexit.register(safari_webdriver.finish)
+
+        return safari_webdriver
+
+
+class TargetBrowser():
+    """
+    Helper class that checks the Selenium driver state before returning the driver.
+    """
+
+    def __init__(self):
+        self.driver = getTargetBrowserDriver()
+    
+    def getDriver(self):
+        try:
+            # Checking window size will throw an error if the driver is in a bad state
+            self.driver.get_window_size()
+        except InvalidSessionIdException:
+            self.driver.finish()
+            self.driver = getTargetBrowserDriver()
+        return self.driver
