@@ -44,8 +44,8 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
   }
 
   shared_elems.forEach(el => {
-    m_el_dims = m_elem_dims[el]
-    r_el_dims = r_elem_dims[el]
+    m_el_dims = m_elem_dims[el]['dimensions']
+    r_el_dims = r_elem_dims[el]['dimensions']
     conflicting_attrs = []
     bounding_rect_attrs = ['x', 'y', 'left', 'right', 'top', 'bottom', 'height', 'width']
     for (attr of bounding_rect_attrs) {
@@ -61,7 +61,9 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
       console.log("    Dimensions after reload: ", JSON.stringify(post_reload_dims));
       console.log("    Dimensions after modify: ", JSON.stringify(post_modify_dims));
       conflicting_el_dims.push({
-        element:el,
+        id: m_elem_dims[el]['id'],
+        tag: m_elem_dims[el]['tag'],
+        id_tag: el,
         post_modify_dims: post_modify_dims,
         post_reload_dims: post_reload_dims
       })
@@ -86,12 +88,18 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
 //    ...
 // }
 const outputDimensions = () => {
-  dimensions = {}
+  var dimensions = {}
 
   Array.from(document.getElementsByTagName('*')).forEach((element) => {
-    elUniqueId = (element.id || "UnknownID") + "<" + element.tagName.toLowerCase() + ">"
-    boundingRect = element.getBoundingClientRect();
-    dimensions[elUniqueId] = boundingRect
+    var elementId = element.id;
+    var tagName = element.tagName.toLowerCase();
+    var elUniqueId = (elementId || "UnknownID") + "<" + tagName + ">";
+    var boundingRect = element.getBoundingClientRect();
+    dimensions[elUniqueId] = {
+      'id': elementId,
+      'tag': tagName,
+      'dimensions': boundingRect,
+    }
   });
 
   return dimensions
