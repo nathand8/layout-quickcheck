@@ -1,5 +1,4 @@
 from lqc.model.constants import BugType
-from lqc.model.dimensions_conflict import DimensionsConflict
 
 
 class RunResult:
@@ -30,12 +29,35 @@ class RunResultCrash(RunResult):
 
 
 class RunResultLayoutBug(RunResult):
+    """
+    The resulting dimensions from a test run that has a layout bug.
 
-    def __init__(self, dimensions_conflict: DimensionsConflict):
+    element_dimensions format is provided by JS:
+    [{
+        'id': 'one',
+        'tag': 'div',
+        'id_tag': 'one<div>',
+        'post_modify_dims': {'bottom': 10, 'height': 5},
+        'post_reload_dims': {'bottom': 20, 'height': 15},
+    }, ...]
+
+    """
+
+    def __init__(self, element_dimensions):
         super().__init__(BugType.LAYOUT)
-        self.dimensions_conflict = dimensions_conflict
+        self.element_dimensions = element_dimensions
 
     def isBug(self):
         return True
+
+    def getDimensionsAsJSString(self):
+        """
+        Returns a JS String that will measure all the elements and dimensions
+        that were conflicting.
+
+        Example:
+        'console.log();'
+        """
+        pass
     
 

@@ -47,7 +47,7 @@ def save_bug_report(
         "run_subject": run_subject,
     }
     if isinstance(run_result, RunResultLayoutBug):
-        json_data["differences"] = run_result.dimensions_conflict.dimension_results
+        json_data["differences"] = run_result.element_dimensions
 
     json_data_filepath = os.path.join(bug_folder, "data.json")
     with open(json_data_filepath, "w") as f:
