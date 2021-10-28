@@ -166,8 +166,9 @@ class FirefoxVariant(Variant):
         if self.binary_path:
             firefox_options.binary_location = self.binary_path
 
-        for property, value in self.options.items():
-            firefox_options.set_preference(property, value)
+        if self.options:
+            for property, value in self.options.items():
+                firefox_options.set_preference(property, value)
 
         firefox_webdriver = FirefoxWebDriver(executable_path=self.webdriver_path, options=firefox_options)
 
