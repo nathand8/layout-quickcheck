@@ -1,6 +1,6 @@
 from lqc.generate.html_file_generator import remove_file
 from lqc.generate.web_page.run_subject_converter import saveTestSubjectAsWebPage
-from lqc.model.constants import BugType
+from lqc.model.run_result import RunResult, RunResultCrash, RunResultLayoutBug, RunResultPass
 from lqc.model.run_subject import RunSubject
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,17 +14,16 @@ import time
 def test_combination(webdriver, run_subject: RunSubject, slow=False, keep_file=False):
     test_filepath, test_url = saveTestSubjectAsWebPage(run_subject)
 
-    differences = run_test_using_js_diff_detect(test_url, webdriver, slow=slow)
-    no_bug = not differences
+    run_result = run_test_using_js_diff_detect(test_url, webdriver, slow=slow)
     
     if not keep_file:
         remove_file(test_filepath)
-        return no_bug, differences, None
+        return run_result, None
     else:
-        return no_bug, differences, test_filepath
+        return run_result, test_filepath
 
 
-def run_test_using_js_diff_detect(test_url, webdriver, slow=False):
+def run_test_using_js_diff_detect(test_url, webdriver, slow=False) -> RunResult:
 
     webdriver.get(f"{test_url}")
     try:
@@ -37,11 +36,15 @@ def run_test_using_js_diff_detect(test_url, webdriver, slow=False):
         if slow: time.sleep(0.5)
 
         # Make the style changes
-        return webdriver.execute_script("return recreateTheProblem()")
+        results =  webdriver.execute_script("return recreateTheProblem()")
+        if results and results.length:
+            return RunResultLayoutBug(results)
+        else:
+            return RunResultPass()
 
     except TimeoutException:
         print("Failed to load test page due to timeout")
         return None
     except WebDriverException:
-        return BugType.PAGE_CRASH
+        return RunResultCrash()
 
