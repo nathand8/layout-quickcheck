@@ -5,13 +5,14 @@ from datetime import datetime
 from lqc.config.file_config import FileConfig
 from lqc.generate.web_page.create import save_as_web_page
 from lqc.model.constants import BugType
+from lqc.model.run_result import RunResult, RunResultLayoutBug
 from lqc.model.run_subject import RunSubject
 
 
 def save_bug_report(
     variants,
     run_subject: RunSubject,
-    differences,
+    run_result: RunResult,
     original_filepath
 ):
     file_config = FileConfig()
@@ -34,7 +35,7 @@ def save_bug_report(
     styles_used_string = ",".join(styles_used)
     base_styles = list(run_subject.base_styles.all_style_names())
     modified_styles = list(run_subject.modified_styles.all_style_names())
-    bug_type = "Page Crash" if differences == BugType.PAGE_CRASH else "Under Invalidation"
+    bug_type = "Page Crash" if run_result.type == BugType.PAGE_CRASH else "Under Invalidation"
     json_data = {
         "datetime": datetime.now().isoformat(),
         "bug_type": bug_type,
@@ -43,9 +44,10 @@ def save_bug_report(
         "base_styles": base_styles,
         "modified_styles": modified_styles,
         "variants": variants,
-        "differences": differences,
         "run_subject": run_subject,
     }
+    if isinstance(run_result, RunResultLayoutBug):
+        json_data["differences"] = run_result.dimensions_conflict.dimension_results
 
     json_data_filepath = os.path.join(bug_folder, "data.json")
     with open(json_data_filepath, "w") as f:

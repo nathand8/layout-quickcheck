@@ -21,13 +21,13 @@ def minify(target_browser, run_subject):
         if proposed_run_subject == None:
             break
         
-        bug_gone, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
-        if not bug_gone:
+        run_result, *_ = test_combination(target_browser.getDriver(), proposed_run_subject)
+        if run_result.isBug():
             run_subject = proposed_run_subject
 
     # Create final representations of minified files
-    _, minified_differences, _ = test_combination(target_browser.getDriver(), run_subject)
-    return (run_subject, minified_differences)
+    run_result, _ = test_combination(target_browser.getDriver(), run_subject)
+    return (run_subject, run_result)
 
 
 def find_bugs(counter):
@@ -38,25 +38,25 @@ def find_bugs(counter):
 
         # Stage 1 - Generate & Test
         run_subject = generate_run_subject()
-        (no_differences, differences, test_filepath) = test_combination(target_browser.getDriver(), run_subject, keep_file=True)
+        (run_result, test_filepath) = test_combination(target_browser.getDriver(), run_subject, keep_file=True)
 
-        if no_differences:
+        if not run_result.isBug():
             counter.incSuccess()
 
         else:
             # Stage 2 - Minifying Bug
-            if differences == BugType.PAGE_CRASH:
+            if run_result.type == BugType.PAGE_CRASH:
                 print("Found a page that crashes. Minifying...")
             else:
                 print("Found bug. Minifying...")
 
-            (minified_run_subject, minified_differences) = minify(target_browser, run_subject)
+            (minified_run_subject, minified_run_result) = minify(target_browser, run_subject)
 
             # False Positive Detection
-            if minified_differences is None:
+            if not minified_run_result.isBug():
                 print("False positive (could not reproduce)")
                 counter.incNoRepro()
-            elif minified_differences != BugType.PAGE_CRASH and len(minified_run_subject.modified_styles.map) == 0:
+            elif minified_run_result.type == BugType.LAYOUT and len(minified_run_subject.modified_styles.map) == 0:
                 print("False positive (no modified styles)")
                 counter.incNoMod()
 
@@ -71,7 +71,7 @@ def find_bugs(counter):
                 url = save_bug_report(
                     variants,
                     minified_run_subject,
-                    minified_differences,
+                    minified_run_result,
                     test_filepath
                 )
                 print(url)
