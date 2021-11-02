@@ -1,5 +1,6 @@
 from enum import Enum, unique
 from lqc.generate.web_page.util import formatWithIndent
+from lqc.model.run_result import RunResult
 from lqc.model.run_subject import RunSubject
 from lqc.generate.web_page.html_body.create import create as html_body
 from lqc.generate.web_page.javascript_with_debugging_tools.create import create as js_with_debug
@@ -34,20 +35,20 @@ class JsVersion(Enum):
     GRIZZLY = 2
 
 
-def html_string(run_subject: RunSubject, js_version=JsVersion.DEBUGGING):
+def html_string(run_subject: RunSubject, run_result: RunResult, js_version=JsVersion.DEBUGGING):
 
     body_string = html_body(run_subject)
     if js_version == JsVersion.DEBUGGING:
         js_string = js_with_debug(run_subject)
     elif js_version == JsVersion.MINIMAL:
-        js_string = js_minimal(run_subject)
+        js_string = js_minimal(run_subject, run_result)
     elif js_version == JsVersion.GRIZZLY:
         js_string = js_grizzly(run_subject)
 
     return formatWithIndent(html_template, js_string=js_string, body_string=body_string)
 
 
-def save_as_web_page(run_subject: RunSubject, file_path, use_minimal_js=False):
+def save_as_web_page(run_subject: RunSubject, file_path, use_minimal_js=False, run_result=None):
     with open(file_path, 'w') as file:
-        file.write(html_string(run_subject, JsVersion.MINIMAL if use_minimal_js else JsVersion.DEBUGGING))
+        file.write(html_string(run_subject, run_result, JsVersion.MINIMAL if use_minimal_js else JsVersion.DEBUGGING))
 
