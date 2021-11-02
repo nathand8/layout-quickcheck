@@ -44,7 +44,7 @@ def generate_extra_js_files_string(js_file_names):
     return ret_string
 
 
-def html_string(run_subject: RunSubject, run_result: RunResult, js_version=JsVersion.DEBUGGING, extra_js_file_names=[]):
+def html_string(run_subject: RunSubject, run_result:RunResult=None, js_version=JsVersion.DEBUGGING, extra_js_file_names=[]):
 
     body_string = html_body(run_subject)
     extra_js_files_string = generate_extra_js_files_string(extra_js_file_names)
