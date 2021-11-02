@@ -37,6 +37,7 @@ class RunResultLayoutBug(RunResult):
         'id': 'one',
         'tag': 'div',
         'id_tag': 'one<div>',
+        'mismatching_dims': ['bottom', 'height'],
         'post_modify_dims': {'bottom': 10, 'height': 5},
         'post_reload_dims': {'bottom': 20, 'height': 15},
     }, ...]
@@ -55,7 +56,7 @@ class RunResultLayoutBug(RunResult):
         Returns a JS String that will measure all the elements and dimensions
         that were conflicting.
 
-        Example:
+        Example Output:
         'console.log();'
         """
         pass

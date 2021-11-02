@@ -64,6 +64,7 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
         id: m_elem_dims[el]['id'],
         tag: m_elem_dims[el]['tag'],
         id_tag: el,
+        mismatching_dims: conflicting_attrs,
         post_modify_dims: post_modify_dims,
         post_reload_dims: post_reload_dims
       })
