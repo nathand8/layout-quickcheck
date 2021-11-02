@@ -27,9 +27,9 @@ function log_bug_details(dimensionsDiffer) {
   // Add details for easier triaging
   logOutput = "\nLQC Results:"
   for (el of dimensionsDiffer) {
-    logOutput += "\nConflicting dimensions for element " + el.element;
-    logOutput += "\n    Dimensions after reload: " + JSON.stringify(post_reload_dims);
-    logOutput += "\n    Dimensions after modify: " + JSON.stringify(post_modify_dims);
+    logOutput += "\nConflicting dimensions for element " + el.id_tag;
+    logOutput += "\n    Dimensions after reload: " + JSON.stringify(el.post_reload_dims);
+    logOutput += "\n    Dimensions after modify: " + JSON.stringify(el.post_modify_dims);
   }
   logOutput += "\nEND of LQC Results\n"
   try {
@@ -57,12 +57,18 @@ function result_summary(dimensionsDiffer) {
   // For example:
   //   dimensionsDiffer = [
   //     {
-  //       element: "UnknownID<body>",
+  //       id: "",
+  //       tag: "body",
+  //       id_tag: "UnknownID<body>",
+  //       differing_dims: ['bottom', 'height'],
   //       post_modify_dims: {bottom: 100, height: 105},
   //       post_reload_dims: {bottom: 102, height: 107},
   //     },
   //     {
-  //       element: "two<div>",
+  //       id: "two",
+  //       tag: "div",
+  //       id_tag: "two<div>",
+  //       differing_dims: ['y'],
   //       post_modify_dims: {y: 32},
   //       post_reload_dims: {y: 92},
   //     }
@@ -70,11 +76,9 @@ function result_summary(dimensionsDiffer) {
   // Would output
   //   "tag-body,bottom-small,height-small;tag-div,y-large"
 
-  tagRegexPattern = /<(.*)>/;
-
   tagSummaries = []
   for (ob of dimensionsDiffer) {
-    tag = "tag-" + tagRegexPattern.exec(ob.element)[1]
+    tag = "tag-" + ob['tag']
 
     obSummary = [tag]
     for (attr in ob.post_modify_dims) {
