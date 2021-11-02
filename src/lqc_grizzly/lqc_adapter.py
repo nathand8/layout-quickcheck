@@ -51,6 +51,7 @@ class LayoutQuickCheckAdapter(Adapter):
     """LayoutQuickCheckAdapter"""
 
     NAME = "LayoutQuickCheck-Adapter"
+    EXTRA_JS_FILE_NAMES = ["helpers.js", "bootstrap.js"]
 
     def setup(self, input_path, server_map):
         # indicates if a result was found
@@ -109,7 +110,7 @@ class LayoutQuickCheckAdapter(Adapter):
             self.fuzz["run_subject"] = generate_run_subject()
             jslib = self._jsDriver(self.fuzz["run_subject"])
             # html_string will generate a complete web page with html and inline js
-            self.fuzz["test"] = html_string(self.fuzz["run_subject"])
+            self.fuzz["test"] = html_string(self.fuzz["run_subject"], self.EXTRA_JS_FILE_NAMES)
 
         elif self.fuzz["mode"] == Mode.REDUCE:
 
@@ -119,17 +120,17 @@ class LayoutQuickCheckAdapter(Adapter):
             if self.fuzz["proposed_run_subject"] == None:
                 self.enterReportMode()
                 # html_string will generate a complete web page with html and inline js
-                self.fuzz["test"] = html_string(self.fuzz["run_subject"])
+                self.fuzz["test"] = html_string(self.fuzz["run_subject"], self.EXTRA_JS_FILE_NAMES)
             else:
                 # html_string will generate a complete web page with html and inline js
-                self.fuzz["test"] = html_string(self.fuzz["proposed_run_subject"])
+                self.fuzz["test"] = html_string(self.fuzz["proposed_run_subject"], self.EXTRA_JS_FILE_NAMES)
             jslib = self._jsDriver(self.fuzz["run_subject"])
 
         elif self.fuzz["mode"] == Mode.REPORT:
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
             # sig = getSignature(self.fuzz["run_subject"])
-            self.fuzz["test"] = html_string(self.fuzz["run_subject"])
+            self.fuzz["test"] = html_string(self.fuzz["run_subject"], self.EXTRA_JS_FILE_NAMES)
             jslib = self._jsDriver(self.fuzz["run_subject"], reporting_bug=True)
             self.fuzz["reported"] = True
 

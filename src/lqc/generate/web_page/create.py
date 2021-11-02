@@ -7,15 +7,12 @@ from lqc.generate.web_page.javascript_with_debugging_tools.create import create 
 from lqc.generate.web_page.javascript_minimal.create import create as js_minimal
 from lqc.generate.web_page.javascript_grizzly.create import create as js_grizzly
 
-html_template = """
-<!DOCTYPE html>
+html_template = """<!DOCTYPE html>
 <html>
 
   <head>
     <title>Layout QuickCheck</title>
-    <!-- helpers.js and bootstrap.js can be used by testing frameworks (ie grizzly) -->
-    <script src="helpers.js"></script>
-    <script src="bootstrap.js"></script>
+    {extra_js_files_string}
     <script>
       {js_string}
     </script>
@@ -35,9 +32,22 @@ class JsVersion(Enum):
     GRIZZLY = 2
 
 
-def html_string(run_subject: RunSubject, run_result: RunResult, js_version=JsVersion.DEBUGGING):
+def generate_extra_js_files_string(js_file_names):
+
+    # <!-- helpers.js and bootstrap.js can be used by testing frameworks (ie grizzly) -->
+    # <script src="helpers.js"></script>
+    # <script src="bootstrap.js"></script>
+
+    ret_string = ""
+    for js_file_name in js_file_names:
+        ret_string += f'<script src="{js_file_name}"></script>\n'
+    return ret_string
+
+
+def html_string(run_subject: RunSubject, run_result: RunResult, js_version=JsVersion.DEBUGGING, extra_js_file_names=[]):
 
     body_string = html_body(run_subject)
+    extra_js_files_string = generate_extra_js_files_string(extra_js_file_names)
     if js_version == JsVersion.DEBUGGING:
         js_string = js_with_debug(run_subject)
     elif js_version == JsVersion.MINIMAL:
@@ -45,7 +55,7 @@ def html_string(run_subject: RunSubject, run_result: RunResult, js_version=JsVer
     elif js_version == JsVersion.GRIZZLY:
         js_string = js_grizzly(run_subject)
 
-    return formatWithIndent(html_template, js_string=js_string, body_string=body_string)
+    return formatWithIndent(html_template, js_string=js_string, body_string=body_string, extra_js_files_string=extra_js_files_string)
 
 
 def save_as_web_page(run_subject: RunSubject, file_path, use_minimal_js=False, run_result=None):
