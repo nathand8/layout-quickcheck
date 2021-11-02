@@ -31,8 +31,8 @@ def get_dimensions(run_subject: RunSubject, run_result: RunResult):
         for el in run_result.element_dimensions:
             if el['id']:
                 elementId = json.dumps(el['id'])
-                mismatching_dims = json.dumps(el["mismatching_dims"])
-                ret_string += f'console.log("#" + {elementId}, filterDimensions(document.getElementById({elementId}).getBoundingClientRect(), {mismatching_dims}));\n'
+                differing_dims = json.dumps(el["differing_dims"])
+                ret_string += f'console.log("#" + {elementId}, filterDimensions(document.getElementById({elementId}).getBoundingClientRect(), {differing_dims}));\n'
     
     else:
         for elementId in run_subject.getElementIds():

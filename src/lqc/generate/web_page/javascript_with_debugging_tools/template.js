@@ -28,7 +28,7 @@ function outputElementDimensions() {
 // Looks for dimensions that are NOT equal
 function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
 
-  conflicting_el_dims = []
+  differences = []
 
   // Check that the two dictionaries have the same elements
   r_elem_dims = dimensionsAfterReload
@@ -46,25 +46,25 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
   shared_elems.forEach(el => {
     m_el_dims = m_elem_dims[el]['dimensions']
     r_el_dims = r_elem_dims[el]['dimensions']
-    conflicting_attrs = []
+    differing_dims = []
     bounding_rect_attrs = ['x', 'y', 'left', 'right', 'top', 'bottom', 'height', 'width']
     for (attr of bounding_rect_attrs) {
       if (m_el_dims[attr] !== r_el_dims[attr]) {
-        conflicting_attrs.push(attr)
+        differing_dims.push(attr)
       }
     }
 
-    if (conflicting_attrs.length > 0) {
-      post_modify_dims = Object.fromEntries(conflicting_attrs.map( attr => [attr, m_el_dims[attr]] ));
-      post_reload_dims = Object.fromEntries(conflicting_attrs.map( attr => [attr, r_el_dims[attr]] ));
+    if (differing_dims.length > 0) {
+      post_modify_dims = Object.fromEntries(differing_dims.map( attr => [attr, m_el_dims[attr]] ));
+      post_reload_dims = Object.fromEntries(differing_dims.map( attr => [attr, r_el_dims[attr]] ));
       console.log("Conflicting dimensions for element", el);
       console.log("    Dimensions after reload: ", JSON.stringify(post_reload_dims));
       console.log("    Dimensions after modify: ", JSON.stringify(post_modify_dims));
-      conflicting_el_dims.push({
+      differences.push({
         id: m_elem_dims[el]['id'],
         tag: m_elem_dims[el]['tag'],
         id_tag: el,
-        mismatching_dims: conflicting_attrs,
+        differing_dims: differing_dims,
         post_modify_dims: post_modify_dims,
         post_reload_dims: post_reload_dims
       })
@@ -73,11 +73,14 @@ function compareDimensions(dimensionsAfterModify, dimensionsAfterReload) {
 
   // Return structure
   // [{
-  //   element: one<div>,
+  //   id: one
+  //   tag: div
+  //   id_tag: one<div>
+  //   differing_dims: ['x', 'left'],
   //   post_modify_dims: {x: 100, left: 10}
   //   post_reload_dims: {x: 120, left: 15}
   // }, ...]
-  return conflicting_el_dims
+  return differences
 }
 
 // Get all element dimensions on the page

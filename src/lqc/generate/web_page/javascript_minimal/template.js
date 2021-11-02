@@ -1,7 +1,7 @@
-function filterDimensions(obj, dims) {{
+function filterDimensions(obj, differing_dims) {{
   // Only show dimensions that were different after reload
   let ret = {{ }};
-  dims.forEach((dim) => {{
+  differing_dims.forEach((dim) => {{
     ret[dim] = obj[dim];
   }});
   return ret;
