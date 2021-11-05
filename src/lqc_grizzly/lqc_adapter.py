@@ -3,6 +3,7 @@
 
 import pathlib
 import json
+import os
 from urllib.parse import unquote
 from enum import Enum, unique
 from lqc.config.config import Config, parse_config
@@ -10,6 +11,7 @@ from lqc.generate.style_log_generator import generate_run_subject
 from lqc.generate.web_page.create import html_string
 
 from grizzly.adapter import Adapter
+from lqc.generate.web_page.javascript_minimal.create import EXTERNAL_JS_FILE_PATHS
 from lqc.minify.minify_test_file import MinifyStepFactory
 from lqc.model.run_subject import RunSubject
 
@@ -52,7 +54,7 @@ class LayoutQuickCheckAdapter(Adapter):
     """LayoutQuickCheckAdapter"""
 
     NAME = "LayoutQuickCheck-Adapter"
-    EXTRA_JS_FILE_NAMES = ["helpers.js", "bootstrap.js"]
+    EXTRA_JS_FILE_NAMES = ["debugging_tools.js", "helpers.js", "bootstrap.js"]
 
     def setup(self, input_path, server_map):
         # indicates if a result was found
@@ -145,6 +147,9 @@ class LayoutQuickCheckAdapter(Adapter):
         # add the helper.js file
         helpersJSPath = pathlib.Path(__file__).parent.joinpath('grizzly_test_helpers.js').resolve()
         testcase.add_from_file(helpersJSPath, file_name="helpers.js")
+        for filepath in EXTERNAL_JS_FILE_PATHS:
+            filename = os.path.basename(filepath)
+            testcase.add_from_file(filepath, file_name=filename)
 
         # add to testcase as entry point
         testcase.add_from_data(self.fuzz["test"], testcase.landing_page)
