@@ -8,7 +8,7 @@ function filterDimensions(obj, differing_dims) {{
 }}
 
 // Make the style changes to the page
-function makeStyleChanges() {{}
+function makeStyleChanges() {{
   {make_style_changes}
 }}
 

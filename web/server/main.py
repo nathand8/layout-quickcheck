@@ -7,8 +7,8 @@ import argparse
 BUG_REPORT_DIR = '../../bug_reports'
 STATIC_FILES_DIR = '../ui/build'
 JSON_FILENAME = 'data.json'
-DEMO_FILENAME = 'min_bug_with_debug.html'
-MINIMIZED_FILENAME = 'minimized_bug.html'
+DEMO_FILENAME = 'minified_bug.html'
+# MINIMIZED_FILENAME = 'minimized_bug.html'
 
 app = Flask(__name__, static_folder=os.path.join(STATIC_FILES_DIR, "static"))
 
@@ -82,7 +82,7 @@ def bugJson(bug_dir):
         }
         bug['download_urls'] = {
             "full": f"{server}/api/download/bug_file/{bug_dir}/{DEMO_FILENAME}",
-            "minimized": f"{server}/api/download/bug_file/{bug_dir}/{MINIMIZED_FILENAME}",
+            # "minimized": f"{server}/api/download/bug_file/{bug_dir}/{MINIMIZED_FILENAME}",
         }
         bug['id'] = bug_dir
         return bug
