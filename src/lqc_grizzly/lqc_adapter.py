@@ -3,6 +3,7 @@
 
 import pathlib
 import json
+from urllib.parse import unquote
 from enum import Enum, unique
 from lqc.config.config import Config, parse_config
 from lqc.generate.style_log_generator import generate_run_subject
@@ -70,9 +71,10 @@ class LayoutQuickCheckAdapter(Adapter):
         config = parse_config(input_path)
         Config(config)
 
-    def _found(self):
+    def _found(self, args):
         # callback attached to '/found'
         self.fuzz["found"] = True
+        self.fuzz["run_result"] = json.loads(unquote(args))
         return b""
     
     def _jsDriver(self, run_subject: RunSubject, reporting_bug=False):

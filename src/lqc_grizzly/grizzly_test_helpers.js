@@ -4,10 +4,22 @@ function test_bug_and_report() {
   if (typeof(recreateTheProblem) == "function") {
     let dimensionsDiffer = recreateTheProblem();
 
+    // Mock Bug (TESTING PURPOSES ONLY)
+    // dimensionsDiffer = [{
+    //   "id": "one",
+    //   "tag": "div",
+    //   "id_tag": "one<div>",
+    //   "differing_dims": ['x', 'left'],
+    //   "post_modify_dims": {x: 100, left: 10},
+    //   "post_reload_dims": {x: 120, left: 15}
+    // }]
+
     if (dimensionsDiffer && dimensionsDiffer.length > 0) {
 
+      let data = encodeURIComponent(JSON.stringify(dimensionsDiffer));
+
       // report the bug to the test runner
-      fetch("/found")
+      fetch("/found?" + data)
       .finally(() => {
         finish_test(dimensionsDiffer);
       })
