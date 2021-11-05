@@ -36,7 +36,7 @@ def run_test_using_js_diff_detect(test_url, webdriver, slow=False) -> RunResult:
         if slow: time.sleep(0.5)
 
         # Make the style changes
-        results =  webdriver.execute_script("return recreateTheProblem()")
+        results =  webdriver.execute_script("return checkForBug()")
         if results and len(results) > 0:
             return RunResultLayoutBug(results)
         else:
