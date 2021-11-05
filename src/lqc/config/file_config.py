@@ -29,7 +29,7 @@ class FileConfig:
         formatted_timestamp = timestamp.strftime(timestamp_format)
         filename = f'test-file-{formatted_timestamp}.html'
         filepath = os.path.join(self.layout_file_dir, filename)
-        return filepath, filename
+        return self.layout_file_dir, filepath, filename
     
 
     def getTimestampBugReport(self):

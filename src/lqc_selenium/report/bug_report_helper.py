@@ -52,10 +52,8 @@ def save_bug_report(
     json_data_filepath = os.path.join(bug_folder, "data.json")
     with open(json_data_filepath, "w") as f:
         f.write(json.dumps(json_data, indent=4, default=lambda o: o.__dict__))
-    
-    # Minimized file
-    minimized_bug_filepath = os.path.join(bug_folder, "minimized_bug.html")
-    save_as_web_page(run_subject, minimized_bug_filepath, True, run_result=run_result)
+
+    # Todo: Copy the necessary javascript files (debugger_tools.js)
 
     # Return a URL
     url = "file://" + os.path.abspath(min_bug_with_debug)

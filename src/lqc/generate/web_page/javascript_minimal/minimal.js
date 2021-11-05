@@ -7,12 +7,19 @@ function filterDimensions(obj, differing_dims) {{
   return ret;
 }}
 
+// Make the style changes to the page
+function makeStyleChanges() {{}
+  {make_style_changes}
+}}
+
 function simpleRecreate() {{
   // Make the style changes
-  {make_style_changes}
+  makeStyleChanges();
+
   // Get the dimensions
   console.log("Dimensions after style changes, before reload");
   {get_dimensions}
+
   // Reload the elements
   document.documentElement.innerHTML = document.documentElement.innerHTML;
 

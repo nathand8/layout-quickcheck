@@ -1,8 +1,8 @@
 
 function test_bug_and_report() {
-  // Function recreateTheProblem() only exists in JS version with debugging tools
-  if (typeof(recreateTheProblem) == "function") {
-    let dimensionsDiffer = recreateTheProblem();
+  // Function checkForBug() only exists in JS version with debugging tools
+  if (typeof(checkForBug) == "function") {
+    let dimensionsDiffer = checkForBug();
 
     // Mock Bug (TESTING PURPOSES ONLY)
     // dimensionsDiffer = [{
@@ -28,9 +28,9 @@ function test_bug_and_report() {
       finish_test()
     }
 
-  // If "recreateTheProblem" doesn't exist, something went wrong
+  // If "checkForBug" doesn't exist, something went wrong
   } else {
-    console.error("Missing crucial function 'recreateTheProblem'. It should be provided by LQC");
+    console.error("Missing crucial function 'checkForBug'. It should be provided by LQC");
   }
 }
 

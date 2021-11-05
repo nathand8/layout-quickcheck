@@ -3,10 +3,14 @@ from lqc.generate.web_page.util import formatWithIndent
 from lqc.model.run_result import RunResult, RunResultLayoutBug
 from lqc.model.run_subject import RunSubject
 
+EXTERNAL_JS_FILE_PATHS = [
+    os.path.join(os.path.dirname(__file__), 'debugging_tools.js')
+]
+
 
 def create(run_subject: RunSubject, run_result: RunResult):
 
-    script_string = open(os.path.join(os.path.dirname(__file__), 'template.js'), 'r').read()
+    script_string = open(os.path.join(os.path.dirname(__file__), 'minimal.js'), 'r').read()
     return formatWithIndent(script_string,
         make_style_changes = make_style_changes(run_subject),
         get_dimensions = get_dimensions(run_subject, run_result)

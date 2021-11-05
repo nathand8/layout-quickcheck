@@ -109,20 +109,14 @@ const outputDimensions = () => {
   return dimensions
 } 
 
-// Make the style changes to the page
-function makeStyleChanges() {
-  __MODIFIED_STYLE_STRING__
-}
-
 // Reload all of the elements/styles on the page
 function reload() {
-  document.documentElement.innerHTML = document.documentElement.innerHTML;
 }
 
 //
 // Run this function to see the differences between modifying styles vs loading them fresh
 //
-function recreateTheProblem() {
+function checkForBug() {
 
   // console.log('Dimensions before application');
   // dimensionsBeforeApplication = outputDimensions();
@@ -132,7 +126,7 @@ function recreateTheProblem() {
   dimensionsAfterApplication = outputDimensions();
   console.log('Dimensions after application', dimensionsAfterApplication);
 
-  reload()
+  document.documentElement.innerHTML = document.documentElement.innerHTML;
 
   dimensionsAfterFreshLoad = outputDimensions();
   console.log('Dimensions after fresh load', dimensionsAfterFreshLoad);
@@ -151,5 +145,3 @@ function getQueryVariable(variable)
   }
   return(false);
 }
-
-__DRIVER_STRING__

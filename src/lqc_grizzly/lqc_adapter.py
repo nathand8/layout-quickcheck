@@ -7,7 +7,7 @@ from urllib.parse import unquote
 from enum import Enum, unique
 from lqc.config.config import Config, parse_config
 from lqc.generate.style_log_generator import generate_run_subject
-from lqc.generate.web_page.create import html_string, JsVersion
+from lqc.generate.web_page.create import html_string
 
 from grizzly.adapter import Adapter
 from lqc.minify.minify_test_file import MinifyStepFactory
@@ -67,7 +67,7 @@ class LayoutQuickCheckAdapter(Adapter):
         server_map.set_dynamic_response("found", self._found)
 
         # Load the LayoutQuickCheck Config
-        # TODO: Do we need to load different config files?
+        # Config file is specified on the command line with -i
         config = parse_config(input_path)
         Config(config)
 

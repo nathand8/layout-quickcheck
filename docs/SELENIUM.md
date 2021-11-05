@@ -71,11 +71,11 @@ Each bug report has the following files:
     - Open this page in a web browser and run `simpleRecreate()` in the console
 - `min_bug_with_debug.html` 
     - Minimized HTML/CSS to showcase the bug, but with extra debugging tools
-    - Open this page in a web browser and run `recreateTheProblem()` in the console
+    - Open this page in a web browser and run `checkForBug()` in the console
 - `original_bug.html` 
     - Unminimized HTML/CSS 
     - Very large with extraneous styles
-    - Open this page in a web browser and run `recreateTheProblem()` in the console
+    - Open this page in a web browser and run `checkForBug()` in the console
 
 # FAQ
 
