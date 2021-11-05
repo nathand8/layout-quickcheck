@@ -66,12 +66,11 @@ Each bug report has the following files:
     - Variants - Other tests run on this bug (eg. other browsers or different window sizes)
     - HTML/Styles Used
     - Differences detected
-- `minimized_bug.html` 
-    - Minimal web page showcasing the bug
-    - Open this page in a web browser and run `simpleRecreate()` in the console
-- `min_bug_with_debug.html` 
-    - Minimized HTML/CSS to showcase the bug, but with extra debugging tools
+- `minified_bug.html` 
+    - Minimized HTML/CSS to showcase the bug
+    - Extra debugging tools are in `debugging_tools.js`
     - Open this page in a web browser and run `checkForBug()` in the console
+    - Open this page in a web browser and run `simpleRecreate()` to log the differences in the console
 - `original_bug.html` 
     - Unminimized HTML/CSS 
     - Very large with extraneous styles
