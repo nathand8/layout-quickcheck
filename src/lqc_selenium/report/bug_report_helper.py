@@ -4,6 +4,7 @@ import shutil
 from datetime import datetime
 from lqc.config.file_config import FileConfig
 from lqc.generate.web_page.create import save_as_web_page
+from lqc.generate.web_page.run_subject_converter import copyExternalJSFiles
 from lqc.model.constants import BugType
 from lqc.model.run_result import RunResult, RunResultLayoutBug
 from lqc.model.run_subject import RunSubject
@@ -26,8 +27,9 @@ def save_bug_report(
     shutil.copy(original_filepath, bug_filepath)
 
     # Copy the minimized bug
-    min_bug_with_debug = os.path.join(bug_folder, "min_bug_with_debug.html")
-    save_as_web_page(run_subject, min_bug_with_debug)
+    minified_bug = os.path.join(bug_folder, "minified_bug.html")
+    save_as_web_page(run_subject, minified_bug, run_result=run_result)
+    copyExternalJSFiles(bug_folder)
 
     # Custom bug helper file - JSON file
     styles_used = list(run_subject.all_style_names())
@@ -56,5 +58,5 @@ def save_bug_report(
     # Todo: Copy the necessary javascript files (debugger_tools.js)
 
     # Return a URL
-    url = "file://" + os.path.abspath(min_bug_with_debug)
+    url = "file://" + os.path.abspath(minified_bug)
     return url

@@ -10,11 +10,10 @@ html_template = """<!DOCTYPE html>
 
   <head>
     <title>Layout QuickCheck</title>
-    <script src="debugging_tools.js"></script>
     <script>
       {js_string}
     </script>
-    <script>
+    <script src="debugging_tools.js"></script>
     {extra_js_files_string}
   </head>
 
