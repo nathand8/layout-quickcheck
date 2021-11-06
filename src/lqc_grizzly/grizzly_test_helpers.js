@@ -25,7 +25,8 @@ function test_bug_and_report() {
       })
 
     } else {
-      finish_test()
+      // No bug found. Close the window.
+      setTimeout(window.close, 10);
     }
 
   // If "checkForBug" doesn't exist, something went wrong
