@@ -2,7 +2,7 @@ import os
 from shutil import copy2
 from lqc.config.file_config import FileConfig
 from lqc.generate.web_page.create import save_as_web_page
-from lqc.generate.web_page.javascript_minimal.create import EXTERNAL_JS_FILE_PATHS
+from lqc.generate.web_page.javascript.create import EXTERNAL_JS_FILE_PATHS
 
 def copyExternalJSFiles(folder):
     for filepath in EXTERNAL_JS_FILE_PATHS:
