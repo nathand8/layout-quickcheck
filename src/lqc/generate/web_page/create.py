@@ -3,7 +3,7 @@ from lqc.generate.web_page.util import formatWithIndent
 from lqc.model.run_result import RunResult
 from lqc.model.run_subject import RunSubject
 from lqc.generate.web_page.html_body.create import create as html_body
-from lqc.generate.web_page.javascript_minimal.create import create as js_minimal
+from lqc.generate.web_page.javascript.create import create as js_minimal
 
 html_template = """<!DOCTYPE html>
 <html>
@@ -13,8 +13,12 @@ html_template = """<!DOCTYPE html>
     <script>
       {js_string}
     </script>
+
+    <!-- For a minimal version of this bug, remove all optional JS Files -->
+    <!-- Start: Optional JS Files -->
     <script src="debugging_tools.js"></script>
     {extra_js_files_string}
+    <!-- End: Optional JS Files -->
   </head>
 
   <body>
@@ -30,10 +34,7 @@ def generate_extra_js_files_string(js_file_names):
     # <script src="helpers.js"></script>
     # <script src="bootstrap.js"></script>
 
-    ret_string = ""
-    for js_file_name in js_file_names:
-        ret_string += f'<script src="{js_file_name}"></script>\n'
-    return ret_string
+    return  "\n".join([f'<script src="{js_file_name}"></script>' for js_file_name in js_file_names])
 
 
 def html_string(run_subject: RunSubject, run_result:RunResult=None, extra_js_file_names=[]):

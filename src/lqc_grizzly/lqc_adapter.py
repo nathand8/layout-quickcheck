@@ -11,8 +11,9 @@ from lqc.generate.style_log_generator import generate_run_subject
 from lqc.generate.web_page.create import html_string
 
 from grizzly.adapter import Adapter
-from lqc.generate.web_page.javascript_minimal.create import EXTERNAL_JS_FILE_PATHS
+from lqc.generate.web_page.javascript.create import EXTERNAL_JS_FILE_PATHS
 from lqc.minify.minify_test_file import MinifyStepFactory
+from lqc.model.run_result import RunResultLayoutBug
 from lqc.model.run_subject import RunSubject
 
 __author__ = "Tyson Smith"
@@ -54,7 +55,7 @@ class LayoutQuickCheckAdapter(Adapter):
     """LayoutQuickCheckAdapter"""
 
     NAME = "LayoutQuickCheck-Adapter"
-    EXTRA_JS_FILE_NAMES = ["debugging_tools.js", "helpers.js", "bootstrap.js"]
+    EXTRA_JS_FILE_NAMES = ["helpers.js", "bootstrap.js"]
 
     def setup(self, input_path, server_map):
         # indicates if a result was found
@@ -76,7 +77,8 @@ class LayoutQuickCheckAdapter(Adapter):
     def _found(self, args):
         # callback attached to '/found'
         self.fuzz["found"] = True
-        self.fuzz["run_result"] = json.loads(unquote(args))
+        # "run_result" should always be the results from the last bug found
+        self.fuzz["run_result"] = RunResultLayoutBug(json.loads(unquote(args)))
         return b""
     
     def _jsDriver(self, run_subject: RunSubject, reporting_bug=False):
@@ -94,6 +96,7 @@ class LayoutQuickCheckAdapter(Adapter):
         """Fuzz mode generates random tests"""
         self.fuzz["mode"] = Mode.FUZZ
         self.fuzz["found"] = False
+        self.fuzz["run_result"] = None
         self.fuzz["best"] = None
         self.fuzz["reported"] = False
     
@@ -134,7 +137,7 @@ class LayoutQuickCheckAdapter(Adapter):
             # here we should force crash the browser so grizzly detects a result
             # see bug https://bugzilla.mozilla.org/show_bug.cgi?id=1725008
             # sig = getSignature(self.fuzz["run_subject"])
-            self.fuzz["test"] = html_string(self.fuzz["run_subject"], extra_js_file_names=self.EXTRA_JS_FILE_NAMES)
+            self.fuzz["test"] = html_string(self.fuzz["run_subject"], self.fuzz["run_result"], extra_js_file_names=self.EXTRA_JS_FILE_NAMES)
             jslib = self._jsDriver(self.fuzz["run_subject"], reporting_bug=True)
             self.fuzz["reported"] = True
 
