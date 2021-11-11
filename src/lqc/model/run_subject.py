@@ -56,6 +56,14 @@ class RunSubject:
         styles = styles.union(display_styles)
         modified_styles = self.modified_styles.all_style_names()
         styles = styles.union(modified_styles)
+        styles = set([x.replace() for x in styles])
+
+        # Sort the styles
         styles = list(styles)
         styles.sort()
-        return ",".join(styles)
+        styles = ",".join(styles)
+
+        # Simplify the style names in the signature
+        styles = styles.replace('block-start', 'block').replace('block-end', 'block')
+        styles = styles.replace('inline-start', 'inline').replace('inline-end', 'inline')
+        return styles
