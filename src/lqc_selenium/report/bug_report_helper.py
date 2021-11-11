@@ -44,6 +44,7 @@ def save_bug_report(
         "styles_used": styles_used,
         "styles_used_string": styles_used_string,
         "base_styles": base_styles,
+        "styles_signature": run_subject.styles_signature(),
         "modified_styles": modified_styles,
         "variants": variants,
         "run_subject": run_subject,
