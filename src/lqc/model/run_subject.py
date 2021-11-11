@@ -56,7 +56,6 @@ class RunSubject:
         styles = styles.union(display_styles)
         modified_styles = self.modified_styles.all_style_names()
         styles = styles.union(modified_styles)
-        styles = set([x.replace() for x in styles])
 
         # Sort the styles
         styles = list(styles)
