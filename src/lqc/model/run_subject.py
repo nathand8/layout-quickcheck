@@ -48,3 +48,14 @@ class RunSubject:
     
     def all_style_names(self):
         return self.base_styles.all_style_names().union(self.modified_styles.all_style_names())
+
+    def styles_signature(self):
+        """ Return 'display' styles and modified styles """
+        styles = set()
+        display_styles = [x for x in self.base_styles.all_style_names() if ":" in x]
+        styles = styles.union(display_styles)
+        modified_styles = self.modified_styles.all_style_names()
+        styles = styles.union(modified_styles)
+        styles = list(styles)
+        styles.sort()
+        return styles
