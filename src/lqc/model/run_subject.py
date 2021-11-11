@@ -58,4 +58,4 @@ class RunSubject:
         styles = styles.union(modified_styles)
         styles = list(styles)
         styles.sort()
-        return styles
+        return ",".join(styles)
