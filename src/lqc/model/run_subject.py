@@ -48,21 +48,36 @@ class RunSubject:
     
     def all_style_names(self):
         return self.base_styles.all_style_names().union(self.modified_styles.all_style_names())
+    
+    def _simplify_style_signature(self, style_name):
+        """Replace pieces of the style name to consolidate similar style signatures"""
+        style_name = style_name.replace('block-start', '[block]')
+        style_name = style_name.replace('block-end', '[block]')
+        style_name = style_name.replace('inline-start', '[inline]')
+        style_name = style_name.replace('inline-end', '[inline]')
+        style_name = style_name.replace('block-size', '[height]')
+        style_name = style_name.replace('inline-size', '[width]')
+        style_name = style_name.replace('left', '[inline]')
+        style_name = style_name.replace('right', '[inline]')
+        style_name = style_name.replace('top', '[block]')
+        style_name = style_name.replace('bottom', '[block]')
+        return style_name
+
 
     def styles_signature(self):
-        """ Return 'display' styles and modified styles """
+        """ Return 'display' style values and modified styles """
         styles = set()
         display_styles = [x for x in self.base_styles.all_style_names() if ":" in x]
         styles = styles.union(display_styles)
         modified_styles = self.modified_styles.all_style_names()
         styles = styles.union(modified_styles)
 
+        # Simplify the style names in the signature
+        styles = set([self._simplify_style_signature(x) for x in styles])
+
         # Sort the styles
         styles = list(styles)
         styles.sort()
         styles = ",".join(styles)
 
-        # Simplify the style names in the signature
-        styles = styles.replace('block-start', 'block').replace('block-end', 'block')
-        styles = styles.replace('inline-start', 'inline').replace('inline-end', 'inline')
         return styles
