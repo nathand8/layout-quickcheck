@@ -84,12 +84,10 @@ class LayoutQuickCheckAdapter(Adapter):
     def _jsDriver(self, run_subject: RunSubject, reporting_bug=False):
         if reporting_bug:
             return """function finish_test(dimensionsDiffer) {
-                // window.dump('\\nLQC Signature: ' + result_summary(dimensionsDiffer) + '\\n');
-                window.dump('\\nLQC Signature: ' + """ + json.dumps(run_subject.styles_signature()) + """ + '\\n');
+                window.dump('\\nLQC Signature: ' + result_summary(dimensionsDiffer) + '\\n');
                 log_bug_details(dimensionsDiffer); 
                 window.dump('CSS Styles Used: """ + json.dumps(getStyleLists(run_subject), indent=4).replace("\n", "\\n") + """\\n\\n');
-                // FuzzingFunctions.crash(result_summary(dimensionsDiffer));
-                FuzzingFunctions.crash(""" + json.dumps(run_subject.styles_signature()) + """);
+                FuzzingFunctions.crash(result_summary(dimensionsDiffer));
             }\n""" + JS_BOOTSTRAP
         else:
             return "function finish_test() { setTimeout(window.close, 10) }\n" + JS_BOOTSTRAP
