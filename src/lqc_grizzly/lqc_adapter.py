@@ -145,17 +145,17 @@ class LayoutQuickCheckAdapter(Adapter):
         self.fuzz["found"] = False
 
         # add a non required file
-        testcase.add_from_data(jslib, "bootstrap.js", required=False)
+        testcase.add_from_bytes(jslib.encode('utf-8'), "bootstrap.js", required=False)
 
         # add the helper.js file
         helpersJSPath = pathlib.Path(__file__).parent.joinpath('grizzly_test_helpers.js').resolve()
-        testcase.add_from_file(helpersJSPath, file_name="helpers.js")
+        testcase.add_from_file(helpersJSPath, file_name="helpers.js", copy=True)
         for filepath in EXTERNAL_JS_FILE_PATHS:
             filename = os.path.basename(filepath)
-            testcase.add_from_file(filepath, file_name=filename)
+            testcase.add_from_file(filepath, file_name=filename, copy=True)
 
         # add to testcase as entry point
-        testcase.add_from_data(self.fuzz["test"], testcase.landing_page)
+        testcase.add_from_bytes(self.fuzz["test"].encode('utf-8'), testcase.landing_page)
 
     def on_served(self, _test, _served):
 
