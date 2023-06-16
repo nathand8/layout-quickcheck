@@ -4,13 +4,13 @@
 
 This is a tool that uses randomized testing to find under-invalidation
 bugs in web browsers. It's already found a lot of bugs in Chrome
-([1137427](https://bugs.chromium.org/p/chromium/issues/detail?id=1137427) [fixed],
-[1166887](https://bugs.chromium.org/p/chromium/issues/detail?id=1166887) [fixed],
-[1189755](https://bugs.chromium.org/p/chromium/issues/detail?id=1189755) [fixed],
+(~~[1137427](https://bugs.chromium.org/p/chromium/issues/detail?id=1137427)~~,
+~~[1166887](https://bugs.chromium.org/p/chromium/issues/detail?id=1166887)~~,
+~~[1189755](https://bugs.chromium.org/p/chromium/issues/detail?id=1189755)~~,
 [1189762](https://bugs.chromium.org/p/chromium/issues/detail?id=1189762),
-[1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220) [fixed],
+~~[1190220](https://bugs.chromium.org/p/chromium/issues/detail?id=1190220)~~,
 [1219641](https://bugs.chromium.org/p/chromium/issues/detail?id=1219641),
-[1224721](https://bugs.chromium.org/p/chromium/issues/detail?id=1224721) [fixed],
+~~[1224721](https://bugs.chromium.org/p/chromium/issues/detail?id=1224721)~~,
 and
 [1229681](https://bugs.chromium.org/p/chromium/issues/detail?id=1229681))
 and Firefox
@@ -19,7 +19,7 @@ and Firefox
 [1724991](https://bugzilla.mozilla.org/show_bug.cgi?id=1724991),
 [1733276](https://bugzilla.mozilla.org/show_bug.cgi?id=1733276),
 [1735376](https://bugzilla.mozilla.org/show_bug.cgi?id=1735376),
-[1735931](https://bugzilla.mozilla.org/show_bug.cgi?id=1735931) [fixed],
+~~[1735931](https://bugzilla.mozilla.org/show_bug.cgi?id=1735931)~~,
 [1748891](https://bugzilla.mozilla.org/show_bug.cgi?id=1748891)
 linked to metabug
 [1724999](https://bugzilla.mozilla.org/show_bug.cgi?id=1724999)).
