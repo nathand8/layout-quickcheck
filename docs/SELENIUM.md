@@ -52,7 +52,7 @@ Example: Run with config file
 python3 src/lqc_selenium/runner.py -c ./config/my-config.json
 ```
 
-See more about configurations [here](docs/CONFIGURATION.md).
+See more about configurations [here](CONFIGURATION.md).
 
 # Output
 
