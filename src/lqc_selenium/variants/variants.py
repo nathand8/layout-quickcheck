@@ -5,6 +5,7 @@ import subprocess
 from lqc.config.config import Config
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.chrome.webdriver import WebDriver as ChromeWebDriver
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.safari.webdriver import WebDriver as SafariWebDriver
@@ -169,8 +170,8 @@ class FirefoxVariant(Variant):
         if self.options:
             for property, value in self.options.items():
                 firefox_options.set_preference(property, value)
-
-        firefox_webdriver = FirefoxWebDriver(executable_path=self.webdriver_path, options=firefox_options)
+        service = FirefoxService(executable_path=self.webdriver_path)
+        firefox_webdriver = FirefoxWebDriver(service=service, options=firefox_options)
 
         firefox_webdriver.set_window_size(self.width, self.height)
 

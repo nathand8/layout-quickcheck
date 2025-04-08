@@ -6,7 +6,6 @@
     },
 
     "variants": [
-        {"type": "firefox", "options": {"layout.dynamic-reflow-roots.enabled": true}},
         {"type": "firefox"}
     ],
 
