@@ -20,7 +20,7 @@ and Firefox
 [1733276](https://bugzilla.mozilla.org/show_bug.cgi?id=1733276),
 [1735376](https://bugzilla.mozilla.org/show_bug.cgi?id=1735376),
 ~~[1735931](https://bugzilla.mozilla.org/show_bug.cgi?id=1735931)~~,
-[1748891](https://bugzilla.mozilla.org/show_bug.cgi?id=1748891)
+~~[1748891](https://bugzilla.mozilla.org/show_bug.cgi?id=1748891)~~
 linked to metabug
 [1724999](https://bugzilla.mozilla.org/show_bug.cgi?id=1724999)).
 As of writing, sifting through bugs and preparing bug reports is the
