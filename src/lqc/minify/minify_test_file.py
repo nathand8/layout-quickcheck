@@ -183,6 +183,54 @@ def Enhance_ShortenIds(run_subject: RunSubject):
     yield renameIds
 
 
+def Enhance_DevOverlay(run_subject: RunSubject):
+
+    def addButtons(proposed_run_subject):
+        dev_overlay = {
+            "id": "lqc-dev-controls",
+            "tag": "div",
+            "children": [
+                {
+                    "id": "simpleRecreate",
+                    "tag": "button",
+                    "attributes": {"onclick": "simpleRecreate()",},
+                    "children": [{"tag": "<text>", "value": "simpleRecreate"}],
+                },
+                {
+                    "id": "checkForBug",
+                    "tag": "button",
+                    "attributes": {"onclick": "checkForBug()"},
+                    "children": [{"tag": "<text>", "value": "checkForBug"}],
+                },
+            ]
+        }
+
+        proposed_run_subject.base_styles.map["lqc-dev-controls"] = {    
+            "position": "fixed",
+            "top": "10px",
+            "right": "10px",
+            "background": "rgba(0, 0, 0, .75)",
+            "padding": "5px",
+            "z-index": "9999",
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "5px",
+        }
+
+        for btn_id in ["simpleRecreate", "checkForBug"]:
+            proposed_run_subject.base_styles.map[btn_id] = {
+                "background": "rgba(0, 0, 0, .75)",
+                "color": "rgba(255, 255, 255, 255)",
+                "padding": "6px 12px",
+                "border": "1px solid white",
+                "cursor": "pointer"
+            }
+
+        proposed_run_subject.html_tree.tree.append(dev_overlay)
+
+        return proposed_run_subject
+
+    yield addButtons;
 
 
 
@@ -197,6 +245,7 @@ class MinifyStepFactory():
         Enhance_MinHeightWidthPerElement,
         Enhance_BackgroundColorPerElement,
         Enhance_ShortenIds,
+        Enhance_DevOverlay,
     ]
 
     def __init__(self):
