@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 import argparse
+import os
+import pickle
 import sys
+from time import time
 import traceback
 from lqc.config.config import Config, parse_config
 from lqc.generate.html_file_generator import remove_file
@@ -13,23 +16,41 @@ from lqc_selenium.report.bug_report_helper import save_bug_report
 from lqc_selenium.selenium_harness.layout_tester import test_combination
 from lqc_selenium.variants.variant_tester import test_variants
 from lqc_selenium.variants.variants import TargetBrowser, getTargetVariant
-from lqc.rules.rule_engine import should_skip
+from lqc_selenium.api import get_sort_repo_dir, write_counter_run_summary as write_run_summary
+from lqc.rules.rule_engine import sort_single_bug
 
 
 def minify(target_browser, run_subject):
-    # Copy the original subject before minifying so we can return both versions
-    conf = Config()
-    rules = conf.getRules()
-
-    shouldSkip = should_skip(run_subject, rules)
-
-    # Skip minimization if shouldSkip is True
+    prerun_subject = run_subject
+    sort_started_at = time()
+    path,shouldSkip,rule_name = sort_single_bug(
+        base_dir=get_sort_repo_dir(),
+        run_subject=run_subject,
+        safe_dir="bug_reports/safe",
+    )
+    sorting_elapsed_seconds = time() - sort_started_at
+    print(f"Sorting time: {sorting_elapsed_seconds:.2f}s")
+    print(f"Matching rule folder: {path}")
+    
+    #Skip minimization if shouldSkip is True
     if shouldSkip:
+        true_minification_started_at = time()
         run_result, _ = test_combination(target_browser.getDriver(), run_subject)
-        return (run_subject, run_result, shouldSkip) 
+        true_minification_elapsed_seconds = time() - true_minification_started_at
+        return (
+            run_subject,
+            run_result,
+            prerun_subject,
+            path,
+            shouldSkip,
+            rule_name,
+            sorting_elapsed_seconds,
+            true_minification_elapsed_seconds,
+        )
 
     stepsFactory = MinifyStepFactory()
     # Keep applying minimization steps until no more are available
+    true_minification_started_at = time()
     while True:
         # Get the next candidate minimized version of run_subject
         proposed_run_subject = stepsFactory.next_minimization_step(run_subject)
@@ -46,12 +67,52 @@ def minify(target_browser, run_subject):
 
     # Create final representations of minified files
     run_result, _ = test_combination(target_browser.getDriver(), run_subject)
-    # Return the minimized subject, result, original pre-minimized subject, and skip flag
-    return (run_subject, run_result, shouldSkip)
+    true_minification_elapsed_seconds = time() - true_minification_started_at
+    return (
+        run_subject,
+        run_result,
+        prerun_subject,
+        path,
+        shouldSkip,
+        rule_name,
+        sorting_elapsed_seconds,
+        true_minification_elapsed_seconds,
+    )
 
 
 def find_bugs(counter):
+    target_browser = TargetBrowser()
+    safe_dir = "bug_reports/safe"
+    os.makedirs(safe_dir, exist_ok=True)
+    write_run_summary(counter)
 
+    def safe_count():
+        return sum(
+            1 for name in os.listdir(safe_dir)
+            if name.endswith(".pkl")
+        )
+
+    while safe_count() < 50 and counter.should_continue():
+        run_subject = generate_run_subject()
+        run_result, test_filepath = test_combination(
+            target_browser.getDriver(),
+            run_subject,
+            keep_file=True
+        )
+
+        if not run_result.isBug():
+            print(f"Filling safe set: {safe_count() + 1}/50")
+            pickle_addr = os.path.join(safe_dir, f"safe_{int(time() * 1000)}.pkl")
+            with open(pickle_addr, "wb") as f:
+                pickle.dump(run_subject, f)
+
+        remove_file(test_filepath)
+        counter.incTests()
+        write_run_summary(counter)
+        output = counter.getStatusString()
+        if output:
+            print(output)
+            
     target_browser = TargetBrowser()
 
     while counter.should_continue():
@@ -65,13 +126,51 @@ def find_bugs(counter):
 
         else:
             # Stage 2 - Minifying Bug
-            if run_result.type == BugType.PAGE_CRASH:
-                print("Found a page that crashes. Minifying...")
-            else:
-                print("Found bug. Minifying...")
-
-            (minified_run_subject, minified_run_result, shouldSkip) = minify(target_browser, run_subject)
+            print("Bug found. Minifying...")
+            prerun_subject = run_subject
+            minify_started_at = time()
+            (
+                minified_run_subject,
+                minified_run_result,
+                prerun_subject,
+                path,
+                shouldSkip,
+                rule_name,
+                sorting_elapsed_seconds,
+                true_minification_elapsed_seconds,
+            ) = minify(target_browser, prerun_subject)
+            minify_elapsed_seconds = time() - minify_started_at
+            counter.addMinifyTime(minify_elapsed_seconds)
+            counter.addSortingTime(sorting_elapsed_seconds)
+            counter.addTrueMinificationTime(true_minification_elapsed_seconds)
+            print(
+                f"Minify time: {minify_elapsed_seconds:.2f}s "
+                f"(total {counter.total_minify_seconds:.2f}s)"
+            )
+            print(
+                f"Sorting time: {sorting_elapsed_seconds:.2f}s "
+                f"(total {counter.total_sorting_seconds:.2f}s)"
+            )
+            print(
+                f"True minification time: {true_minification_elapsed_seconds:.2f}s "
+                f"(total {counter.total_true_minification_seconds:.2f}s)"
+            )
             print(f"Skip rule: {'skipped' if shouldSkip else 'not skipped'}")
+            print(f"Rule name: {rule_name}")
+            # Save bug report that matches a rule 
+            if shouldSkip:
+                save_bug_report(
+                    variants=[],
+                    minified_run_subject=minified_run_subject,
+                    run_result=minified_run_result,
+                    original_filepath=test_filepath,
+                    prerun_subject=prerun_subject,
+                    path=path,
+                    shouldSkip=shouldSkip,
+                    rule_name=rule_name,
+                    sorting_seconds=sorting_elapsed_seconds,
+                    true_minification_seconds=true_minification_elapsed_seconds,
+                )
 
             # False Positive Detection
             if not minified_run_result.isBug():
@@ -92,12 +191,17 @@ def find_bugs(counter):
                     minified_run_subject,
                     minified_run_result,
                     test_filepath,
-                    run_subject,
-                    shouldSkip
+                    prerun_subject,
+                    path=path,
+                    shouldSkip=shouldSkip,
+                    rule_name=rule_name,
+                    sorting_seconds=sorting_elapsed_seconds,
+                    true_minification_seconds=true_minification_elapsed_seconds,
                 )
                 print(f"Bug report saved: {url}")
 
         counter.incTests()
+        write_run_summary(counter)
         output = counter.getStatusString()
         if output:
             print(output)
@@ -111,7 +215,6 @@ DEFAULT_CONFIG_FILE = "./config/preset-default.config.json"
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="""find bugs in browser layout calculation - run forever unless specified otherwise\n\nexamples: \n    compare.py -b 1         # Find one bug and quit \n    compare.py -t 2000      # Run 2000 tests and quit""")
-    parser.add_argument("-v", "--verbose", help="increase output verbosity (repeatable argument -v, -vv, -vvv, -vvvv)", action="count", default=0)
     parser.add_argument("-b", "--bug-limit", help="quit after finding this many bugs", type=int, default=0)
     parser.add_argument("-t", "--test-limit", help="quit after running this many tests", type=int, default=0)
     parser.add_argument("-l", "--crash-limit", help="quit after crashing this many times", type=int, default=1)
@@ -140,6 +243,9 @@ if __name__ == "__main__":
                 "traceback": exc_traceback,
             }
             counter.incCrash(exc=exc)
+            write_run_summary(counter)
+
+    write_run_summary(counter)
 
     if counter.num_crash > 0:
         print(f"Number of crashes: {counter.num_crash}\nCrash Errors:\n")

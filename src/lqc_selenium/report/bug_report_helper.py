@@ -9,6 +9,7 @@ from lqc.generate.web_page.run_subject_converter import copyExternalJSFiles
 from lqc.model.constants import BugType
 from lqc.model.run_result import RunResult, RunResultLayoutBug
 from lqc.model.run_subject import RunSubject
+from lqc.rules.rule_engine import dissolve_bug_group, recompute_bug_group_artifacts
 
 
 def save_bug_report(
@@ -17,13 +18,40 @@ def save_bug_report(
     run_result: RunResult,
     original_filepath,
     prerun_subject: RunSubject,
-    shouldSkip
+    shouldSkip,
+    path=None,
+    rule_name=None,
+    sorting_seconds=None,
+    true_minification_seconds=None,
 ):
-    file_config = FileConfig()
-    bug_folder, _ = file_config.getCustomTimestampBugReport("bug_report")
+    # If there is no minified subject due rule matching then set it to the prerun subject.
+    if minified_run_subject is None:
+        minified_run_subject = prerun_subject
 
-    # Create a folder to hold all the bug report files
-    os.mkdir(bug_folder)
+    # no group path, create a new bug folder in the default location
+    if path is None:
+        raise ValueError("Path must be provided to save bug report")
+    else:
+        #create a new bug folder inside the provided path if the path is a bug group, otherwise use the provided path as the bug folder
+        group_path = (
+            path
+            if os.path.basename(os.path.normpath(path)).startswith("bug-group-")
+            else None
+        )
+
+        if group_path is not None:
+            bug_folder = os.path.join(
+                path,
+                f"bug-{datetime.now().strftime('%Y%m%d%H%M%S%f')}",
+            )
+        else:
+            raise ValueError(f"Provided path {path} is not a valid bug group path")
+
+    matched_rule_folder = group_path
+
+    print(f"[save_bug_report] creating bug_folder: {os.path.abspath(bug_folder)}")
+
+    os.makedirs(bug_folder, exist_ok=True)
 
     # Copy the original file
     bug_filepath = os.path.join(bug_folder, "original_bug.html")
@@ -43,15 +71,14 @@ def save_bug_report(
     modified_styles = list(minified_run_subject.modified_styles.all_style_names())
     bug_type = "Page Crash" if run_result.type == BugType.PAGE_CRASH else "Under Invalidation"
 
-    
-    pickle_addr = f"{bug_folder}/minified_run_subject.pkl"
+    pickle_addr = os.path.join(bug_folder, "minified_run_subject.pkl")
     with open(pickle_addr, "wb") as f:
         pickle.dump(minified_run_subject, f)
 
-    prerun_subject_addr = f"{bug_folder}/run_subject_prerun.pkl"
+    prerun_subject_addr = os.path.join(bug_folder, "run_subject_prerun.pkl")
     with open(prerun_subject_addr, "wb") as f:
         pickle.dump(prerun_subject, f)
-    
+
     json_data = {
         "datetime": datetime.now().isoformat(),
         "bug_type": bug_type,
@@ -63,7 +90,11 @@ def save_bug_report(
         "minified_run_subject": minified_run_subject,
         "prerun_subject": prerun_subject,
         "pickle_addr": pickle_addr,
-        "shouldSkip": shouldSkip
+        "shouldSkip": shouldSkip,
+        "matched_rule_name": rule_name,
+        "matched_rule_folder": matched_rule_folder,
+        "sorting_seconds": sorting_seconds,
+        "true_minification_seconds": true_minification_seconds,
     }
     
     if isinstance(run_result, RunResultLayoutBug):
@@ -73,8 +104,14 @@ def save_bug_report(
     with open(json_data_filepath, "w") as f:
         f.write(json.dumps(json_data, indent=4, default=lambda o: o.__dict__))
 
-    # Todo: Copy the necessary javascript files (debugger_tools.js)
+    if group_path is not None:
+        rule = recompute_bug_group_artifacts(group_path)
+        if rule is None:
+            raise ValueError(f"Could not find rule for bug group at {group_path}")
+            moved_paths = dissolve_bug_group(group_path)
+            moved_bug_folder = moved_paths.get(os.path.abspath(bug_folder))
+            if moved_bug_folder is not None:
+                minified_bug = os.path.join(moved_bug_folder, "minified_bug.html")
 
-    # Return a URL
     url = "file://" + os.path.abspath(minified_bug)
     return url

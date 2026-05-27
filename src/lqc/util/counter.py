@@ -1,3 +1,4 @@
+from time import time
 class Counter():
 
     def __init__(self, bug_limit=0, test_limit=0, crash_limit=1, feedback_interval=100):
@@ -9,6 +10,10 @@ class Counter():
         self.num_cant_reproduce = 0         # Number of tests that initially had a bug that was later unreproducable
         self.num_no_mod_styles_bugs = 0     # Number of tests that showed signs of a bug, but during the minify step, all changes were eliminated
         self.num_crash = 0                  # Number of times the program crashed
+        self.started_at_epoch = time()      # Start time for this process run
+        self.total_minify_seconds = 0.0     # Cumulative time spent in minify stage
+        self.total_sorting_seconds = 0.0    # Cumulative time spent sorting/classifying bugs
+        self.total_true_minification_seconds = 0.0  # Cumulative time spent reducing bug cases
 
         # Criteria for when to stop testing
         self.bug_limit = bug_limit          # Stop when the number of bugs found reaches bug_limit
@@ -44,6 +49,24 @@ class Counter():
         self.feedback_triggered = True
         if exc:
             self.crash_exceptions.append(exc)
+
+    def addMinifyTime(self, seconds):
+        if seconds is None:
+            return
+        self.total_minify_seconds += max(0.0, float(seconds))
+
+    def addSortingTime(self, seconds):
+        if seconds is None:
+            return
+        self.total_sorting_seconds += max(0.0, float(seconds))
+
+    def addTrueMinificationTime(self, seconds):
+        if seconds is None:
+            return
+        self.total_true_minification_seconds += max(0.0, float(seconds))
+
+    def getRuntimeSeconds(self):
+        return max(0.0, time() - self.started_at_epoch)
 
     def should_continue(self):
         if self.num_crash >= self.crash_limit:
